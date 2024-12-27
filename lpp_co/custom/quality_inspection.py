@@ -3,6 +3,8 @@
 
 import frappe
 from erpnext.stock.doctype.quality_inspection.quality_inspection import QualityInspection
+from frappe import _
+from frappe.utils import get_link_to_form
 
 
 class LPPQualityInspection(QualityInspection):
@@ -21,3 +23,17 @@ class LPPQualityInspection(QualityInspection):
 			}
 		)
 		return data
+
+	def validate_inspection_required(self):
+		doc = frappe.get_doc(self.reference_type, self.reference_name)
+		if self.reference_type == "Purchase Receipt" and doc.get("docstatus", 0) == 1:
+			if not frappe.get_cached_value(
+				"Item", self.item_code, "custom_inspection_required_after_purchase_receipt"
+			):
+				frappe.throw(
+					_(
+						"'Inspection Required after Purchase Receipt' has disabled for the item {0}, no need to create the QI"
+					).format(get_link_to_form("Item", self.item_code))
+				)
+		else:
+			super().validate_inspection_required()

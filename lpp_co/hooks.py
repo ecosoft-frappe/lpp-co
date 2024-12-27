@@ -43,7 +43,11 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
+doctype_js = {
+	"Purchase Receipt": "public/js/purchase_receipt.js",
+}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -134,6 +138,7 @@ app_license = "mit"
 
 override_doctype_class = {
 	"Item": "lpp_co.custom.item.LPPItem",
+	"Purchase Receipt": "lpp_co.custom.purchase_receipt.LPPPurchaseReceipt",
 	"Quality Inspection": "lpp_co.custom.quality_inspection.LPPQualityInspection",
 }
 
@@ -254,9 +259,10 @@ fixtures = [
 				"name",
 				"in",
 				[
-					"Item-custom_specifications__tolerance",
+					"Item-custom_inspection_required_after_purchase_receipt",
 					"Item-custom_item_specification_line",
 					"Item-custom_section_break_uyyv3",
+					"Item-custom_specifications__tolerance",
 				],
 			]
 		],
