@@ -6,7 +6,7 @@ from erpnext.stock.doctype.purchase_receipt.purchase_receipt import PurchaseRece
 from frappe import _
 
 
-class LPPPurchaseReceipt(PurchaseReceipt):
+class PurchaseReceiptLPP(PurchaseReceipt):
 	def validate_qi_presence_after_submit(self, row):
 		"""Check if QI is present on row level. Warn on submit if missing."""
 		if not row.quality_inspection:

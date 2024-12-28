@@ -7,7 +7,7 @@ from frappe import _
 from frappe.utils import get_link_to_form
 
 
-class LPPQualityInspection(QualityInspection):
+class QualityInspectionLPP(QualityInspection):
 	def get_formula_evaluation_data(self, reading):
 		data = super().get_formula_evaluation_data(reading)
 		# Item specification line reading

@@ -137,9 +137,9 @@ doctype_js = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Item": "lpp_co.custom.item.LPPItem",
-	"Purchase Receipt": "lpp_co.custom.purchase_receipt.LPPPurchaseReceipt",
-	"Quality Inspection": "lpp_co.custom.quality_inspection.LPPQualityInspection",
+	"Item": "lpp_co.custom.item.ItemLPP",
+	"Purchase Receipt": "lpp_co.custom.purchase_receipt.PurchaseReceiptLPP",
+	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
 }
 
 # Document Events

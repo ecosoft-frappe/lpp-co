@@ -6,7 +6,7 @@ from erpnext.stock.doctype.item.item import Item
 from frappe import _
 
 
-class LPPItem(Item):
+class ItemLPP(Item):
 	def validate_item_specification_line(self):
 		# Validate unique parameter in the item
 		specifications = [line.specification for line in self.custom_item_specification_line]
