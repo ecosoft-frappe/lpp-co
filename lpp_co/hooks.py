@@ -1,7 +1,7 @@
 app_name = "lpp_co"
 app_title = "LPP Co"
 app_publisher = "Ecosoft"
-app_description = "LPP Co\'s ERP"
+app_description = "LPP Co's ERP"
 app_email = "tharathipc@ecosoft.co.th"
 app_license = "mit"
 
@@ -43,7 +43,11 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
+doctype_js = {
+	"Purchase Receipt": "public/js/purchase_receipt.js",
+}
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -132,9 +136,11 @@ app_license = "mit"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Item": "lpp_co.custom.item.ItemLPP",
+	"Purchase Receipt": "lpp_co.custom.purchase_receipt.PurchaseReceiptLPP",
+	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
+}
 
 # Document Events
 # ---------------
@@ -245,3 +251,35 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+	{
+		"dt": "Custom Field",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Item-custom_inspection_required_after_purchase_receipt",
+					"Item-custom_item_specification_line",
+					"Item-custom_section_break_uyyv3",
+					"Item-custom_specifications__tolerance",
+				],
+			]
+		],
+	},
+	{
+		"dt": "Property Setter",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Item-main-field_order",
+					"Item Quality Inspection Parameter-acceptance_formula-description",
+					"Quality Inspection Reading-acceptance_formula-description",
+					"Quality Inspection-reference_type-options",
+				],
+			]
+		],
+	},
+]

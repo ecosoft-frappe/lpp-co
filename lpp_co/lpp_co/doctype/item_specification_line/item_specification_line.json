@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-25 14:46:54.683730",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "specification",
+  "nominal",
+  "delta_plus",
+  "delta_minus"
+ ],
+ "fields": [
+  {
+   "fieldname": "specification",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Parameter",
+   "options": "Quality Inspection Parameter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nominal",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Nominal",
+   "precision": "2"
+  },
+  {
+   "fieldname": "delta_plus",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Delta Plus",
+   "precision": "2"
+  },
+  {
+   "fieldname": "delta_minus",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Delta Minus",
+   "precision": "2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-27 11:43:25.232620",
+ "modified_by": "Administrator",
+ "module": "LPP Co",
+ "name": "Item Specification Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
