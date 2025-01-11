@@ -47,6 +47,8 @@ app_license = "mit"
 doctype_js = {
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	"Quality Inspection": "public/js/quality_inspection.js",
+	"Quotation": "public/js/quotation.js",
+	"Sales Order": "public/js/sales_order.js",
 }
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -141,6 +143,8 @@ override_doctype_class = {
 	"Item": "lpp_co.custom.item.ItemLPP",
 	"Purchase Receipt": "lpp_co.custom.purchase_receipt.PurchaseReceiptLPP",
 	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
+	"Quotation": "lpp_co.custom.quotation.QuotationLPP",
+	"Sales Order": "lpp_co.custom.sales_order.SalesOrderLPP",
 }
 
 # Document Events
