@@ -1,5 +1,6 @@
 from datetime import datetime
 from num2words import num2words
+import math
 
 
 def format_datetime_to_date(date_str):
@@ -51,6 +52,13 @@ def thai_currency_in_en_words(value):
 		words += " And Zero Satang"
 	words = ' '.join([word.capitalize() for word in words.split()])
 	return words
+
+
+def adjust_number(number):
+	"""
+	Round the number up to the nearest integer and return as an integer (no decimals).
+	"""
+	return int(math.ceil(number))
 
 
 def replace_none(value, to_value="-"):
