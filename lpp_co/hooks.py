@@ -85,6 +85,7 @@ doctype_js = {
 
 # add methods and filters to jinja environment
 jinja = {
+	"methods": "lpp_co.utils.jinja_methods",
 	"filters": "lpp_co.utils.jinja_filters",
 }
 
