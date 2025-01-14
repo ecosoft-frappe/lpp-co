@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2025-01-14 14:37:56.558445",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "column_break_ajew",
+  "level_0",
+  "column_break_psvn",
+  "level_1",
+  "column_break_lmsa",
+  "level_2",
+  "column_break_lfrk",
+  "level_3"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_psvn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "level_0",
+   "fieldtype": "Check",
+   "label": "Level 0"
+  },
+  {
+   "default": "0",
+   "fieldname": "level_1",
+   "fieldtype": "Check",
+   "label": "Level 1"
+  },
+  {
+   "default": "0",
+   "fieldname": "level_2",
+   "fieldtype": "Check",
+   "label": "Level 2"
+  },
+  {
+   "default": "0",
+   "fieldname": "level_3",
+   "fieldtype": "Check",
+   "label": "Level 3"
+  },
+  {
+   "fieldname": "column_break_ajew",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lmsa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lfrk",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-14 15:45:33.016202",
+ "modified_by": "Administrator",
+ "module": "LPP Co",
+ "name": "Item Group Tag",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "role": "All",
+   "select": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

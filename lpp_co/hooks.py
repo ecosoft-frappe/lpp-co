@@ -51,7 +51,9 @@ doctype_js = {
 	"Sales Order": "public/js/sales_order.js",
 }
 
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+    "Item" : "public/js/item_list.js",
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -154,13 +156,16 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Item": {
+		"on_update": "lpp_co.custom.item_group_tag.update_item_group_tags",
+	},
+	"Item Group": {
+		"on_update": [
+      		"lpp_co.custom.item_group_tag.prepare_group_tags",
+		]
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -182,7 +187,11 @@ override_doctype_class = {
 # 		"lpp_co.tasks.monthly"
 # 	],
 # }
-
+scheduler_events = {
+	"all": [
+		"lpp_co.custom.item_group_tag.prepare_group_tags"
+	],
+}
 # Testing
 # -------
 
@@ -270,7 +279,10 @@ fixtures = [
 					"Item-custom_inspection_required_after_purchase_receipt",
 					"Item-custom_item_specification_line",
 					"Item-custom_section_break_uyyv3",
-					"Item-custom_specifications__tolerance",
+					"Item-custom_item_group_3",
+					"Item-custom_item_group_2",
+					"Item-custom_item_group_1",
+					"Item-custom_search_tags",
 				],
 			]
 		],
@@ -286,6 +298,10 @@ fixtures = [
 					"Item Quality Inspection Parameter-acceptance_formula-description",
 					"Quality Inspection Reading-acceptance_formula-description",
 					"Quality Inspection-reference_type-options",
+					"Item Group-item_group_name-unique",
+					"Item Group-main-title_field",
+					"Item Group-main-autoname",
+					"Item Group-main-naming_rule"
 				],
 			]
 		],
