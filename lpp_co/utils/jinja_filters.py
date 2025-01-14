@@ -1,3 +1,4 @@
+import frappe
 from datetime import datetime
 from num2words import num2words
 import math
@@ -42,6 +43,17 @@ def sum_amounts(items, field="amount"):
 	return sum(item.get(field, 0) for item in items)
 
 
+def get_user_full_name(owner):
+	try:
+		user = frappe.get_doc("User", owner)
+		first_name = user.first_name or ""
+		last_name = user.last_name or ""
+		# Strip any extra whitespace and ensure a clean format
+		return f"{first_name.strip()} {last_name.strip()}" if (first_name or last_name) else "Unknown User"
+	except frappe.DoesNotExistError:
+		return "Unknown User"
+
+
 def thai_currency_in_en_words(value):
 	integer_part = int(value)
 	decimal_part = int(round((value - integer_part) * 100))
@@ -59,6 +71,13 @@ def adjust_number(number):
 	Round the number up to the nearest integer and return as an integer (no decimals).
 	"""
 	return int(math.ceil(number))
+
+
+def convert_none_or_zero(value):
+	# Check if value is None or zero, then return 1; otherwise, return the original value
+	if value is None or value == 0:
+		return 1
+	return value
 
 
 def replace_none(value, to_value="-"):
