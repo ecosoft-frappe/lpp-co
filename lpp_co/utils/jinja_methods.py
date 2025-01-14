@@ -63,11 +63,11 @@ def group_and_sum_by_po(docname):
 		# Iterate through the child table (items)
 		for item in doc.items:
 			# Check if the custom_po_no exists in the grouped_amounts dictionary
-			if item.custom_po_no not in grouped_amounts:
-				grouped_amounts[item.custom_po_no] = 0  # Initialize if not present
+			if item.get("custom_po_no", "") not in grouped_amounts:
+				grouped_amounts[item.get("custom_po_no", "")] = 0  # Initialize if not present
 
 			# Add the amount to the corresponding custom_po_no
-			grouped_amounts[item.custom_po_no] += item.amount
+			grouped_amounts[item.get("custom_po_no", "")] += item.amount
 
 		# Convert the result into an array of objects for Jinja
 		result = []
