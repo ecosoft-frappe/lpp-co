@@ -52,7 +52,7 @@ doctype_js = {
 }
 
 doctype_list_js = {
-    "Item" : "public/js/item_list.js",
+	"Item": "public/js/item_list.js",
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -162,9 +162,9 @@ doc_events = {
 	},
 	"Item Group": {
 		"on_update": [
-      		"lpp_co.custom.item_group_tag.prepare_group_tags",
+			"lpp_co.custom.item_group_tag.prepare_group_tags",
 		]
-	}
+	},
 }
 
 # Scheduled Tasks
@@ -188,9 +188,7 @@ doc_events = {
 # 	],
 # }
 scheduler_events = {
-	"all": [
-		"lpp_co.custom.item_group_tag.prepare_group_tags"
-	],
+	"all": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
 }
 # Testing
 # -------
@@ -283,6 +281,8 @@ fixtures = [
 					"Item-custom_item_group_2",
 					"Item-custom_item_group_1",
 					"Item-custom_search_tags",
+					"Address-custom_branch",
+					"Payment Entry Reference-custom_remark",
 				],
 			]
 		],
@@ -301,7 +301,7 @@ fixtures = [
 					"Item Group-item_group_name-unique",
 					"Item Group-main-title_field",
 					"Item Group-main-autoname",
-					"Item Group-main-naming_rule"
+					"Item Group-main-naming_rule",
 				],
 			]
 		],
