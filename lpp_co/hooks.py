@@ -49,6 +49,7 @@ doctype_js = {
 	"Quality Inspection": "public/js/quality_inspection.js",
 	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
+	"Item": "public/js/item.js",
 }
 
 doctype_list_js = {
@@ -188,7 +189,7 @@ doc_events = {
 # 	],
 # }
 scheduler_events = {
-	"all": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
+	"daily": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
 }
 # Testing
 # -------
@@ -283,6 +284,9 @@ fixtures = [
 					"Item-custom_search_tags",
 					"Address-custom_branch",
 					"Payment Entry Reference-custom_remark",
+					"Quality Inspection Parameter-custom_is_item_spec",
+					"Item Group-custom_quality_inspection_parameter_group",
+					"Item-custom_reset_quality_parameters",
 				],
 			]
 		],
@@ -302,6 +306,10 @@ fixtures = [
 					"Item Group-main-title_field",
 					"Item Group-main-autoname",
 					"Item Group-main-naming_rule",
+     				"Quality Inspection-status-label",
+					"Quality Inspection-manual_inspection-default",
+					"Quality Inspection-manual_inspection-read_only",
+					"Quality Inspection-item_serial_no-hidden",
 				],
 			]
 		],
