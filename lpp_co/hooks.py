@@ -49,6 +49,7 @@ doctype_js = {
 	"Quality Inspection": "public/js/quality_inspection.js",
 	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
+	"Item": "public/js/item.js",
 }
 
 doctype_list_js = {
@@ -188,7 +189,7 @@ doc_events = {
 # 	],
 # }
 scheduler_events = {
-	"all": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
+	"daily": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
 }
 # Testing
 # -------
@@ -283,6 +284,28 @@ fixtures = [
 					"Item-custom_search_tags",
 					"Address-custom_branch",
 					"Payment Entry Reference-custom_remark",
+					"Quality Inspection Parameter-custom_is_item_spec",
+					"Item Group-custom_quality_inspection_parameter_group",
+					"Item-custom_reset_quality_parameters",
+					"Quality Inspection-custom_section_break_6ywvb",
+					"Quality Inspection-custom_open_functional_testing",
+					"Quality Inspection-custom_open_specification_inspection",
+					"Quality Inspection-custom_open_visual_inspection",
+					"Quality Inspection-custom_column_break_mdl6t",
+					"Quality Inspection-custom_column_break_avx7l",
+    				"Quality Inspection-custom_functional_testing",
+    				"Quality Inspection-custom_specification_inspection",
+    				"Quality Inspection-custom_visual_inspection",
+					"Quality Inspection Template-custom_method",
+					"Quality Inspection-custom_column_break_4qn0t",
+					"Quality Inspection-custom_quality_inspection_type",
+					"Quality Inspection-custom_column_break_f29q1",
+					"Quality Inspection-custom_quality_inspection_process",
+					"Quality Inspection-custom_section_break_ud4co",
+					"Quality Inspection-custom_inspection_results",
+					"Quality Inspection-custom_visual_inspection_html",
+					"Quality Inspection-custom_specification_inspection_html",
+					"Quality Inspection-custom_functional_testing_html",
 				],
 			]
 		],
@@ -302,6 +325,14 @@ fixtures = [
 					"Item Group-main-title_field",
 					"Item Group-main-autoname",
 					"Item Group-main-naming_rule",
+     				"Quality Inspection-status-label",
+					"Quality Inspection-manual_inspection-default",
+					"Quality Inspection-manual_inspection-read_only",
+					"Quality Inspection-item_serial_no-hidden",
+					"Quality Inspection-readings-hidden",
+					"Quality Inspection-quality_inspection_template-hidden",
+					"Quality Inspection-main-field_order",
+					"Quality Inspection-reference_type-default",
 				],
 			]
 		],
