@@ -7,9 +7,10 @@ from frappe import _
 from frappe.utils import get_link_to_form
 
 QC_TEMPLATE_FIELDS = [
-	"custom_visual_inspection",
-	"custom_functional_testing",
-	"custom_specification_inspection"
+	# "custom_visual_inspection",
+	# "custom_functional_testing",
+	# "custom_specification_inspection"
+	"quality_inspection_template"
 ]
 
 class QualityInspectionLPP(QualityInspection):
@@ -48,6 +49,12 @@ class QualityInspectionLPP(QualityInspection):
 
 	def on_update(self):
 		self.reset_quality_inspection_results()
+
+	# Override, as we don't need to use readings, but use QI Result instead.
+	@frappe.whitelist()
+	def get_item_specification_details(self):
+		return
+	# --
 
 	def reset_quality_inspection_results(self):
 		# Check if reset is necessary
@@ -91,7 +98,8 @@ class QualityInspectionLPP(QualityInspection):
 					"doctype": "Quality Inspection Result",
 					"quality_inspection": self.name,
 					"quality_inspection_template": doc_template.name,
-					"parameter": row.specification
+					"parameter": row.specification,
+					"inspection_method": row.custom_inspection_method
 				})
 				for i in range(self.sample_size):
 					result.append("readings", {})  # Add bland row
@@ -104,7 +112,8 @@ class QualityInspectionLPP(QualityInspection):
 			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
 			filters={
 				"quality_inspection": self.name,
-				"quality_inspection_template": self.custom_visual_inspection
+				"quality_inspection_template": self.quality_inspection_template,
+				"inspection_method": "Visual Inspection"
 			},
 			order_by="name"
 		)
@@ -117,7 +126,8 @@ class QualityInspectionLPP(QualityInspection):
 			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
 			filters={
 				"quality_inspection": self.name,
-				"quality_inspection_template": self.custom_specification_inspection
+				"quality_inspection_template": self.quality_inspection_template,
+				"inspection_method": "Specification Inspection"
 			},
 			order_by="name"
 		)
@@ -130,7 +140,8 @@ class QualityInspectionLPP(QualityInspection):
 			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
 			filters={
 				"quality_inspection": self.name,
-				"quality_inspection_template": self.custom_functional_testing
+				"quality_inspection_template": self.quality_inspection_template,
+				"inspection_method": "Functional Testing"
 			},
 			order_by="name"
 		)
