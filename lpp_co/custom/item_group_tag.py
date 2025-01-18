@@ -47,9 +47,9 @@ def update_item_group_tags(doc, method=None):
 	# Reset
 	frappe.db.sql("""
 		update `tabItem`
-  		set custom_item_group_1 = null,
-    		custom_item_group_2 = null,
-      		custom_item_group_3 = null
+  		set custom_item_tag_1 = null,
+    		custom_item_tag_2 = null,
+      		custom_item_tag_3 = null
     	where name = %s
     """, doc.name)
 	# Start with this item group, and climb parents
@@ -63,7 +63,7 @@ def update_item_group_tags(doc, method=None):
 		if level in (1, 2, 3):
 			frappe.db.sql("""
 				update `tabItem`
-				set custom_item_group_%s = %s
+				set custom_item_tag_%s = %s
 				where name = %s
 			""", (level, item_group.item_group_name, doc.name))
 		parent = item_group.parent_item_group
