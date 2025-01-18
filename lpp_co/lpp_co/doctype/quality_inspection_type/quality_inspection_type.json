@@ -9,10 +9,7 @@
   "inspection_type",
   "inspection_process",
   "for_doctype",
-  "column_break_juju",
-  "visual_inspection",
-  "specification_inspection",
-  "functional_testing"
+  "quality_inspection_template"
  ],
  "fields": [
   {
@@ -33,42 +30,25 @@
    "unique": 1
   },
   {
-   "fieldname": "visual_inspection",
-   "fieldtype": "Link",
-   "label": "Visual Inspection",
-   "link_filters": "[[\"Quality Inspection Template\",\"custom_method\",\"=\",\"Visual Inspection\"]]",
-   "options": "Quality Inspection Template"
-  },
-  {
-   "fieldname": "specification_inspection",
-   "fieldtype": "Link",
-   "label": "Specification Inspection",
-   "link_filters": "[[\"Quality Inspection Template\",\"custom_method\",\"=\",\"Specification Inspection\"]]",
-   "options": "Quality Inspection Template"
-  },
-  {
-   "fieldname": "functional_testing",
-   "fieldtype": "Link",
-   "label": "Functional Testing",
-   "link_filters": "[[\"Quality Inspection Template\",\"custom_method\",\"=\",\"Functional Testing\"]]",
-   "options": "Quality Inspection Template"
-  },
-  {
-   "fieldname": "column_break_juju",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "for_doctype",
    "fieldtype": "Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "For Doctype",
    "options": "DocType"
+  },
+  {
+   "fieldname": "quality_inspection_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Quality Inspection Template",
+   "options": "Quality Inspection Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-17 23:14:44.131059",
+ "modified": "2025-01-18 16:17:19.187597",
  "modified_by": "Administrator",
  "module": "LPP Co",
  "name": "Quality Inspection Type",

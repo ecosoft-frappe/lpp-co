@@ -3,24 +3,24 @@
 
 frappe.ui.form.on("Quality Inspection", {
 
-	setup: function (frm) {
-		var original_set_query_item_code = frm.fields_dict["item_code"].get_query;
-		frm.set_query("item_code", function (doc) {
-			if (doc.reference_type === "Work Order") {
-				if (doc.reference_name) {
-					return {
-						query: "lpp_co.api.get_work_order_item",
-						filters: {
-							reference_type: doc.reference_type,
-							reference_name: doc.reference_name,
-						},
-					};
-				}
-			} else {
-				return original_set_query_item_code(doc);
-			}
-		});
-	},
+	// setup: function (frm) {
+	// 	var original_set_query_item_code = frm.fields_dict["item_code"].get_query;
+	// 	frm.set_query("item_code", function (doc) {
+	// 		if (doc.reference_type === "Work Order") {
+	// 			if (doc.reference_name) {
+	// 				return {
+	// 					query: "lpp_co.api.get_work_order_item",
+	// 					filters: {
+	// 						reference_type: doc.reference_type,
+	// 						reference_name: doc.reference_name,
+	// 					},
+	// 				};
+	// 			}
+	// 		} else {
+	// 			return original_set_query_item_code(doc);
+	// 		}
+	// 	});
+	// },
 
     refresh: function(frm) {
 		frm.set_query("custom_quality_inspection_type", function () {
@@ -37,24 +37,25 @@ frappe.ui.form.on("Quality Inspection", {
 		set_functional_testing_html(frm)
     },
 
-	reference_name: function (frm) {
-		if (frm.doc.reference_type === "Work Order" && frm.doc.reference_name) {
-			frappe.db.get_value(
-				"Work Order",
-				{ name: frm.doc.reference_name },
-				"production_item",
-				(r) => {
-					frm.set_value("item_code", r.production_item);
-				}
-			);
-		}
-	},
+	// reference_name: function (frm) {
+	// 	if (frm.doc.reference_type === "Work Order" && frm.doc.reference_name) {
+	// 		frappe.db.get_value(
+	// 			"Work Order",
+	// 			{ name: frm.doc.reference_name },
+	// 			"production_item",
+	// 			(r) => {
+	// 				frm.set_value("item_code", r.production_item);
+	// 			}
+	// 		);
+	// 	}
+	// },
 
 	custom_quality_inspection_process: function(frm) {
 		frm.set_value("custom_quality_inspection_type", "")
-		frm.set_value("custom_visual_inspection", "");
-		frm.set_value("custom_specification_inspection", "");
-		frm.set_value("custom_functional_testing", "");
+		frm.set_value("quality_inspection_template", "");
+		// frm.set_value("custom_visual_inspection", "");
+		// frm.set_value("custom_specification_inspection", "");
+		// frm.set_value("custom_functional_testing", "");
 	},
 
     custom_quality_inspection_type: function(frm) {
@@ -62,34 +63,35 @@ frappe.ui.form.on("Quality Inspection", {
         if (inspection_type) {
 			frappe.db.get_doc("Quality Inspection Type", inspection_type).then((doc) => {
 				frm.set_value({
-					custom_visual_inspection: doc.visual_inspection,
-					custom_specification_inspection: doc.specification_inspection,
-					custom_functional_testing: doc.functional_testing,
+					// custom_visual_inspection: doc.visual_inspection,
+					// custom_specification_inspection: doc.specification_inspection,
+					// custom_functional_testing: doc.functional_testing,
+					quality_inspection_template: doc.quality_inspection_template
 				});
 			})
 		}
     },
 
+	custom_open_quality_inspection_result: function(frm) {
+		open_quality_inspection_result(frm, "quality_inspection_template", "");
+	},
 	custom_open_visual_inspection: function(frm) {
-		open_quality_inspection_result(frm, "custom_visual_inspection", "No Visual Inspection Result!");
+		open_quality_inspection_result(frm, "quality_inspection_template", "Visual Inspection");
 	},
 	custom_open_specification_inspection: function(frm) {
-		open_quality_inspection_result(frm, "custom_specification_inspection", "No Specification Inspection Result!");
+		open_quality_inspection_result(frm, "quality_inspection_template", "Specification Inspection");
 	},
 	custom_open_functional_testing: function(frm) {
-		open_quality_inspection_result(frm, "custom_functional_testing", "No Functional Testing Result!");
+		open_quality_inspection_result(frm, "quality_inspection_template", "Functional Testing");
 	},
 	
 });
 
-function open_quality_inspection_result(frm, template_field, no_result_message) {
-	if (!frm.doc[template_field]) {
-		frappe.msgprint(__(no_result_message || "No result!"));
-		return;
-	}
+function open_quality_inspection_result(frm, template_field, inspection_method) {
 	frappe.set_route("List", "Quality Inspection Result", {
 		quality_inspection: frm.doc.name,
 		quality_inspection_template: frm.doc[template_field],
+		inspection_method: inspection_method
 	});
 }
 

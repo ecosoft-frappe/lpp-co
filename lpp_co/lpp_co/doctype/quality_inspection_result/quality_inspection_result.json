@@ -8,6 +8,7 @@
  "field_order": [
   "quality_inspection",
   "parameter",
+  "inspection_method",
   "item",
   "column_break_wdzi",
   "quality_inspection_template",
@@ -134,12 +135,21 @@
    "options": "Item",
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "inspection_method",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Inspection Method",
+   "options": "Visual Inspection\nSpecification Inspection\nFunctional Testing",
+   "reqd": 1
   }
  ],
  "hide_toolbar": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-01-17 22:45:29.200095",
+ "modified": "2025-01-18 15:48:14.954940",
  "modified_by": "Administrator",
  "module": "LPP Co",
  "name": "Quality Inspection Result",
