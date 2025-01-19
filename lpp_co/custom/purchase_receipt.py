@@ -7,7 +7,11 @@ from frappe import _
 
 
 class PurchaseReceiptLPP(PurchaseReceipt):
-    pass
+
+    def validate_inspection(self):
+        # LLP no checking on Purchase Receipt
+        return
+
 	# def validate_qi_presence_after_submit(self, row):
 	# 	"""Check if QI is present on row level. Warn on submit if missing."""
 	# 	if not row.quality_inspection:
