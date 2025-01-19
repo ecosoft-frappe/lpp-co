@@ -65,6 +65,24 @@ frappe.ui.form.on("Quality Inspection", {
 		set_functional_testing_html(frm)
     },
 
+    reference_type: function (frm) {
+        if (frm.doc.reference_type === "Purchase Receipt") {
+            frm.set_value("inspection_type", "Incoming");
+        }
+        else if (frm.doc.reference_type === "Job Card") {
+            frm.set_value("inspection_type", "In Process");
+        }
+		else {
+			frm.set_value("inspection_type", "");
+		}
+		// Generally, set blank for reference_name and item_code
+		frm.set_value("reference_name", "");
+    },
+
+    reference_name: function (frm) {
+		frm.set_value("item_code", "");
+	},
+
 	// reference_name: function (frm) {
 	// 	if (frm.doc.reference_type === "Work Order" && frm.doc.reference_name) {
 	// 		frappe.db.get_value(

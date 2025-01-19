@@ -23,5 +23,8 @@ class MaterialRequestLPP(MaterialRequest):
 		if self.material_request_type not in ("Manufacture", "Customer Provided"):
 			self.customer = None
    
+		if self.material_request_type == "Manufacture" and not self.custom_sample_record:
+			self.customer = None
+
 		if self.material_request_type != "Manufacture":
 			self.custom_sample_record = 0

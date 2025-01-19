@@ -55,6 +55,7 @@ doctype_js = {
 
 doctype_list_js = {
 	"Item": "public/js/item_list.js",
+	"Item Group": "public/js/item_group_list.js",
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -379,6 +380,7 @@ fixtures = [
 					# "Quality Inspection-quality_inspection_template-hidden",
 					"Quality Inspection-main-field_order",
 					"Quality Inspection-reference_type-options",
+					"Quality Inspection-inspection_type-read_only",
 					"Item-item_group-label",
 					"Item Quality Inspection Parameter-acceptance_formula-hidden",
 					"Item Quality Inspection Parameter-formula_based_criteria-hidden",
