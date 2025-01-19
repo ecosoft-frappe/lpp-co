@@ -356,6 +356,8 @@ fixtures = [
 					"Material Request-custom_column_break_wukc0",
 					"Material Request-custom_sample_production_problem",
 					"Material Request-custom_section_break_zh4rg",
+					"Material Request-custom_column_break_0dldz",
+					"Material Request-custom_mold_item",
 				],
 			]
 		],
