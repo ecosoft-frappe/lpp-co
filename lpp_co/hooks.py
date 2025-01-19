@@ -356,6 +356,8 @@ fixtures = [
 					"Material Request-custom_column_break_wukc0",
 					"Material Request-custom_sample_production_problem",
 					"Material Request-custom_section_break_zh4rg",
+					"Material Request-custom_column_break_0dldz",
+					"Material Request-custom_mold_item",
 				],
 			]
 		],
@@ -397,6 +399,7 @@ fixtures = [
 					"Item-inspection_required_before_purchase-hidden",
 					"Item-naming_series-default",
 					"Item-naming_series-options",
+					"Item Customer Detail-main-field_order",
 				],
 			]
 		],
