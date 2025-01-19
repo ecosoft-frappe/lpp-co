@@ -22,6 +22,34 @@ frappe.ui.form.on("Quality Inspection", {
 	// 	});
 	// },
 
+	setup: function (frm) {
+		// item code based on GRN/DN
+		frm.set_query("item_code", function (doc) {
+			let doctype = doc.reference_type;
+
+			if (doc.reference_type !== "Job Card") {
+				doctype =
+					doc.reference_type == "Stock Entry" ? "Stock Entry Detail" : doc.reference_type + " Item";
+			}
+
+			if (doc.reference_type && doc.reference_name) {
+				let filters = {
+					from: doctype,
+					inspection_type: doc.inspection_type,
+				};
+
+				if (doc.reference_type == doctype) filters["reference_name"] = doc.reference_name;
+				else filters["parent"] = doc.reference_name;
+				// Override with query from lpp_co module.
+				return {
+					query: "lpp_co.custom.quality_inspection.item_query",
+					filters: filters,
+				};
+			}
+		});
+
+	},
+
     refresh: function(frm) {
 		frm.set_query("custom_quality_inspection_type", function () {
 			return {

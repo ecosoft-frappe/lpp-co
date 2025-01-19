@@ -1,7 +1,7 @@
 # Copyright (c) 2024, Ecosoft and contributors
 # For license information, please see license.txt
-import json
 import frappe
+from frappe.utils import cint, cstr
 from erpnext.stock.doctype.quality_inspection.quality_inspection import QualityInspection
 from frappe import _
 from frappe.utils import get_link_to_form
@@ -31,20 +31,7 @@ class QualityInspectionLPP(QualityInspection):
 		return data
 
 	def validate_inspection_required(self):
-		# Still not sure if we need to check?
-		# ------------------------------------
-		# doc = frappe.get_doc(self.reference_type, self.reference_name)
-		# if self.reference_type == "Purchase Receipt" and doc.get("docstatus", 0) == 1:
-		# 	if not frappe.get_cached_value(
-		# 		"Item", self.item_code, "custom_inspection_required_after_purchase_receipt"
-		# 	):
-		# 		frappe.throw(
-		# 			_(
-		# 				"'Inspection Required after Purchase Receipt' has disabled for the item {0}, no need to create the QI"
-		# 			).format(get_link_to_form("Item", self.item_code))
-		# 		)
-		# else:
-		# 	super().validate_inspection_required()
+		# For LPP, there is no checking on QI
 		return
 
 	def on_update(self):
@@ -146,3 +133,64 @@ class QualityInspectionLPP(QualityInspection):
 			order_by="name"
 		)
 		return frappe.render_template("lpp_co/custom/inspection_result/functional_testing.html", {"data": data})
+
+
+# Override function, to remove inspection requried condition.
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def item_query(doctype, txt, searchfield, start, page_len, filters):
+	from frappe.desk.reportview import get_match_cond
+
+	from_doctype = cstr(filters.get("from"))
+	if not from_doctype or not frappe.db.exists("DocType", from_doctype):
+		return []
+
+	mcond = get_match_cond(from_doctype)
+	cond, qi_condition = "", "and (quality_inspection is null or quality_inspection = '')"
+
+	if filters.get("parent"):
+		# In LPP we do not need to worry about inspection requirement.
+		# if (
+		# 	from_doctype in ["Purchase Invoice Item", "Purchase Receipt Item"]
+		# 	and filters.get("inspection_type") != "In Process"
+		# ):
+		# 	cond = """and item_code in (select name from `tabItem` where
+		# 		inspection_required_before_purchase = 1)"""
+		# elif (
+		# 	from_doctype in ["Sales Invoice Item", "Delivery Note Item"]
+		# 	and filters.get("inspection_type") != "In Process"
+		# ):
+		# 	cond = """and item_code in (select name from `tabItem` where
+		# 		inspection_required_before_delivery = 1)"""
+		# elif from_doctype == "Stock Entry Detail":
+		# 	cond = """and s_warehouse is null"""
+		if from_doctype == "Stock Entry Detail":
+			cond = """and s_warehouse is null"""
+		# --
+
+		if from_doctype in ["Supplier Quotation Item"]:
+			qi_condition = ""
+
+		return frappe.db.sql(
+			f"""
+				SELECT item_code
+				FROM `tab{from_doctype}`
+				WHERE parent=%(parent)s and docstatus < 2 and item_code like %(txt)s
+				{qi_condition} {cond} {mcond}
+				ORDER BY item_code limit {cint(page_len)} offset {cint(start)}
+			""",
+			{"parent": filters.get("parent"), "txt": "%%%s%%" % txt},
+		)
+
+	elif filters.get("reference_name"):
+		return frappe.db.sql(
+			f"""
+				SELECT production_item
+				FROM `tab{from_doctype}`
+				WHERE name = %(reference_name)s and docstatus < 2 and production_item like %(txt)s
+				{qi_condition} {cond} {mcond}
+				ORDER BY production_item
+				limit {cint(page_len)} offset {cint(start)}
+			""",
+			{"reference_name": filters.get("reference_name"), "txt": "%%%s%%" % txt},
+		)
