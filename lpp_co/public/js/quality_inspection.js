@@ -23,6 +23,15 @@ frappe.ui.form.on("Quality Inspection", {
 	// },
 
 	setup: function (frm) {
+		// Override
+		frm.set_query("reference_name", function () {
+			return {
+				filters: {
+					docstatus: ["=", 1],
+				},
+			};
+		});
+		// Override
 		// item code based on GRN/DN
 		frm.set_query("item_code", function (doc) {
 			let doctype = doc.reference_type;
@@ -47,18 +56,25 @@ frappe.ui.form.on("Quality Inspection", {
 				};
 			}
 		});
-
+		frm.set_query("custom_quality_inspection_type", function () {
+			if (frm.doc.custom_quality_inspection_process) {
+				return {
+					filters: {
+						inspection_process: frm.doc.custom_quality_inspection_process,
+						for_doctype: frm.doc.reference_type
+					},
+				};
+			} else {
+				return {
+					filters: {
+						for_doctype: frm.doc.reference_type
+					},
+				};
+			}
+		});
 	},
 
     refresh: function(frm) {
-		frm.set_query("custom_quality_inspection_type", function () {
-			return {
-				filters: {
-					inspection_process: frm.doc.custom_quality_inspection_process,
-					for_doctype: frm.doc.reference_type
-				},
-			};
-		});
 		// Inspection Result HTML
 		set_visual_inspection_html(frm)
 		set_specification_inspection_html(frm)
