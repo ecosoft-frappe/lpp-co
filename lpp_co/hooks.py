@@ -397,6 +397,7 @@ fixtures = [
 					"Item-inspection_required_before_purchase-hidden",
 					"Item-naming_series-default",
 					"Item-naming_series-options",
+					"Item Customer Detail-main-field_order",
 				],
 			]
 		],
