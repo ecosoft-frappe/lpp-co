@@ -317,8 +317,6 @@ fixtures = [
 					"Item Customer Detail-custom_drawing_build_sheet_no",
 					"Item Quality Inspection Parameter-custom_inspection_method",
 					"Material Request-custom_sample_record",
-					"Material Request-main-field_order",
-					"Material Request-customer-depends_on",
 					"Material Request-custom_status_of_sample_record",
 					"Material Request-custom_column_break_yi4jl",
      				"Material Request-custom_priority",
@@ -400,6 +398,8 @@ fixtures = [
 					"Item-naming_series-default",
 					"Item-naming_series-options",
 					"Item Customer Detail-main-field_order",
+					"Material Request-main-field_order",
+					"Material Request-customer-depends_on",
 				],
 			]
 		],
