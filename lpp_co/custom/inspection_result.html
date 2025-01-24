@@ -1,0 +1,38 @@
+<table class="table table-bordered table-condensed">
+	<thead class="text-dark" style="background-color: rgb(238, 238, 238);">
+		<tr>	
+			<th>Parameter</th>
+			{% if data | selectattr('nominal') | map(attribute='nominal') | select | list %}
+				<th>Nominal</th>
+			{% endif %}
+			{% if data | selectattr('delta_plus') | map(attribute='delta_plus') | select | list %}
+				<th>Tollerance (+)</th>
+			{% endif %}
+			{% if data | selectattr('delta_minus') | map(attribute='delta_minus') | select | list %}
+				<th>Tollerance (-)</th>
+			{% endif %}
+			<th>Accepted</th>
+			<th>Rejected</th>
+			<th>Remarks</th>
+		</tr>
+	</thead>
+	<tbody>
+		{%- for d in data -%}
+		<tr>
+			<td class="value">{{ d.parameter or "" }}</td>
+			{% if d.nominal %}
+				<td class="value">{{ d.nominal or "" }}</td>
+			{% endif %}
+			{% if d.delta_plus %}
+				<td class="value">{{ d.delta_plus or "" }}</td>
+			{% endif %}
+			{% if d.delta_minus %}
+				<td class="value">{{ d.delta_minus or "" }}</td>
+			{% endif %}
+			<td class="value">{{ d.qty_accepted or "" }}</td>
+			<td class="value">{{ d.qty_rejected or "" }}</td>
+			<td class="value">{{ d.remarks or "" }}</td>
+		</tr>
+		{%- endfor -%}
+	</tbody>
+</table>

@@ -104,7 +104,7 @@ class QualityInspectionLPP(QualityInspection):
 			},
 			order_by="name"
 		)
-		return frappe.render_template("lpp_co/custom/inspection_result/visual_inspection.html", {"data": data})
+		return frappe.render_template("lpp_co/custom/inspection_result.html", {"data": data})
 
 	@frappe.whitelist()
 	def get_specification_inspection_html(self):
@@ -118,7 +118,7 @@ class QualityInspectionLPP(QualityInspection):
 			},
 			order_by="name"
 		)
-		return frappe.render_template("lpp_co/custom/inspection_result/specification_inspection.html", {"data": data})
+		return frappe.render_template("lpp_co/custom/inspection_result.html", {"data": data})
 
 	@frappe.whitelist()
 	def get_functional_testing_html(self):
@@ -132,7 +132,7 @@ class QualityInspectionLPP(QualityInspection):
 			},
 			order_by="name"
 		)
-		return frappe.render_template("lpp_co/custom/inspection_result/functional_testing.html", {"data": data})
+		return frappe.render_template("lpp_co/custom/inspection_result.html", {"data": data})
 
 
 # Override function, to remove inspection requried condition.
