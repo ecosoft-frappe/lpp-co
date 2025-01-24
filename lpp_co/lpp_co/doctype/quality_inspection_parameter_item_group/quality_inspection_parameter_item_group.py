@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class QualityInspectionType(Document):
+class QualityInspectionParameterItemGroup(Document):
 	pass
