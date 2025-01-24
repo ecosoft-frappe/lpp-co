@@ -151,8 +151,6 @@ override_doctype_class = {
 	"Item": "lpp_co.custom.item.ItemLPP",
 	"Purchase Receipt": "lpp_co.custom.purchase_receipt.PurchaseReceiptLPP",
 	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
-	"Quotation": "lpp_co.custom.quotation.QuotationLPP",
-	"Sales Order": "lpp_co.custom.sales_order.SalesOrderLPP",
 	"Material Request": "lpp_co.custom.material_request.MaterialRequestLPP",
 	"Batch": "lpp_co.custom.batch.BatchLPP",
 }
@@ -170,6 +168,12 @@ doc_events = {
 			"lpp_co.custom.item_group_tag.prepare_group_tags",
 		]
 	},
+	"Sales Order": {
+		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
+	},
+	"Quotation": {
+		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
+	}
 }
 
 # Scheduled Tasks
