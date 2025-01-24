@@ -154,6 +154,7 @@ override_doctype_class = {
 	"Quotation": "lpp_co.custom.quotation.QuotationLPP",
 	"Sales Order": "lpp_co.custom.sales_order.SalesOrderLPP",
 	"Material Request": "lpp_co.custom.material_request.MaterialRequestLPP",
+	"Batch": "lpp_co.custom.batch.BatchLPP",
 }
 
 # Document Events
