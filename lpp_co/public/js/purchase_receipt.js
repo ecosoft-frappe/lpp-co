@@ -25,6 +25,14 @@ lpp_co.stock.PurchaseReceiptController = class PurchaseReceiptController extends
 
 		super.setup_quality_inspection();
 	}
+
+	make_purchase_invoice() {
+		frappe.model.open_mapped_doc({
+			method: "lpp_co.custom.purchase_receipt.make_purchase_invoice",
+			frm: cur_frm,
+		});
+	}
+
 };
 
 extend_cscript(cur_frm.cscript, new lpp_co.stock.PurchaseReceiptController({ frm: cur_frm }));

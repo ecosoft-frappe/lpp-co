@@ -149,7 +149,6 @@ jinja = {
 
 override_doctype_class = {
 	"Item": "lpp_co.custom.item.ItemLPP",
-	"Purchase Receipt": "lpp_co.custom.purchase_receipt.PurchaseReceiptLPP",
 	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
 	"Material Request": "lpp_co.custom.material_request.MaterialRequestLPP",
 	"Batch": "lpp_co.custom.batch.BatchLPP",
@@ -371,6 +370,10 @@ fixtures = [
 					"Material Request-custom_column_break_0dldz",
 					"Material Request-custom_mold_item",
 					"Material Request-custom_section_break_1vgrd",
+					"Purchase Receipt-custom_supplier_invoice_date",
+					"Purchase Receipt-custom_column_break_5dhmu",
+					"Purchase Receipt-custom_supplier_invoice_number",
+					"Purchase Receipt-custom_supplier_invoice",
 				],
 			]
 		],

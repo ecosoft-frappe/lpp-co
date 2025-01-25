@@ -4,16 +4,10 @@ import frappe
 from frappe.utils import cint, cstr
 from erpnext.stock.doctype.quality_inspection.quality_inspection import QualityInspection
 from frappe import _
-from frappe.utils import get_link_to_form
 
-QC_TEMPLATE_FIELDS = [
-	# "custom_visual_inspection",
-	# "custom_functional_testing",
-	# "custom_specification_inspection"
-	"quality_inspection_template"
-]
 
 class QualityInspectionLPP(QualityInspection):
+
 	def get_formula_evaluation_data(self, reading):
 		data = super().get_formula_evaluation_data(reading)
 		# Item specification line reading
@@ -61,9 +55,8 @@ class QualityInspectionLPP(QualityInspection):
 			return True  # Reset if there is no previous document
 
 		# Compare template fields in the current and previous document
-		for tmpl_field in QC_TEMPLATE_FIELDS:
-			if prev_doc.get(tmpl_field) != self.get(tmpl_field):
-				return True
+		if prev_doc.get("quality_inspection_template") != self.get("quality_inspection_template"):
+			return True
 
 		# Compare sample quantity
 		if prev_doc.sample_size != self.sample_size:
@@ -73,24 +66,23 @@ class QualityInspectionLPP(QualityInspection):
 
 	def _create_quality_inspection_results(self):
 		"""Create Quality Inspection Results based on templates."""
-		for tmpl_field in QC_TEMPLATE_FIELDS:
-			template_name = self.get(tmpl_field)
-			if not template_name:
-				continue
+		template_name = self.get("quality_inspection_template")
+		if not template_name:
+			return
 
-			# Fetch the template and create results for each parameter
-			doc_template = frappe.get_doc("Quality Inspection Template", template_name)
-			for row in doc_template.item_quality_inspection_parameter:
-				result = frappe.get_doc({
-					"doctype": "Quality Inspection Result",
-					"quality_inspection": self.name,
-					"quality_inspection_template": doc_template.name,
-					"parameter": row.specification,
-					"inspection_method": row.custom_inspection_method
-				})
-				for i in range(self.sample_size):
-					result.append("readings", {})  # Add bland row
-				result.insert(ignore_permissions=True)
+		# Fetch the template and create results for each parameter
+		doc_template = frappe.get_doc("Quality Inspection Template", template_name)
+		for row in doc_template.item_quality_inspection_parameter:
+			result = frappe.get_doc({
+				"doctype": "Quality Inspection Result",
+				"quality_inspection": self.name,
+				"quality_inspection_template": doc_template.name,
+				"parameter": row.specification,
+				"inspection_method": row.custom_inspection_method
+			})
+			for i in range(self.sample_size):
+				result.append("readings", {})  # Add bland row
+			result.insert(ignore_permissions=True)
 
 	@frappe.whitelist()
 	def get_visual_inspection_html(self):
