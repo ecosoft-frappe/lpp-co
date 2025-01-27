@@ -374,6 +374,8 @@ fixtures = [
 					"Purchase Receipt-custom_column_break_5dhmu",
 					"Purchase Receipt-custom_supplier_invoice_number",
 					"Purchase Receipt-custom_supplier_invoice",
+					"GL Entry-custom_cost_center_2",
+					"GL Entry-custom_cost_center_1",
 				],
 			]
 		],
@@ -418,9 +420,33 @@ fixtures = [
 					"Item Customer Detail-main-field_order",
 					"Material Request-main-field_order",
 					"Material Request-customer-depends_on",
+					"GL Entry-cost_center-label",
 				],
 			]
 		],
+	},
+	{
+		"dt": "Client Script",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Print PDF - Job Card",
+					"Print PDF - Purchase Receipt",
+					"Print PDF - Delivery Note",
+					"Print PDF - Sales Order",
+					"Print PDF - Purchase Order",
+					"Print PDF - Sales Billing",
+					"Print PDF - Quotation",
+					"Print PDF - Purchase Invoice",
+					"Print PDF - Payment Entry",
+					"Print PDF - Work Order",
+					"Print PDF - Journal Entry",
+					"Print PDF - Sales Invoice",
+				],
+			]
+		]
 	},
 ]
 
@@ -451,7 +477,7 @@ cost_center_field_doctypes = [
 	"Sales Invoice",
 	"Sales Order",
 	"Sales Taxes and Charges",
-	"Stock Entry Detail",
+	# "Stock Entry Detail",
 	"Subcontracting Order",
 	"Subcontracting Order Item",
 	"Subcontracting Receipt",

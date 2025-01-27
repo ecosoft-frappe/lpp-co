@@ -1,0 +1,134 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Invoice",
+  "enabled": 1,
+  "modified": "2025-01-27 14:32:17.444394",
+  "module": null,
+  "name": "Print PDF - Sales Invoice",
+  "script": "frappe.ui.form.on(\"Sales Invoice\", {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Journal Entry",
+  "enabled": 1,
+  "modified": "2025-01-27 14:38:25.543473",
+  "module": null,
+  "name": "Print PDF - Journal Entry",
+  "script": "frappe.ui.form.on(\"Journal Entry\", {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Work Order",
+  "enabled": 1,
+  "modified": "2025-01-27 14:39:37.835990",
+  "module": null,
+  "name": "Print PDF - Work Order",
+  "script": "frappe.ui.form.on(\"Work Order\", {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Payment Entry",
+  "enabled": 1,
+  "modified": "2025-01-27 14:40:11.603433",
+  "module": null,
+  "name": "Print PDF - Payment Entry",
+  "script": "frappe.ui.form.on(\"Payment Entry\", {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Purchase Invoice",
+  "enabled": 1,
+  "modified": "2025-01-27 14:40:38.910583",
+  "module": null,
+  "name": "Print PDF - Purchase Invoice",
+  "script": "frappe.ui.form.on('Purchase Invoice', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Billing",
+  "enabled": 1,
+  "modified": "2025-01-27 14:41:56.781954",
+  "module": null,
+  "name": "Print PDF - Sales Billing",
+  "script": "frappe.ui.form.on('Sales Billing', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Purchase Order",
+  "enabled": 1,
+  "modified": "2025-01-27 14:42:29.952271",
+  "module": null,
+  "name": "Print PDF - Purchase Order",
+  "script": "frappe.ui.form.on('Purchase Order', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Order",
+  "enabled": 1,
+  "modified": "2025-01-27 14:42:45.232602",
+  "module": null,
+  "name": "Print PDF - Sales Order",
+  "script": "frappe.ui.form.on('Sales Order', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Delivery Note",
+  "enabled": 1,
+  "modified": "2025-01-27 14:43:10.611123",
+  "module": null,
+  "name": "Print PDF - Delivery Note",
+  "script": "frappe.ui.form.on('Delivery Note', {\n\trefresh(frm) {\n\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Purchase Receipt",
+  "enabled": 1,
+  "modified": "2025-01-27 14:43:36.142696",
+  "module": null,
+  "name": "Print PDF - Purchase Receipt",
+  "script": "frappe.ui.form.on('Purchase Receipt', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Job Card",
+  "enabled": 1,
+  "modified": "2025-01-27 14:44:06.843736",
+  "module": null,
+  "name": "Print PDF - Job Card",
+  "script": "frappe.ui.form.on('Job Card', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-01-27 15:48:47.124565",
+  "module": null,
+  "name": "Print PDF - Quotation",
+  "script": "frappe.ui.form.on(\"Quotation\", {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ }
+]
