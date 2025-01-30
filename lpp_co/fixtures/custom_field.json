@@ -4484,7 +4484,7 @@
   "name": "Item-custom_batch_suffix",
   "no_copy": 0,
   "non_negative": 0,
-  "options": "Item Group 1 Abbr\nItem Group 2 Abbr\nItem Group 3 Abbr",
+  "options": "\nItem Group 1 Abbr\nItem Group 2 Abbr\nItem Group 3 Abbr",
   "permlevel": 0,
   "placeholder": null,
   "precision": "",
