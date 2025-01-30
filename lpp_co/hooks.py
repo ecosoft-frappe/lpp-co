@@ -421,6 +421,7 @@ fixtures = [
 					"Material Request-main-field_order",
 					"Material Request-customer-depends_on",
 					"GL Entry-cost_center-label",
+					"Sales Invoice-update_stock-default",
 				],
 			]
 		],
