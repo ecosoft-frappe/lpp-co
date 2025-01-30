@@ -300,6 +300,7 @@ fixtures = [
 					"Item-custom_column_break_yjasg",
 					"Item-custom_unit_pack",
 					"Item-custom_print_label",
+					"Item-custom_batch_suffix",
 					"Address-custom_branch",
 					"Payment Entry Reference-custom_remark",
 					# "Quality Inspection Parameter-custom_is_item_spec",
