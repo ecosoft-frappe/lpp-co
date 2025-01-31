@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Material Request",
+  "enabled": 1,
+  "modified": "2025-01-31 19:10:24.469366",
+  "module": null,
+  "name": "Print PDF - Material Request",
+  "script": "frappe.ui.form.on('Material Request', {\n\trefresh(frm) {\n        frm.add_custom_button(__(\"Print PDF\"), function() {\n            erpnext_thailand.print.print_pdf(frm.doc);\n        });\n\t}\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Sales Invoice",
   "enabled": 1,
   "modified": "2025-01-27 14:32:17.444394",
