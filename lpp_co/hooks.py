@@ -424,6 +424,9 @@ fixtures = [
 					"GL Entry-cost_center-label",
 					"Sales Invoice-update_stock-default",
 					"BOM-main-field_order",
+					"Supplier-main-quick_entry",
+					"Customer-main-quick_entry",
+					"Item-main-quick_entry",
 				],
 			]
 		],
