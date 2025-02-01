@@ -50,7 +50,9 @@ doctype_js = {
 	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
 	"Item": "public/js/item.js",
-	"Material Request": "public/js/material_request.js"
+	"Material Request": "public/js/material_request.js",
+	"Job Card": "public/js/job_card.js",
+	"Work Order": "public/js/work_order.js",
 }
 
 doctype_list_js = {
@@ -152,6 +154,8 @@ override_doctype_class = {
 	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
 	"Material Request": "lpp_co.custom.material_request.MaterialRequestLPP",
 	"Batch": "lpp_co.custom.batch.BatchLPP",
+	"Work Order": "lpp_co.custom.work_order.WorkOrderLPP",
+	"Job Card": "lpp_co.custom.job_card.JobCardLPP",
 }
 
 # Document Events
@@ -174,7 +178,11 @@ doc_events = {
 		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
 	},
 	"Work Order": {
-		"on_update": ["lpp_co.custom.work_order.get_sales_order_qty"]
+		"on_update": ["lpp_co.custom.work_order.get_sales_order_qty"],
+		"on_submit": ["lpp_co.custom.work_order.set_run_card"],
+	},
+	"Job Card": {
+		"on_update": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
 	}
 }
 
@@ -380,6 +388,17 @@ fixtures = [
 					"Purchase Receipt-custom_supplier_invoice",
 					"GL Entry-custom_cost_center_2",
 					"GL Entry-custom_cost_center_1",
+					"Job Card-custom_job_card_defect_1",
+					"Job Card-custom_job_card_defect_2",
+					"Job Card-custom_job_card_defect_3",
+					"Job Card-custom_section_break_noqlv",
+					"Job Card-custom_column_break_vc2cw",
+					"Job Card-custom_sequence",
+					"Job Card Time Log-custom_input_qty",
+					"Job Card Time Log-custom_shift",
+					"Job Card-custom_run_card",
+					"Work Order-custom_customer_name",
+					"Job Card-custom_run_step",
 				],
 			]
 		],
@@ -431,6 +450,15 @@ fixtures = [
 					"Customer-main-quick_entry",
 					"Item-main-quick_entry",
 					"Work Order-custom_sales_order_qty",
+					"Job Card-for_quantity-label",
+					"Job Card-employee-hidden",
+					"Job Card-main-field_order",
+					"Job Card Time Log-completed_qty-columns",
+					"Job Card-section_break_13-collapsible",
+					"Job Card-section_break_05am-collapsible",
+					"Job Card-scheduled_time_section-collapsible",
+					"Job Card-main-title_field",
+					"Job Card-quality_inspection_section-collapsible",
 				],
 			]
 		],

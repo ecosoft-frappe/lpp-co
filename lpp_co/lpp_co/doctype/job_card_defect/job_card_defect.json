@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-01 13:51:16.027757",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "defect",
+  "qty"
+ ],
+ "fields": [
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "defect",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Defect",
+   "options": "Quality Inspection Parameter"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-02-01 16:57:45.504808",
+ "modified_by": "Administrator",
+ "module": "LPP Co",
+ "name": "Job Card Defect",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
