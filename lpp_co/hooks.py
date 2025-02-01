@@ -172,6 +172,9 @@ doc_events = {
 	},
 	"Quotation": {
 		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
+	},
+	"Work Order": {
+		"on_update": ["lpp_co.custom.work_order.get_sales_order_qty"]
 	}
 }
 
@@ -427,6 +430,7 @@ fixtures = [
 					"Supplier-main-quick_entry",
 					"Customer-main-quick_entry",
 					"Item-main-quick_entry",
+					"Work Order-custom_sales_order_qty",
 				],
 			]
 		],
