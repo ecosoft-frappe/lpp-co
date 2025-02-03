@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/lpp_co/css/lpp_co.css"
+app_include_css = "/assets/lpp_co/css/custom.css"
 # app_include_js = "/assets/lpp_co/js/lpp_co.js"
 
 # include js, css files in header of web template
@@ -53,6 +53,7 @@ doctype_js = {
 	"Material Request": "public/js/material_request.js",
 	"Job Card": "public/js/job_card.js",
 	"Work Order": "public/js/work_order.js",
+	"Purchase Order": "public/js/purchase_order.js",
 }
 
 doctype_list_js = {
