@@ -459,6 +459,7 @@ fixtures = [
 					"Job Card-scheduled_time_section-collapsible",
 					"Job Card-main-title_field",
 					"Job Card-quality_inspection_section-collapsible",
+					"Material Request-material_request_type-options",
 				],
 			]
 		],
