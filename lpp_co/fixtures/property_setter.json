@@ -721,22 +721,6 @@
  },
  {
   "default_value": null,
-  "doc_type": "Job Card",
-  "docstatus": 0,
-  "doctype": "Property Setter",
-  "doctype_or_field": "DocType",
-  "field_name": null,
-  "is_system_generated": 0,
-  "modified": "2025-02-02 09:41:51.092494",
-  "module": null,
-  "name": "Job Card-main-field_order",
-  "property": "field_order",
-  "property_type": "Data",
-  "row_name": null,
-  "value": "[\"naming_series\", \"work_order\", \"bom_no\", \"production_item\", \"item_name\", \"employee\", \"custom_column_break_dhp5k\", \"custom_run_card\", \"custom_run_step\", \"column_break_4\", \"posting_date\", \"company\", \"for_quantity\", \"total_completed_qty\", \"process_loss_qty\", \"timing_detail\", \"time_logs\", \"custom_section_break_noqlv\", \"custom_sequence\", \"custom_column_break_vc2cw\", \"custom_job_card_defect_1\", \"custom_job_card_defect_2\", \"custom_job_card_defect_3\", \"scheduled_time_section\", \"expected_start_date\", \"time_required\", \"column_break_jkir\", \"expected_end_date\", \"section_break_05am\", \"scheduled_time_logs\", \"section_break_13\", \"actual_start_date\", \"total_time_in_mins\", \"column_break_15\", \"actual_end_date\", \"production_section\", \"operation\", \"wip_warehouse\", \"column_break_12\", \"workstation_type\", \"workstation\", \"quality_inspection_section\", \"quality_inspection_template\", \"column_break_fcmp\", \"quality_inspection\", \"section_break_21\", \"sub_operations\", \"section_break_8\", \"items\", \"scrap_items_section\", \"scrap_items\", \"corrective_operation_section\", \"for_job_card\", \"is_corrective_job_card\", \"column_break_33\", \"hour_rate\", \"for_operation\", \"more_information\", \"project\", \"transferred_qty\", \"requested_qty\", \"status\", \"column_break_20\", \"operation_row_number\", \"operation_id\", \"sequence_id\", \"remarks\", \"serial_and_batch_bundle\", \"batch_no\", \"serial_no\", \"barcode\", \"job_started\", \"started_time\", \"current_time\", \"amended_from\", \"connections_tab\"]"
- },
- {
-  "default_value": null,
   "doc_type": "Material Request",
   "docstatus": 0,
   "doctype": "Property Setter",
@@ -750,5 +734,37 @@
   "property_type": "Text",
   "row_name": null,
   "value": "Purchase\nManufacture"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Job Card",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocType",
+  "field_name": null,
+  "is_system_generated": 0,
+  "modified": "2025-02-03 09:25:23.964242",
+  "module": null,
+  "name": "Job Card-main-field_order",
+  "property": "field_order",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "[\"naming_series\", \"work_order\", \"bom_no\", \"production_item\", \"item_name\", \"employee\", \"custom_run_card\", \"custom_run_step\", \"column_break_4\", \"posting_date\", \"company\", \"for_quantity\", \"total_completed_qty\", \"process_loss_qty\", \"timing_detail\", \"time_logs\", \"custom_section_break_noqlv\", \"custom_sequence\", \"custom_column_break_vc2cw\", \"custom_job_card_defect_1\", \"custom_job_card_defect_2\", \"custom_job_card_defect_3\", \"scheduled_time_section\", \"expected_start_date\", \"time_required\", \"column_break_jkir\", \"expected_end_date\", \"section_break_05am\", \"scheduled_time_logs\", \"section_break_13\", \"actual_start_date\", \"total_time_in_mins\", \"column_break_15\", \"actual_end_date\", \"production_section\", \"operation\", \"wip_warehouse\", \"column_break_12\", \"workstation_type\", \"workstation\", \"quality_inspection_section\", \"quality_inspection_template\", \"column_break_fcmp\", \"quality_inspection\", \"section_break_21\", \"sub_operations\", \"section_break_8\", \"items\", \"scrap_items_section\", \"scrap_items\", \"corrective_operation_section\", \"for_job_card\", \"is_corrective_job_card\", \"column_break_33\", \"hour_rate\", \"for_operation\", \"more_information\", \"project\", \"transferred_qty\", \"requested_qty\", \"status\", \"column_break_20\", \"operation_row_number\", \"operation_id\", \"sequence_id\", \"remarks\", \"serial_and_batch_bundle\", \"batch_no\", \"serial_no\", \"barcode\", \"job_started\", \"started_time\", \"current_time\", \"amended_from\", \"connections_tab\"]"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Job Card",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "quality_inspection_section",
+  "is_system_generated": 0,
+  "modified": "2025-02-03 09:25:24.053557",
+  "module": null,
+  "name": "Job Card-quality_inspection_section-collapsible",
+  "property": "collapsible",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
  }
 ]
