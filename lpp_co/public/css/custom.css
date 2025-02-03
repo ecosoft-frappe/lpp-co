@@ -1,0 +1,4 @@
+.modal-dialog {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 80%; /* Ensure the width does not exceed 80% of the viewport */
+}
