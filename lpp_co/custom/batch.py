@@ -25,4 +25,4 @@ class BatchLPP(Batch):
               		"custom_abbreviation"
             	)
 		if suffix:
-			self.name += f"/{suffix}"
+			self.name += f"-{suffix}"

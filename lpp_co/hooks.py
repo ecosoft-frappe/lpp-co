@@ -415,6 +415,7 @@ fixtures = [
 					"Work Order-custom_customer_name",
 					"Job Card-custom_run_step",
 					"Material Request-custom_cost_center",
+					"Job Card-custom_job_card_name",
 				],
 			]
 		],
@@ -470,6 +471,10 @@ fixtures = [
 					"Job Card-quality_inspection_section-collapsible",
 					"Material Request-material_request_type-options",
 					"Material Request-main-field_order",
+					"Job Card-main-show_title_field_in_link",
+					"Job Card-naming_series-options",
+					"Job Card-naming_series-default",
+					"Job Card-main-title_field",
 				],
 			]
 		],

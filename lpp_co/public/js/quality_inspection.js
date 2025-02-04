@@ -12,14 +12,6 @@ frappe.ui.form.on("Quality Inspection", {
 			};
 		});
 		// Override
-		frm.set_query("reference_name", function () {
-			return {
-				filters: {
-					docstatus: ["=", 1],
-				},
-			};
-		});
-		// Override
 		// item code based on GRN/DN
 		frm.set_query("item_code", function (doc) {
 			let doctype = doc.reference_type;

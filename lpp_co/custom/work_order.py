@@ -39,6 +39,8 @@ def set_run_card(doc, method):
 	set_run_card_set(doc)	
 	# Set Run Step in each Run Card Number, i..e, in 1/6, there should be step 1, 2, 3
 	set_run_card_step(doc)
+	# Set Job Card Name, i.e., WO2502-0001-010/090-1, WO2502-0001-010/090-2
+	set_job_card_name(doc)
  
  
 def set_run_card_set(doc):
@@ -53,7 +55,7 @@ def set_run_card_set(doc):
             },
          	order_by="creation asc"
         )
-		total_run_card_set = len(job_cards)
+		total_run_card_set = str(len(job_cards)).zfill(3)
 		for idx, job_card in enumerate(job_cards, start=1):
 			run_card_set = str(idx).zfill(3)
 			run_card = f"{run_card_set}/{total_run_card_set}"
@@ -74,3 +76,14 @@ def set_run_card_step(doc):
         )
 		for idx, job_card in enumerate(job_cards, start=1):
 			frappe.db.set_value("Job Card", job_card.name, "custom_run_step", idx)
+
+
+def set_job_card_name(doc):
+	job_cards = frappe.get_all(
+    	"Job Card",
+     	filters={"work_order": doc.name},
+      	fields=["name", "custom_run_card", "custom_run_step"],
+       	as_list=1
+    )
+	for (job_card, run_card, run_step) in job_cards:
+		frappe.db.set_value("Job Card", job_card, "custom_job_card_name", f"{doc.name}-{run_card}-{run_step}")
