@@ -475,6 +475,8 @@ fixtures = [
 					"Job Card-naming_series-options",
 					"Job Card-naming_series-default",
 					"Job Card-main-title_field",
+					"Job Card-main-sort_order",
+					"Job Card-main-sort_field",
 				],
 			]
 		],
