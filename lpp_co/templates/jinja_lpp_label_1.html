@@ -5,7 +5,11 @@
     	}
   	}
 	.print-format {
-    	padding: 7mm;
+    	padding: 7mm !important;
+		margin-left: 0mm !important;
+    	margin-right: 0mm !important;
+    	margin-top: 0mm !important;
+    	line-height: 1.2 !important;
     	font-size: 10px !important;
 	}
 	.box {
@@ -26,7 +30,7 @@
 	.qr_code {
 		position: absolute;
 		right: 6px;
-		top: 15px;
+		top: 10px;
 	}
 	.company {
 		font-size: 14px;
@@ -79,7 +83,7 @@
 								{{ quantity or "-" }}
 							</p>
 							<p>
-								<div class="row">
+								<div class="row section-break">
 									<div class="col-xs-6">
 										<strong class="lbl">Batch No.</strong>
 										{{ batch_no or "-" }}
@@ -107,13 +111,13 @@
 							</p>
 						</div>
 						<div class="col-xs-3">
-							<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}" width="90px" height="90px"/>
+							<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}" width="70px" height="70px"/>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row section-break">
 						<div class="col-xs-8">
 							<p>
-								<strong>{{ company_name or "-" }}</strong>
+								<strong class="company">{{ company_name or "-" }}</strong>
 							</p>
 							<p>
 								{{ country_of_origin or "-" }}
@@ -125,7 +129,7 @@
 							<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
 						</div>
 					</div>
-					<div class="row">
+					<div class="row section-break">
 						<div class="col-xs-12">
 							{{ storage_instructions or "-" }}
 						</div>
