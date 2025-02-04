@@ -220,7 +220,7 @@ scheduler_events = {
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "lpp_co.event.get_events"
+# 	"frappe.desk.search.search_widget": "lpp_co.custom.search.search_widget"
 # }
 #
 # each overriding function accepts a `data` argument;
