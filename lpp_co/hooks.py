@@ -156,7 +156,7 @@ override_doctype_class = {
 	"Batch": "lpp_co.custom.batch.BatchLPP",
 	"Work Order": "lpp_co.custom.work_order.WorkOrderLPP",
 	"Job Card": "lpp_co.custom.job_card.JobCardLPP",
-	"Serial and Batch Bundle": "lpp_co.custom.serial_and_batch_bundle.SerialandBatchBundleLPP",
+	# "Serial and Batch Bundle": "lpp_co.custom.serial_and_batch_bundle.SerialandBatchBundleLPP",   # The change here cause bug
 }
 
 # Document Events
