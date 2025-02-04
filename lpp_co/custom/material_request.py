@@ -6,7 +6,17 @@ class MaterialRequestLPP(MaterialRequest):
 
 	def validate(self):
 		self.validate_sample_record_punctual_status()
+		# self.validate_cost_center()
 		super().validate()
+
+	def validate_cost_center(self):
+		""" Cascade cost center up and down """
+		if self.custom_cost_center:
+			for item in self.items:
+				item.cost_center = self.custom_cost_center
+		else:
+			cost_center = [x.cost_center for x in self.items if x.cost_center]
+			self.custom_cost_center = cost_center[:1]
   
 	def validate_sample_record_punctual_status(self):
 		def set_status(plan, actual):
