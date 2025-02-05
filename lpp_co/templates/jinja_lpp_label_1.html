@@ -1,47 +1,44 @@
 <style>
-	@media print {
-		.print {
-        	display: none;
-    	}
-  	}
 	.print-format {
-    	padding: 5mm !important;
-		margin-left: 0mm !important;
-    	margin-right: 0mm !important;
-    	margin-top: 0mm !important;
-    	margin-bottom: 0mm;
-    	line-height: 1.2 !important;
-    	font-size: 10px !important;
+		padding: 0;
+		margin-left: 3mm;
+		margin-right: 3mm;
+		margin-top: 3mm;
+		margin-bottom: 3mm;
+		line-height: 1.4;
+		font-size: 10px;
 	}
-	.box {
-    	padding-left: 4px !important;
-    	padding-right: 4px !important;
-    	padding-bottom: 10px !important;
+	.square-box {
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+		padding-bottom: 8px !important;
+		page-break-inside: avoid;
 	}
 	.card {
-    	border: 1px solid #000000;
-    	padding: 10px;
+		border: 1px solid #000000;
+		padding: 5px;
 	}
-	.lbl {
-    	margin-right: 5px;
-	}
-	.lbl-no {
-    	font-size: 30px;
+	.label-no {
+		font-size: 30px;
 	}
 	.qr_code {
 		position: absolute;
-		right: 6px;
+		right: 10px;
 		top: 10px;
+		width: 80px;
+		height: 80px;
 	}
 	.company {
 		font-size: 14px;
+	}
+	.company * {
 		color: #3a7eb8;
 	}
 	.logo {
 		height: 25px;
 	}
 </style>
-<div class="row section-break print">
+<div class="row section-break">
 	<div class="col-xs-12 text-right">
 		{{ qty }}
 	</div>
@@ -49,82 +46,82 @@
 {% for i in range(loop_range) %}
 	<div class="row section-break">
 		{% for i in range(8) %}
-			<div class="col-xs-6 box">
+			<div class="col-xs-6 square-box">
 				<div class="card">
 					<div class="row section-break">
 						<div class="col-xs-9">
 							<p>
-								<strong class="lbl">Customer</strong>
+								<strong>Customer</strong>
 								{{ customer_name or "-"}}
 							</p>
 							<p>
-								<strong class="lbl">Item Name:</strong>
+								<strong>Item Name</strong>
 								{{ item_name or "-" }}
 							</p>
 							<p>
-								<strong class="lbl">Customer Part No.</strong>
+								<strong>Customer Part No.</strong>
 								{{ customer_part_no or "-" }}
 							</p>
 						</div>
 						<div class="col-xs-3 text-right">
-							<strong class="lbl-no">{{ number or "" }}</strong>
+							<strong class="label-no">{{ number or "" }}</strong>
 						</div>
 					</div>
 					<div class="row section-break">
 						<div class="col-xs-12">
 							<p>
-								{{ get_barcode_svg(data=barcode_data_1 or "-", module_width_mm=0.2, module_height_mm=6) | safe }}
+								{{ get_barcode_svg(data=barcode_data_1, module_width_mm=0.2, module_height_mm=6) | safe }}
 							</p>
 						</div>
 					</div>
 					<div class="row section-break">
 						<div class="col-xs-9">
 							<p>
-								<strong class="lbl">Quantity</strong>
+								<strong>Quantity</strong>
 								{{ quantity or "-" }}
 							</p>
 							<p>
 								<div class="row section-break">
 									<div class="col-xs-6">
-										<strong class="lbl">Batch No.</strong>
+										<strong>Batch No.</strong>
 										{{ batch_no or "-" }}
 									</div>
 									<div class="col-xs-6">
-										<strong class="lbl">Job Card No.</strong>
+										<strong>Job Card No.</strong>
 										{{ job_card_no or "-" }}
 									</div>
 								</div>
 							</p>
 							<p>
-								{{ get_barcode_svg(data=barcode_data_2 or "-", module_width_mm=0.2, module_height_mm=6) | safe }}
+								{{ get_barcode_svg(data=barcode_data_2, module_width_mm=0.2, module_height_mm=6) | safe }}
 							</p>
 							<p>
 								<div class="row section-break">
 									<div class="col-xs-6"">
-										<strong class="lbl">MFG</strong>
+										<strong>MFG</strong>
 										{{ mfg_date or "-" }}
 									</div>
 									<div class="col-xs-6"">
-										<strong class="lbl">EXP</strong>
+										<strong>EXP</strong>
 										{{ exp_date or "-" }}
 									</div>
 								</div>
 							</p>
 						</div>
 						<div class="col-xs-3">
-							<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}" width="70px" height="70px"/>
+							<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}"/>
 						</div>
 					</div>
 					<div class="row section-break">
 						<div class="col-xs-8">
-							<p>
-								<strong class="company">{{ company_name or "-" }}</strong>
+							<p class="company">
+								<strong>{{ company_name or "" }}</strong>
 							</p>
 							<p>
-								{{ country_of_origin or "-" }}
+								{{ country_of_origin or "" }}
 							</p>
 						</div>
-						<div class="col-xs-4">
+						<div class="col-xs-4 text-right">
 							<img class="logo" src="/assets/lpp_co/images/label-1.png" alt="Logo">
 							<img class="logo" src="/assets/lpp_co/images/label-2.png" alt="Logo">
 							<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
@@ -132,7 +129,7 @@
 					</div>
 					<div class="row section-break">
 						<div class="col-xs-12">
-							{{ storage_instructions or "-" }}
+							{{ storage_instructions or "" }}
 						</div>
 					</div>
 				</div>
