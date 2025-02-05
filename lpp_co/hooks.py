@@ -417,6 +417,10 @@ fixtures = [
 					"Material Request-custom_cost_center",
 					"Job Card-custom_job_card_name",
 					"Item-custom_search_customer_items",
+					"Item-custom_ref_code",
+					"Item-custom_drawing_build_sheet_no",
+					"Item-custom_column_break_9wu7q",
+					"Item-custom_section_break_ko8cg",
 				],
 			]
 		],

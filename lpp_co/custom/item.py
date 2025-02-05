@@ -17,12 +17,14 @@ class ItemLPP(Item):
 
 	def validate(self):
 		self.validate_item_specification_line()
-		self.set_search_customer_items()
+		self.set_field_customer_items()
 		super().validate()
 
-	def set_search_customer_items(self):
+	def set_field_customer_items(self):
 		# This will be used as search field
 		row_search = []
+		ref_codes = []
+		sheet_nos = []
 		for row in self.customer_items:
 			row_search.append(
        			" ".join([str(row.get(f) or "")
@@ -32,7 +34,11 @@ class ItemLPP(Item):
                   	"ref_code",
                    	"custom_lpp_part_no"
                 ]]))
+			ref_codes.append(row.ref_code)
+			sheet_nos.append(row.custom_drawing_build_sheet_no)
 		self.custom_search_customer_items = ", ".join(row_search) or ""
+		self.custom_ref_code = ", ".join(ref_codes) or ""
+		self.custom_drawing_build_sheet_no = ", ".join(sheet_nos) or ""
 
 	@frappe.whitelist()
 	def get_item_quality_specification(self):
