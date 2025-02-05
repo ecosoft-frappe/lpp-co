@@ -9,16 +9,16 @@ from frappe import _
 
 class ItemLPP(Item):
 
+	def validate(self):
+		self.validate_item_specification_line()
+		self.set_field_customer_items()
+		super().validate()
+
 	def validate_item_specification_line(self):
 		# Validate unique parameter in the item
 		specifications = [line.specification for line in self.custom_item_specification_line]
 		if len(specifications) != len(set(specifications)):
 			frappe.throw(_("Parameter must be unique"))
-
-	def validate(self):
-		self.validate_item_specification_line()
-		self.set_field_customer_items()
-		super().validate()
 
 	def set_field_customer_items(self):
 		# This will be used as search field

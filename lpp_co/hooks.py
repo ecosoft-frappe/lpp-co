@@ -49,6 +49,7 @@ doctype_js = {
 	"Quality Inspection": "public/js/quality_inspection.js",
 	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
 	"Item": "public/js/item.js",
 	"Material Request": "public/js/material_request.js",
 	"Job Card": "public/js/job_card.js",
@@ -184,6 +185,10 @@ doc_events = {
 	},
 	"Job Card": {
 		"on_update": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
+	},
+	"Sales Order": {
+		"on_update": ["lpp_co.custom.sales_order.update_sales_order_item"],
+		"on_update_after_submit": ["lpp_co.custom.sales_order.update_sales_order_item"]
 	}
 }
 
@@ -421,6 +426,7 @@ fixtures = [
 					"Item-custom_drawing_build_sheet_no",
 					"Item-custom_column_break_9wu7q",
 					"Item-custom_section_break_ko8cg",
+					"Sales Order Item-custom_po_no",
 				],
 			]
 		],
