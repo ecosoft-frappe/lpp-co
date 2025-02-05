@@ -34,8 +34,8 @@ class ItemLPP(Item):
                   	"ref_code",
                    	"custom_lpp_part_no"
                 ]]))
-			ref_codes.append(row.ref_code)
-			sheet_nos.append(row.custom_drawing_build_sheet_no)
+			ref_codes.append(row.ref_code or "")
+			sheet_nos.append(row.custom_drawing_build_sheet_no or "")
 		self.custom_search_customer_items = ", ".join(row_search) or ""
 		self.custom_ref_code = ", ".join(ref_codes) or ""
 		self.custom_drawing_build_sheet_no = ", ".join(sheet_nos) or ""
