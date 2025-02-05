@@ -416,6 +416,7 @@ fixtures = [
 					"Job Card-custom_run_step",
 					"Material Request-custom_cost_center",
 					"Job Card-custom_job_card_name",
+					"Item-custom_search_customer_items",
 				],
 			]
 		],
