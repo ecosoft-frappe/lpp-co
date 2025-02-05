@@ -1,44 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+	.print-format {
+		padding: 0;
+		margin-left: 3mm;
+		margin-right: 3mm;
+		margin-top: 3mm;
+		margin-bottom: 3mm;
+		line-height: 1.9;
+		font-size: 12px;
+	}
+	.square-box {
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+		padding-bottom: 8px !important;
+		page-break-inside: avoid;
+	}
+	.card {
+		border: 1px solid #000000;
+		padding: 5px;
+	}
+</style>
 
-<body>
-    {% for page_idx, labels in enumerate(paging_label) %}
-    <div class="gj-row justify-content-center">
-        {% for label in labels %}
-        <div style="padding-top: 2.5mm; padding-left: 1mm; padding-right: 1mm;">
-            <div style="border: 1px solid black; padding: 10px; width: 10cm; height: 2.7cm; font-size: 10px;">
-                <div ><span style="font-weight: bold; padding-right: 10px;">Item Name </span> {{item_name | replace_none}}
-                    Kgs.</div>
-                <div style="margin-top: 7px;">
-                    <span style="font-weight: bold; padding-right: 10px;">Batch No.</span> {{lot_no | replace_none}}
-                </div>
-                <div style="margin-top: 7px; display: flex; flex-direction: row;">
-                    <div style="display: inline-block; width: 30%;">
-                        <span style="font-weight: bold; padding-right: 10px;">MFG</span> {{mfg | replace_none}}
-                    </div>
-                    <div style="display: inline-block; width: 70%;">
-                        <span style="font-weight: bold; padding-right: 10px;">Weight</span> ____________________________ Kilograms
-                    </div>
-                </div>
-                <div style="margin-top: 7px; display: flex; flex-direction: row;">
-                    <div style="width: 30%;">
-                        <span style="font-weight: bold; padding-right: 15px;">EXP</span>{{exp | replace_none}}
-                    </div>
-                    <div style="width: 70%;">
-                        <span style="font-weight: bold; padding-right: 10px;">Supplier Batch No.</span> ____________________________
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% endfor %}
-    </div>
-    <!-- check if it is last page -->
-    {% if page_idx+1 != total_page%}
-    <div class="page"></div>
-    {%endif%}
-    {% endfor %}
-    <div>
-</body>
-
-</html>
+<div class="row section-break">
+	{% for i in range(20) %}
+		<div class="col-xs-6 square-box">
+			<div class="card">
+				<div class="row section-break">
+					<div class="col-xs-12">
+						<strong>Item Name</strong>
+						{{ item_name or "-" }}
+					</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-12">
+						<strong>Batch No.</strong>
+						{{ batch_no or "-" }}
+					</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-5">
+						<strong>MFG</strong>
+						{{ mfg_date or "-" }}
+					</div>
+					<div class="col-xs-7">
+						<strong>Weight</strong> __________________ Kilograms
+					</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-5">
+						<strong>EXP</strong>
+						{{ exp_date or "-" }}
+					</div>
+					<div class="col-xs-7">
+						<strong>Supplier Batch No.</strong> ________________
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>

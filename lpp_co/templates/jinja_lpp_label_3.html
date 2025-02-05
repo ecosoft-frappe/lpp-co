@@ -1,75 +1,159 @@
-<div style="width: 20cm; height: 9cm; border: 1px solid #000; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; font-size: 16px;">
-    <!-- Header Section -->
-    <div style="display: flex; justify-content: space-between;">
-        <div style="width: 75%;">
-            <div class="my-1"><strong style="margin-right: 20px;">Customer</strong> {{ customer_name }}</div>
-            <div class="my-1"><strong style="margin-right: 20px;">Item Name</strong> {{ item_name }}</div>
-            <div class="my-1"><strong style="margin-right: 20px;">Customer Part No.</strong> {{ customer_part_no }}</div>
-        </div>
-        <div style="width: 25%; text-align: right; font-weight: bold; font-size: 30px;">
-            {{number}}
-        </div>
-    </div>
-
-    <div style="display: flex; justify-content: space-between;">
-        <div style="width: 50%;">
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <strong>Quantity</strong>
-                <span style="text-align: left; width: 50%;">{{ quantity }} {{unit}}</span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <strong>Batch No.</strong>
-                <span style="text-align: left; width: 50%;">{{ lot_no }}</span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <strong>Run Card No.</strong>
-                <span style="text-align: left; width: 50%;">________</span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <strong>MFG</strong>
-                <span style="text-align: left; width: 50%;">{{ mfg_date }}</span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <strong>EXP</strong>
-                <span style="text-align: left; width: 50%;">{{ exp_date }}</span>
-            </div>
-        </div>
-        <div style="width: 50%;">
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <small style="margin:auto">Part No</small>
-                <span style="text-align: left; width: 80%;">
-                    {{ get_barcode_svg(data=barcode_data_1, module_width_mm=0.15, module_height_mm=8) | safe }}
-                </span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <small style="margin:auto">Quantity</small>
-                <span style="text-align: left; width: 80%;">
-                    {{ get_barcode_svg(data=barcode_data_2, module_width_mm=0.15, module_height_mm=8) | safe }}
-                </span>
-            </div>
-            <div class="my-1" style="display: flex; justify-content: space-between;">
-                <small style="margin:auto">Batch No.</small>
-                <span style="text-align: left; width: 80%;">
-                    {{ get_barcode_svg(data=barcode_data_3, module_width_mm=0.15, module_height_mm=8) | safe }}
-                </span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Company Info and Logos Section -->
-    <div style="display: flex; justify-content: space-between;">
-        <div style="width: 65%;">
-            <div style="font-size: 18px; font-weight: bold; color: #3a7eb8;">{{ company_name }}</div>
-            <div>{{ country_of_origin }}</div>
-            <!-- Footer Note -->
-            <div class="mt-1" style="font-size: 12px; text-align: left">
-                {{ storage_instructions }}
-            </div>
-        </div>
-        <div style="width: 35%; display: flex; justify-content: space-around;">
-            <img style="height: 60px;" src="/assets/lpp_co/images/label-1.png" alt="Logo 1">
-            <img style="height: 60px;" src="/assets/lpp_co/images/label-2.png" alt="Logo 2">
-            <img style="height: 60px;" src="/assets/lpp_co/images/label-3.png" alt="Logo 3">
-        </div>
-    </div>
+<style>
+	.print-format {
+		padding: 0;
+		margin-left: 3mm;
+		margin-right: 3mm;
+		margin-top: 3mm;
+		margin-bottom: 3mm;
+		line-height: 1.4;
+		font-size: 16px;
+	}
+	.square-box {
+		padding-left: 4px !important;
+		padding-right: 4px !important;
+		padding-bottom: 8px !important;
+		page-break-inside: avoid;
+	}
+	.card {
+		border: 1px solid #000000;
+		padding: 5px;
+	}
+	.label-no {
+		font-size: 30px;
+	}
+	.company {
+		font-size: 18px;
+	}
+	.company * {
+		color: #3a7eb8;
+	}
+	.logo {
+		height: 55px;
+		margin-left: 5px;
+		margin-top: 15px;
+	}
+</style>
+<div class="row section-break">
+	<div class="col-xs-12 text-right">
+		{{ qty }}
+	</div>
 </div>
+{% for i in range(loop_range) %}
+	<div class="row section-break">
+		{% for i in range(3) %}
+			<div class="col-xs-12 square-box">
+				<div class="card">
+					<div class="row section-break">
+						<div class="col-xs-9">
+							<p>
+								<strong>Customer</strong>
+								{{ customer_name or "-"}}
+							</p>
+							<p>
+								<strong>Item Name</strong>
+								{{ item_name or "-" }}
+							</p>
+							<p>
+								<strong>Customer Part No.</strong>
+								{{ customer_part_no or "-" }}
+							</p>
+						</div>
+						<div class="col-xs-3 text-right">
+							<strong class="label-no">{{ number or "" }}</strong>
+						</div>
+					</div>
+					<br>
+					<div class="row section-break">
+						<div class="col-xs-6">
+							<div class="row section-break">
+								<div class="col-xs-4">
+									<strong>Quantity</strong>
+								</div>
+								<div class="col-xs-8">
+									{{ quantity or "-" }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-4">
+									<strong>Batch No.</strong>
+								</div>
+								<div class="col-xs-8">
+									{{ batch_no or "-" }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-4">
+									<strong>Job Card No.</strong>
+								</div>
+								<div class="col-xs-8">
+									{{ job_card_no or "-" }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-4">
+									<strong>MFG</strong>
+								</div>
+								<div class="col-xs-8">
+									{{ mfg_date or "-" }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-4">
+									<strong>EXP</strong>
+								</div>
+								<div class="col-xs-8">
+									{{ exp_date or "-" }}
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="row section-break">
+								<div class="col-xs-3 text-right" style="padding-top: 10px;">
+									<small>Part No.</small>
+								</div>
+								<div class="col-xs-9">
+									{{ get_barcode_svg(data=barcode_data_1, module_width_mm=0.15, module_height_mm=8) | safe }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-3 text-right" style="padding-top: 10px;">
+									<small>Quantity</small>
+								</div>
+								<div class="col-xs-9">
+									{{ get_barcode_svg(data=barcode_data_2, module_width_mm=0.15, module_height_mm=8) | safe }}
+								</div>
+							</div>
+							<div class="row section-break">
+								<div class="col-xs-3 text-right" style="padding-top: 10px;">
+									<small>Batch No.</small>
+								</div>
+								<div class="col-xs-9">
+									{{ get_barcode_svg(data=barcode_data_3, module_width_mm=0.15, module_height_mm=8) | safe }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row section-break">
+						<div class="col-xs-8" style="padding-right: 0px;">
+							<p class="company">
+								<strong>{{ company_name or "" }}</strong>
+							</p>
+							<p>
+								{{ country_of_origin or "" }}
+							</p>
+							<p>
+								<small>{{ storage_instructions or "" }}</small>
+							</p>
+						</div>
+						<div class="col-xs-4 text-right">
+							<img class="logo" src="/assets/lpp_co/images/label-1.png" alt="Logo">
+							<img class="logo" src="/assets/lpp_co/images/label-2.png" alt="Logo">
+							<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endfor %}
