@@ -417,6 +417,7 @@ fixtures = [
 					"Job Card Time Log-custom_input_qty",
 					"Job Card Time Log-custom_shift",
 					"Job Card-custom_run_card",
+					"Work Order-custom_customer",
 					"Work Order-custom_customer_name",
 					"Job Card-custom_run_step",
 					"Material Request-custom_cost_center",
