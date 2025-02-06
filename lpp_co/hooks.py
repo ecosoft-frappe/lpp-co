@@ -430,6 +430,9 @@ fixtures = [
 					"Item-custom_section_break_ko8cg",
 					"Sales Order Item-custom_po_no",
 					"Quality Inspection-custom_uom",
+					"Quality Inspection-custom_setup_technician",
+					"Quality Inspection-custom_production_operator",
+					"Quality Inspection-custom_qa_supervisor",
 				],
 			]
 		],
@@ -490,6 +493,8 @@ fixtures = [
 					"Job Card-main-title_field",
 					"Job Card-main-sort_order",
 					"Job Card-main-sort_field",
+					"Quality Inspection-inspected_by-label",
+					"Quality Inspection-verified_by-hidden",
 				],
 			]
 		],

@@ -6,10 +6,10 @@
 				<th>Nominal</th>
 			{% endif %}
 			{% if data | selectattr('delta_plus') | map(attribute='delta_plus') | select | list %}
-				<th>Tollerance (+)</th>
+				<th>Tolerance (+)</th>
 			{% endif %}
 			{% if data | selectattr('delta_minus') | map(attribute='delta_minus') | select | list %}
-				<th>Tollerance (-)</th>
+				<th>Tolerance (-)</th>
 			{% endif %}
 			<th>Accepted</th>
 			<th>Rejected</th>
