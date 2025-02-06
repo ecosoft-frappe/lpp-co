@@ -47,6 +47,7 @@ app_include_css = "/assets/lpp_co/css/custom.css"
 doctype_js = {
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	"Quality Inspection": "public/js/quality_inspection.js",
+	"Quality Inspection Parameter": "public/js/quality_inspection_parameter.js",
 	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
 	"Sales Invoice": "public/js/sales_invoice.js",
@@ -428,6 +429,7 @@ fixtures = [
 					"Item-custom_column_break_9wu7q",
 					"Item-custom_section_break_ko8cg",
 					"Sales Order Item-custom_po_no",
+					"Quality Inspection-custom_uom",
 				],
 			]
 		],
