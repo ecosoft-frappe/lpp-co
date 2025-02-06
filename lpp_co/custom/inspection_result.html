@@ -1,8 +1,6 @@
 {% set nominal = 1 if data | selectattr('nominal') | map(attribute='nominal') | select | list else 0 %}
 {% set delta_plus = 1 if data | selectattr('delta_plus') | map(attribute='delta_plus') | select | list else 0 %}
 {% set delta_minus = 1 if data | selectattr('delta_minus') | map(attribute='delta_minus') | select | list else 0 %}
-
-{{ nominal }}
 <table class="table table-bordered table-condensed">
 	<thead class="text-dark" style="background-color: rgb(238, 238, 238);">
 		<tr>	
