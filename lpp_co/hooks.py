@@ -180,11 +180,11 @@ doc_events = {
 		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
 	},
 	"Work Order": {
-		"on_update": ["lpp_co.custom.work_order.get_sales_order_qty"],
+		"validate": ["lpp_co.custom.work_order.get_sales_order_qty"],
 		"on_submit": ["lpp_co.custom.work_order.set_run_card"],
 	},
 	"Job Card": {
-		"on_update": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
+		"validate": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
 	},
 	"Sales Order": {
 		"on_update": ["lpp_co.custom.sales_order.update_sales_order_item"],
@@ -473,7 +473,6 @@ fixtures = [
 					"Customer-main-quick_entry",
 					"Item-main-quick_entry",
 					"Work Order-custom_sales_order_qty",
-					"Job Card-for_quantity-label",
 					"Job Card-employee-hidden",
 					"Job Card Time Log-completed_qty-columns",
 					"Job Card-section_break_13-collapsible",
