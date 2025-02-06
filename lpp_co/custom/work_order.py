@@ -4,15 +4,15 @@ from erpnext.manufacturing.doctype.work_order.work_order import WorkOrder
 
 class WorkOrderLPP(WorkOrder):
     
-	@property
-	def customer(self):
-		sales_order = frappe.get_cached_doc("Sales Order", self.sales_order)
-		return sales_order.customer
+	# @property
+	# def customer(self):
+	# 	sales_order = frappe.get_cached_doc("Sales Order", self.sales_order)
+	# 	return sales_order.customer
 
 	@property
 	def customer_item(self):
 		item = frappe.get_doc("Item", self.production_item)
-		customer_item = list(filter(lambda l: l.customer_name == self.customer, item.customer_items))
+		customer_item = list(filter(lambda l: l.customer_name == self.custom_customer, item.customer_items))
 		if customer_item:
 			return customer_item[0]
 		return None
