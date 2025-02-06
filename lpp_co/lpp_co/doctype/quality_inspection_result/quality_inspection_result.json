@@ -47,21 +47,21 @@
   },
   {
    "fieldname": "nominal",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Nominal",
    "read_only": 1
   },
   {
    "fieldname": "delta_plus",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Tolerance (+)",
    "read_only": 1
   },
   {
    "fieldname": "delta_minus",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Tolerance (-)",
    "read_only": 1
@@ -149,7 +149,7 @@
  "hide_toolbar": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-01-18 15:48:14.954940",
+ "modified": "2025-02-06 23:15:12.113483",
  "modified_by": "Administrator",
  "module": "LPP Co",
  "name": "Quality Inspection Result",
