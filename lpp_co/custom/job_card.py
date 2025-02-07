@@ -83,7 +83,6 @@ def set_sequence_input_quantity(doc, method):
 
 
 @frappe.whitelist()
-@frappe.validate_and_sanitize_search_inputs
-def get_bom_items(doctype, txt, searchfield, start, page_len, filters, as_dict=False):
-	items = frappe.db.get_all('BOM Item', filters={'parent': filters.get("bom")}, fields=['item_code'], as_list=1)
+def get_bom_items(bom):
+	items = frappe.db.get_all("BOM Item", filters={"parent": bom}, pluck="item_code")
 	return items
