@@ -80,3 +80,10 @@ def set_sequence_input_quantity(doc, method):
 			continue
 		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
 		doc.time_logs[seq].custom_input_qty = doc.time_logs[seq].completed_qty + defects
+
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def get_bom_items(doctype, txt, searchfield, start, page_len, filters, as_dict=False):
+	items = frappe.db.get_all('BOM Item', filters={'parent': filters.get("bom")}, fields=['item_code'], as_list=1)
+	return items

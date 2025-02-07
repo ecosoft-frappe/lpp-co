@@ -433,6 +433,10 @@ fixtures = [
 					"Quality Inspection-custom_setup_technician",
 					"Quality Inspection-custom_production_operator",
 					"Quality Inspection-custom_qa_supervisor",
+					"Purchase Receipt Item-custom_qc_uom",
+					"Purchase Receipt Item-custom_column_break_m6gmy",
+					"Purchase Receipt Item-custom_qc_quantity",
+					"Purchase Receipt Item-custom_for_quality_control",
 				],
 			]
 		],
