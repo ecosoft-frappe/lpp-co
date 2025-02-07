@@ -437,6 +437,7 @@ fixtures = [
 					"Purchase Receipt Item-custom_column_break_m6gmy",
 					"Purchase Receipt Item-custom_qc_quantity",
 					"Purchase Receipt Item-custom_for_quality_control",
+					"Quality Inspection-custom_qa_inspector",
 				],
 			]
 		],
@@ -497,7 +498,7 @@ fixtures = [
 					"Job Card-main-title_field",
 					"Job Card-main-sort_order",
 					"Job Card-main-sort_field",
-					"Quality Inspection-inspected_by-label",
+					"Quality Inspection-inspected_by-hidden",
 					"Quality Inspection-verified_by-hidden",
 				],
 			]
