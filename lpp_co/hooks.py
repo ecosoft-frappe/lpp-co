@@ -190,6 +190,18 @@ doc_events = {
 	"Sales Order": {
 		"on_update": ["lpp_co.custom.sales_order.update_sales_order_item"],
 		"on_update_after_submit": ["lpp_co.custom.sales_order.update_sales_order_item"]
+	},
+	"Material Request": {
+		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+	},
+	"Purchase Order": {
+		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+	},
+	"Sales Invoice": {
+		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+	},
+	"Purchase Invoice": {
+		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 	}
 }
 
@@ -543,18 +555,18 @@ fixtures = [
 
 
 cost_center_field_doctypes = [
-	"Advance Taxes and Charges",
-	"Asset",
-	"Expense Claim Detail",
-	"Expense Taxes and Charges",
-	"Journal Entry Account",
-	"Landed Cost Item",
-	"Material Request Item",
-	"Payment Entry",
-	"Purchase Invoice Item",
-	"Purchase Order Item",
-	"Purchase Taxes and Charges",
-	"Sales Taxes and Charges",
-	"Subcontracting Order Item",
-	"Supplier Quotation Item",
+	# "Advance Taxes and Charges",
+	# "Asset",
+	# "Expense Claim Detail",
+	# "Expense Taxes and Charges",
+	# "Journal Entry Account",
+	# "Landed Cost Item",
+	# "Material Request Item",
+	# "Payment Entry",
+	# "Purchase Invoice Item",
+	# "Purchase Order Item",
+	# "Purchase Taxes and Charges",
+	# "Sales Taxes and Charges",
+	# "Subcontracting Order Item",
+	# "Supplier Quotation Item",
 ]
