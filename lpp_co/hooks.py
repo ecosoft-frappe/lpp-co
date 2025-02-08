@@ -523,6 +523,10 @@ fixtures = [
 					"Job Card-main-sort_field",
 					"Quality Inspection-inspected_by-hidden",
 					"Quality Inspection-verified_by-hidden",
+					"Job Card-main-field_order",
+					"Batch-batch_id-reqd",
+					"Batch-main-naming_rule",
+					"Batch-main-autoname",
 				],
 			]
 		],

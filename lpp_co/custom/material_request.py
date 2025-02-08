@@ -9,11 +9,12 @@ class MaterialRequestLPP(MaterialRequest):
 		super().validate()
   
 	def validate_sample_record_punctual_status(self):
+		""" Validate if the sample record is punctual """
 		def set_status(plan, actual):
 			if plan and actual:
 				return "On Time" if plan >= actual else "Late"
 			return "-"
-			
+
 		self.custom_status_mold_creation = set_status(self.custom_plan_mold_creation, self.custom_actual_mold_creation)
 		self.custom_status_sample_production = set_status(self.custom_plan_sample_production, self.custom_actual_sample_production)
 		self.custom_status_customer_delivery = set_status(self.custom_plan_customer_delivery, self.custom_actual_customer_delivery)

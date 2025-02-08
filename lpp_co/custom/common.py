@@ -1,6 +1,7 @@
 import frappe
 from frappe import _
 
+
 def validate_child_cost_centers(doc, method):
 	"""
 	Validate and synchronize cost centers between the document header and line items.
@@ -20,3 +21,14 @@ def validate_child_cost_centers(doc, method):
 		else:
 			frappe.msgprint(_("Different cost centers found in line items: {0}. Please ensure consistency.").format(", ".join(cost_centers)))
 
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def qi_params_query(doctype, txt, searchfield, start, page_len, filters):
+	return frappe.db.sql(
+		"""select parent from `tabQuality Inspection Parameter Item Group`
+		where item_group = {}
+		and parent like {} order by name limit {} offset {}""".format("%s", "%s", "%s", "%s"),
+		(filters["item_group"], "%%%s%%" % txt, page_len, start),
+		as_list=1,
+	)

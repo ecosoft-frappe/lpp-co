@@ -21,6 +21,19 @@ frappe.ui.form.on("Job Card", {
 				};
 			}
 		}
+		
+		frappe.db.get_value("Item", frm.doc.production_item, "custom_item_group_2", (r) => {
+			["custom_job_card_defect_1", "custom_job_card_defect_2", "custom_job_card_defect_2"].forEach(field => {
+				frm.set_query("defect", field, () => {
+					return {
+						query: "lpp_co.custom.common.qi_params_query",
+						filters: {
+							item_group: r.custom_item_group_2
+						},
+					};
+				});
+			});
+		})
 	}
 });
 
