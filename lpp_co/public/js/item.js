@@ -1,8 +1,10 @@
 frappe.ui.form.on("Item", {
     custom_reset_quality_parameters: function(frm) {
         frappe.call({
-            method: "get_item_quality_specification",
-			doc: frm.doc,
+            method: "lpp_co.custom.item.get_item_quality_specification",
+			args: {
+				item_group: frm.doc.item_group
+			},
             callback: function(r) {
                 if(r.message) {
                     // Assuming r.message is an array of parameters

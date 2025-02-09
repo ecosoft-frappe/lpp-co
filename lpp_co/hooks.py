@@ -48,7 +48,6 @@ doctype_js = {
 	"Purchase Receipt": "public/js/purchase_receipt.js",
 	"Quality Inspection": "public/js/quality_inspection.js",
 	"Quality Inspection Parameter": "public/js/quality_inspection_parameter.js",
-	"Quotation": "public/js/quotation.js",
 	"Sales Order": "public/js/sales_order.js",
 	"Sales Invoice": "public/js/sales_invoice.js",
 	"Item": "public/js/item.js",
@@ -152,13 +151,11 @@ jinja = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Item": "lpp_co.custom.item.ItemLPP",
 	"Quality Inspection": "lpp_co.custom.quality_inspection.QualityInspectionLPP",
 	"Material Request": "lpp_co.custom.material_request.MaterialRequestLPP",
 	"Batch": "lpp_co.custom.batch.BatchLPP",
 	"Work Order": "lpp_co.custom.work_order.WorkOrderLPP",
 	"Job Card": "lpp_co.custom.job_card.JobCardLPP",
-	# "Serial and Batch Bundle": "lpp_co.custom.serial_and_batch_bundle.SerialandBatchBundleLPP",   # The change here cause bug
 }
 
 # Document Events
@@ -167,7 +164,11 @@ override_doctype_class = {
 
 doc_events = {
 	"Item": {
-		"on_update": "lpp_co.custom.item_group_tag.update_item_group_tags",
+		"validate": ["lpp_co.custom.item.validate_item_specification_line"],
+		"on_update": [
+      		"lpp_co.custom.item_group_tag.update_item_group_tags",
+			"lpp_co.custom.item.set_field_customer_items",
+        ],
 	},
 	"Item Group": {
 		"on_update": [
@@ -193,6 +194,7 @@ doc_events = {
 	},
 	"Material Request": {
 		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+		"on_update": ["lpp_co.custom.material_request.set_sample_record_punctual_status"],
 	},
 	"Purchase Order": {
 		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],

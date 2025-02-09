@@ -31,7 +31,6 @@ class QualityInspectionLPP(QualityInspection):
 	def on_update(self):
 		self.reset_quality_inspection_results()
 		self.set_purchase_receipt_quantity()
-		# super().on_update()	
 
 	# Override, as we don't need to use readings, but use QI Result instead.
 	@frappe.whitelist()
