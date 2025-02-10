@@ -175,9 +175,6 @@ doc_events = {
 			"lpp_co.custom.item_group_tag.prepare_group_tags",
 		]
 	},
-	"Sales Order": {
-		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
-	},
 	"Quotation": {
 		"on_update": ["lpp_co.custom.quotation.validate_customer_item"]
 	},
@@ -189,7 +186,10 @@ doc_events = {
 		"validate": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
 	},
 	"Sales Order": {
-		"on_update": ["lpp_co.custom.sales_order.update_sales_order_item"],
+		"on_update": [
+      		"lpp_co.custom.sales_order.update_sales_order_item",
+        	"lpp_co.custom.quotation.validate_customer_item"
+        ],
 		"on_update_after_submit": ["lpp_co.custom.sales_order.update_sales_order_item"]
 	},
 	"Material Request": {
