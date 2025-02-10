@@ -830,5 +830,37 @@
   "property_type": "Check",
   "row_name": null,
   "value": "0"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Item",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "inspection_required_before_purchase",
+  "is_system_generated": 0,
+  "modified": "2025-02-10 18:03:51.948271",
+  "module": null,
+  "name": "Item-inspection_required_before_purchase-default",
+  "property": "default",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Item",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "inspection_required_before_delivery",
+  "is_system_generated": 0,
+  "modified": "2025-02-10 18:03:52.011028",
+  "module": null,
+  "name": "Item-inspection_required_before_delivery-default",
+  "property": "default",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "1"
  }
 ]

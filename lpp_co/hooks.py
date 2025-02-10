@@ -529,6 +529,8 @@ fixtures = [
 					"Batch-batch_id-reqd",
 					"Batch-main-naming_rule",
 					"Batch-main-autoname",
+					"Item-inspection_required_before_delivery-default",
+					"Item-inspection_required_before_purchase-default",
 				],
 			]
 		],
