@@ -1,4 +1,3 @@
-
 /* NotoSansThai-Regular */
 @font-face {
     font-family: "NotoSansThai";
@@ -60,5 +59,85 @@
     font-family: "NotoSansThai";
     src: url("/assets/lpp_co/fonts/NotoSansThai-Thin.ttf") format("truetype");
     font-weight: 100;
+    font-style: normal;
+}
+
+/* NotoSansThai-ExtraLight */
+@font-face {
+    font-family: "NotoSansThai";
+    src: url("/assets/lpp_co/fonts/NotoSansThai-ExtraLight.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Regular */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Bold */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Light */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Medium */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-SemiBold */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-ExtraBold */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Black */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-Thin */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* NotoSansThaiLooped-ExtraLight */
+@font-face {
+    font-family: "NotoSansThaiLooped";
+    src: url("/assets/lpp_co/fonts/NotoSansThaiLooped-ExtraLight.ttf") format("truetype");
+    font-weight: 800;
     font-style: normal;
 }
