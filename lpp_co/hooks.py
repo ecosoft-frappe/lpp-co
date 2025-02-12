@@ -55,6 +55,7 @@ doctype_js = {
 	"Job Card": "public/js/job_card.js",
 	"Work Order": "public/js/work_order.js",
 	"Purchase Order": "public/js/purchase_order.js",
+	"Batch": "public/js/batch.js",
 }
 
 doctype_list_js = {
@@ -463,6 +464,7 @@ fixtures = [
 					"Job Card-custom_job_card_time_loss_3",
 					"Job Card-custom_job_card_time_loss_2",
 					"Job Card-custom_job_card_time_loss_1",
+					"Batch-custom_customer_name",
 				],
 			]
 		],

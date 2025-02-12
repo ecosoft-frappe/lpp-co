@@ -26,3 +26,19 @@ class BatchLPP(Batch):
             	)
 		if suffix:
 			self.name += f"-{suffix}"
+
+	def before_insert(self):
+		# Make sure customer name is updated
+		if not self.custom_customer_name:
+			if self.reference_doctype == "Work Order" and self.reference_name:
+				work_order = frappe.get_doc("Work Order", self.reference_name)
+				self.custom_customer_name = work_order.custom_customer_name
+			elif self.item:
+				item = frappe.get_doc("Item", self.item)
+				if len(item.customer_items) > 0 and item.customer_items[0].customer_name:
+					customer = frappe.get_doc("Customer", item.customer_items[0].customer_name)
+					self.custom_customer_name = customer.customer_name
+				else:
+					self.custom_customer_name = ""
+			else:
+				self.custom_customer_name = ""
