@@ -8,6 +8,28 @@ from erpnext.stock.doctype.batch.batch import Batch
 
 class BatchLPP(Batch):
 
+	@property
+	def customer_item(self):
+		item = frappe.get_doc("Item", self.item)
+		customer = frappe.get_value("Customer", {"customer_name": self.custom_customer_name})
+		if item.customer_items and customer:
+			customer_item = list(filter(lambda l: l.customer_name == customer, item.customer_items))
+			if customer_item:
+				return customer_item[0]
+		return None
+
+	@property
+	def item_doc(self):
+		item = frappe.get_doc("Item", self.item)
+		return item
+
+	@property
+	def workorder_doc(self):
+		if self.reference_doctype == "Work Order" and self.reference_name:
+			work_order = frappe.get_doc("Work Order", self.reference_name)
+			return work_order
+		return None
+
 	def autoname(self):
 		super().autoname()
 		item = frappe.get_cached_doc("Item", self.item)

@@ -1,3 +1,4 @@
+<link href="/assets/lpp_co/css/fonts.css" rel="stylesheet" type="text/css">
 <style>
 	.print-format {
 		padding: 0;
@@ -7,6 +8,7 @@
 		margin-bottom: 3mm;
 		line-height: 1.8;
 		font-size: 10px;
+		font-family: "NotoSansThaiLooped";
 	}
 	.square-box {
 		padding-left: 4px !important;
@@ -40,97 +42,95 @@
 		{{ qty }}
 	</div>
 </div>
-{% for i in range(loop_range) %}
-	<div class="row section-break">
-		{% for i in range(8) %}
-			<div class="col-xs-6 square-box">
-				<div class="card">
-					<div class="row section-break">
-						<div class="col-xs-12">
-							<p>
-								<strong>Customer</strong>
-								{{ customer_name or "-"}}
-							</p>
-							<p>
-								<div class="row section-break">
-									<div class="col-xs-6">
-										<strong>UTL Vendor Code</strong> 100456
-									</div>
-									<div class="col-xs-6">
-										<strong>Manufacturer Code</strong> 01
-									</div>
+<div class="row section-break">
+	{% for i in range(card_number) %}
+		<div class="col-xs-6 square-box">
+			<div class="card">
+				<div class="row section-break">
+					<div class="col-xs-12">
+						<p>
+							<strong>Customer</strong>
+							{{ customer_name or "-"}}
+						</p>
+						<p>
+							<div class="row section-break">
+								<div class="col-xs-6">
+									<strong>UTL Vendor Code</strong> 100456
 								</div>
-							</p>
-							<p>
-								<strong>UTL PO No.</strong> 42XXXXXX
-							</p>
-							<p>
-								<strong>Item Name</strong>
-								{{ item_name or "-" }}
-							</p>
-						</div>
-					</div>
-					<div class="row section-break">
-						<div class="col-xs-9">
-							<p>
-								<strong>UTL Part No.</strong>
-								{{ customer_part_no or "-" }}
-							</p>
-							<p>
-								<strong>Quantity</strong>
-								{{ quantity or "-" }}
-							</p>
-							<p>
-								<div class="row section-break">
-									<div class="col-xs-6">
-										<strong>Batch No.</strong>
-										{{ batch_no or "-" }}
-									</div>
-									<div class="col-xs-6">
-										<strong>Job Card No.</strong>
-										{{ job_card_no or "-" }}
-									</div>
+								<div class="col-xs-6">
+									<strong>Manufacturer Code</strong> 01
 								</div>
-							</p>
-							<p>
-								<div class="row section-break">
-									<div class="col-xs-6"">
-										<strong>MFG</strong>
-										{{ mfg_date or "-" }}
-									</div>
-									<div class="col-xs-6"">
-										<strong>EXP</strong>
-										{{ exp_date or "-" }}
-									</div>
+							</div>
+						</p>
+						<p>
+							<strong>UTL PO No.</strong> 42XXXXXX
+						</p>
+						<p>
+							<strong>Item Name</strong>
+							{{ item_name or "-" }}
+						</p>
+					</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-9">
+						<p>
+							<strong>UTL Part No.</strong>
+							{{ customer_part_no or "-" }}
+						</p>
+						<p>
+							<strong>Quantity</strong>
+							{{ quantity or "-" }}
+						</p>
+						<p>
+							<div class="row section-break">
+								<div class="col-xs-6">
+									<strong>Batch No.</strong>
+									{{ batch_no or "-" }}
 								</div>
-							</p>
-						</div>
-						<div class="col-xs-3">
-							<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}"/>
-						</div>
+								<div class="col-xs-6">
+									<strong>Job Card No.</strong>
+									{{ job_card_no or "-" }}
+								</div>
+							</div>
+						</p>
+						<p>
+							<div class="row section-break">
+								<div class="col-xs-6"">
+									<strong>MFG</strong>
+									{{ mfg_date or "-" }}
+								</div>
+								<div class="col-xs-6"">
+									<strong>EXP</strong>
+									{{ exp_date or "-" }}
+								</div>
+							</div>
+						</p>
 					</div>
-					<div class="row section-break">
-						<div class="col-xs-8">
-							<p class="company">
-								<strong>{{ company_name or "" }}</strong>
-							</p>
-							<p>
-								{{ country_of_origin or "" }}
-							</p>
-						</div>
-						<div class="col-xs-4 text-right">
-							<img class="logo" src="/assets/lpp_co/images/label-1.png" alt="Logo">
-							<img class="logo" src="/assets/lpp_co/images/label-2.png" alt="Logo">
-							<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
-						</div>
+					<div class="col-xs-3">
+						<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}"/>
 					</div>
-					<div class="row section-break">
-						<div class="col-xs-12">
-							{{ storage_instructions or "" }}
-						</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-8">
+						<p class="company">
+							<strong>{{ company_name or "" }}</strong>
+						</p>
+						<p>
+							{{ country_of_origin or "" }}
+						</p>
+					</div>
+					<div class="col-xs-4 text-right">
+						<img class="logo" src="/assets/lpp_co/images/label-1.png" alt="Logo">
+						<img class="logo" src="/assets/lpp_co/images/label-2.png" alt="Logo">
+						<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
+					</div>
+				</div>
+				<div class="row section-break">
+					<div class="col-xs-12">
+						<small>{{ storage_instructions or "" }}</small>
 					</div>
 				</div>
 			</div>
-		{% endfor %}
-	</div>
-{% endfor %}
+		</div>
+	{% endfor %}
+</div>

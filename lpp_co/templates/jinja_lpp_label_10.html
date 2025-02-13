@@ -1,3 +1,4 @@
+<link href="/assets/lpp_co/css/fonts.css" rel="stylesheet" type="text/css">
 <style>
 	.print-format {
 		padding: 0;
@@ -7,6 +8,7 @@
 		margin-bottom: 3mm;
 		line-height: 1.9;
 		font-size: 12px;
+		font-family: "NotoSansThaiLooped";
 	}
 	.square-box {
 		padding-left: 4px !important;
@@ -21,7 +23,7 @@
 </style>
 
 <div class="row section-break">
-	{% for i in range(20) %}
+	{% for i in range(card_number) %}
 		<div class="col-xs-6 square-box">
 			<div class="card">
 				<div class="row section-break">
@@ -42,7 +44,7 @@
 						{{ mfg_date or "-" }}
 					</div>
 					<div class="col-xs-7">
-						<strong>Weight</strong> __________________ Kilograms
+						<strong>Weight</strong> _________________ Kilograms
 					</div>
 				</div>
 				<div class="row section-break">
