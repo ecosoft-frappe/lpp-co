@@ -465,6 +465,9 @@ fixtures = [
 					"Job Card-custom_job_card_time_loss_2",
 					"Job Card-custom_job_card_time_loss_1",
 					"Batch-custom_customer_name",
+					"Company-custom_company_info_en",
+					"Company-custom_company_name_en",
+					"Company-custom_address_en",
 				],
 			]
 		],
