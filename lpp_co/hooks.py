@@ -108,7 +108,7 @@ jinja = {
 # after_install = "lpp_co.install.after_install"
 
 after_migrate = [
-	"menghua_co.custom.print_format_setting.set_print_format_as_disable",
+	"lpp_co.custom.print_format_setting.set_print_format_as_disable",
 ]
 
 # Uninstallation
