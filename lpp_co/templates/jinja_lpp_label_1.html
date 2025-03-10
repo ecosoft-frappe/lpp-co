@@ -6,8 +6,8 @@
 		margin-right: 3mm;
 		margin-top: 3mm;
 		margin-bottom: 3mm;
-		line-height: 1.4;
-		font-size: 10px;
+		line-height: 1.9;
+		font-size: 12px;
 		font-family: "NotoSansThaiLooped";
 	}
 	.square-box {
@@ -20,117 +20,40 @@
 		border: 1px solid #000000;
 		padding: 5px;
 	}
-	.label-no {
-		font-size: 30px;
-	}
-	.qr_code {
-		position: absolute;
-		right: 10px;
-		top: 10px;
-		width: 80px;
-		height: 80px;
-	}
-	.company {
-		font-size: 14px;
-	}
-	.company * {
-		color: #3a7eb8;
-	}
-	.logo {
-		height: 25px;
-	}
 </style>
-<div class="row section-break">
-	<div class="col-xs-12 text-right">
-		{{ qty }}
-	</div>
-</div>
+
 <div class="row section-break">
 	{% for i in range(card_number) %}
 		<div class="col-xs-6 square-box">
 			<div class="card">
 				<div class="row section-break">
-					<div class="col-xs-9">
-						<p>
-							<strong>Customer</strong>
-							{{ customer_name or "-"}}
-						</p>
-						<p>
-							<strong>Item Name</strong>
-							{{ item_name or "-" }}
-						</p>
-						<p>
-							<strong>Customer Part No.</strong>
-							{{ customer_part_no or "-" }}
-						</p>
-					</div>
-					<div class="col-xs-3 text-right">
-						<strong class="label-no">{{ number or "" }}</strong>
+					<div class="col-xs-12">
+						<strong>Item Name</strong>
+						{{ item_name or "-" }}
 					</div>
 				</div>
 				<div class="row section-break">
 					<div class="col-xs-12">
-						<p>
-							{{ get_barcode_svg(data=barcode_data_1, module_width_mm=0.2, module_height_mm=6) | safe }}
-						</p>
+						<strong>Batch No.</strong>
+						{{ batch_no or "-" }}
 					</div>
 				</div>
 				<div class="row section-break">
-					<div class="col-xs-9">
-						<p>
-							<strong>Quantity</strong>
-							{{ quantity or "-" }}
-						</p>
-						<p>
-							<div class="row section-break">
-								<div class="col-xs-6">
-									<strong>Batch No.</strong>
-									{{ batch_no or "-" }}
-								</div>
-								<div class="col-xs-6">
-									<strong>Job Card No.</strong>
-									{{ job_card_no or "-" }}
-								</div>
-							</div>
-						</p>
-						<p>
-							{{ get_barcode_svg(data=barcode_data_2, module_width_mm=0.2, module_height_mm=6) | safe }}
-						</p>
-						<p>
-							<div class="row section-break">
-								<div class="col-xs-6"">
-									<strong>MFG</strong>
-									{{ mfg_date or "-" }}
-								</div>
-								<div class="col-xs-6"">
-									<strong>EXP</strong>
-									{{ exp_date or "-" }}
-								</div>
-							</div>
-						</p>
+					<div class="col-xs-5">
+						<strong>MFG</strong>
+						{{ mfg_date or "-" }}
 					</div>
-					<div class="col-xs-3">
-						<img class="qr_code" src="{{ get_qr_code(qr_code_data) }}"/>
+					<div class="col-xs-7">
+						<strong>Weight</strong> _________________ Kilograms
 					</div>
 				</div>
 				<div class="row section-break">
-					<div class="col-xs-8">
-						<p class="company">
-							<strong>{{ company_name or "" }}</strong>
-						</p>
-						<p>
-							{{ country_of_origin or "" }}
-						</p>
+					<div class="col-xs-5">
+						<strong>EXP</strong>
+						{{ exp_date or "-" }}
 					</div>
-					<div class="col-xs-4 text-right">
-						<img class="logo" src="/assets/lpp_co/images/label-1.png" alt="Logo">
-						<img class="logo" src="/assets/lpp_co/images/label-2.png" alt="Logo">
-						<img class="logo" src="/assets/lpp_co/images/label-3.png" alt="Logo">
-					</div>
-				</div>
-				<div class="row section-break">
-					<div class="col-xs-12">
-						<small>{{ storage_instructions or "" }}</small>
+					<div class="col-xs-7">
+						<strong>Supplier Batch No.</strong> ________________
 					</div>
 				</div>
 			</div>
