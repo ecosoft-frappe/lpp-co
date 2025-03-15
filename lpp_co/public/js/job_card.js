@@ -28,7 +28,8 @@ frappe.ui.form.on("Job Card", {
 					return {
 						query: "lpp_co.custom.common.qi_params_query",
 						filters: {
-							item_group: r.custom_item_group_2
+							item_group: r.custom_item_group_2,
+							custom_is_item_spec: 0
 						},
 					};
 				});

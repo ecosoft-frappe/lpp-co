@@ -28,6 +28,7 @@ def qi_params_query(doctype, txt, searchfield, start, page_len, filters):
 	return frappe.db.sql(
 		"""select parent from `tabQuality Inspection Parameter Item Group`
 		where item_group = {}
+		and parent not in (select name from `tabQuality Inspection Parameter` where custom_is_item_spec = 1)
 		and parent like {} order by name limit {} offset {}""".format("%s", "%s", "%s", "%s"),
 		(filters["item_group"], "%%%s%%" % txt, page_len, start),
 		as_list=1,
