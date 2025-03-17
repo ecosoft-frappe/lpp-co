@@ -14,11 +14,6 @@ from frappe.utils.data import make_filter_tuple
 # Patch import
 from frappe.desk.search import relevance_sorter, get_std_fields_list, sanitize_searchfield
 
-# Doctype using new display format
-DOCTYPE_DISPLAY_LIST_NEWLINE = [
-	"Item"
-]
-
 
 # Override
 @frappe.whitelist()
@@ -203,12 +198,12 @@ def lpp_reformat(values, doctype):
 		from (('A', 'B', 'C', 'D', 'E'), ('X', 'Y'))
 		to (('A', 'B', '<br/>C', '<br/>D', '<br/>E'), ('X', 'Y'))
 	"""
-	if doctype not in DOCTYPE_DISPLAY_LIST_NEWLINE:
+	if doctype not in frappe.get_hooks("show_dropdown_as_new_line_doctypes"):
 		return values
  
 	def transform_tuple(t):
 		if len(t) > 2:
-			return (t[0], t[1]) + tuple(f'<br/>{x}' for x in t[2:])
+			return (t[0], t[1]) + tuple(f'<br/>{x}' for x in t[2:] if x)
 		return t 
 
 	return [transform_tuple(v) for v in values if v]

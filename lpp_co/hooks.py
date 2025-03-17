@@ -235,6 +235,13 @@ doc_events = {
 scheduler_events = {
 	"daily": ["lpp_co.custom.item_group_tag.prepare_group_tags"],
 }
+
+show_dropdown_as_new_line_doctypes = [
+	"Item",
+	"Customer",
+	"Supplier"
+]
+
 # Testing
 # -------
 
