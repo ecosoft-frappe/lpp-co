@@ -13,9 +13,3 @@ origin_utils.validate_stock_item_warehouse = lpp_utils.validate_stock_item_wareh
 import re
 from frappe import utils
 utils.PHONE_NUMBER_PATTERN = re.compile(r".*")
-
-
-# Monkey patching for persistent session defaults
-from frappe.core.doctype.session_default_settings import session_default_settings as origin
-from .custom import session_default_settings
-origin.clear_session_defaults = session_default_settings.clear_session_defaults
