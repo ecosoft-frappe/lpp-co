@@ -202,13 +202,13 @@ doc_events = {
 		"on_update": ["lpp_co.custom.material_request.set_sample_record_punctual_status"],
 	},
 	"Purchase Order": {
-		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 	},
 	"Sales Invoice": {
-		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 	},
 	"Purchase Invoice": {
-		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 	}
 }
 
