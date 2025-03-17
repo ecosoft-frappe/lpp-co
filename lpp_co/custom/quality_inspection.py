@@ -183,9 +183,10 @@ def item_query(doctype, txt, searchfield, start, page_len, filters):
 
 		return frappe.db.sql(
 			f"""
-				SELECT item_code
+				SELECT item_code, item_name
 				FROM `tab{from_doctype}`
-				WHERE parent=%(parent)s and docstatus < 2 and item_code like %(txt)s
+				WHERE parent=%(parent)s and docstatus < 2
+    			and (item_code like %(txt)s or item_name like %(txt)s)
 				{qi_condition} {cond} {mcond}
 				ORDER BY item_code limit {cint(page_len)} offset {cint(start)}
 			""",
