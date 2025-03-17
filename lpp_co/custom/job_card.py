@@ -65,6 +65,7 @@ class JobCardLPP(JobCard):
 					"work_order": self.work_order,
 					"custom_run_card": self.custom_run_card,
 					"custom_run_step": next_step,
+					"docstatus": ("!=", 2),
 				},
 				"workstation"
 			)
