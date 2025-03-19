@@ -55,15 +55,15 @@
 						<p>
 							<div class="row section-break">
 								<div class="col-xs-6">
-									<strong>UTL Vendor Code</strong> 100456
+									<strong>UTL Vendor Code</strong> {{ utl_vendor_code or "-" }}
 								</div>
 								<div class="col-xs-6">
-									<strong>Manufacturer Code</strong> 01
+									<strong>Manufacturer Code</strong> {{ manufacturer_code or "-" }}
 								</div>
 							</div>
 						</p>
 						<p>
-							<strong>UTL PO No.</strong> 42XXXXXX
+							<strong>UTL PO No.</strong> {{ utl_po_no or "-" }}
 						</p>
 						<p>
 							<strong>Item Name</strong>
@@ -89,7 +89,7 @@
 								</div>
 								<div class="col-xs-6">
 									<strong>Job Card No.</strong>
-									{{ job_card_no or "-" }}
+									____________
 								</div>
 							</div>
 						</p>
