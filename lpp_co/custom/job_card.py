@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from erpnext.manufacturing.doctype.job_card.job_card import JobCard
 
 
@@ -76,8 +77,10 @@ class JobCardLPP(JobCard):
 def set_sequence_input_quantity(doc, method):
 	# on child table time log, set the quantity to sum of quantity in table job_card_defects
 	sequences = len(doc.time_logs)
+	if sequences > 6:
+		frappe.throw(_("Time Logs > 6 lines is not supported"))
 	for seq in range(sequences):
-		if seq+1 > 3:
+		if seq+1 > 6:
 			continue
 		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
 		doc.time_logs[seq].custom_input_qty = doc.time_logs[seq].completed_qty + defects

@@ -38,23 +38,23 @@ frappe.ui.form.on("Job Card", {
 	}
 });
 
-frappe.ui.form.on("Job Card Time Loss", {
-    from_time: function(frm, cdt, cdn) {
-        calculate_time_loss_minutes(frm, cdt, cdn);
-    },
-    to_time: function(frm, cdt, cdn) {
-        calculate_time_loss_minutes(frm, cdt, cdn);
-    }
-});
+// frappe.ui.form.on("Job Card Time Loss", {
+//     from_time: function(frm, cdt, cdn) {
+//         calculate_time_loss_minutes(frm, cdt, cdn);
+//     },
+//     to_time: function(frm, cdt, cdn) {
+//         calculate_time_loss_minutes(frm, cdt, cdn);
+//     }
+// });
 
-function calculate_time_loss_minutes(frm, cdt, cdn) {
-    let child = locals[cdt][cdn];
-    if (child.from_time && child.to_time) {
-        let from_time = new Date(`1970-01-01T${child.from_time}Z`);
-        let to_time = new Date(`1970-01-01T${child.to_time}Z`);
-        let diff = (to_time - from_time) / (1000 * 60); // Difference in minutes
-		frappe.model.set_value(cdt, cdn, 'minutes', diff);
-    } else {
-		frappe.model.set_value(cdt, cdn, 'minutes', '');
-	}
-}
+// function calculate_time_loss_minutes(frm, cdt, cdn) {
+//     let child = locals[cdt][cdn];
+//     if (child.from_time && child.to_time) {
+//         let from_time = new Date(`1970-01-01T${child.from_time}Z`);
+//         let to_time = new Date(`1970-01-01T${child.to_time}Z`);
+//         let diff = (to_time - from_time) / (1000 * 60); // Difference in minutes
+// 		frappe.model.set_value(cdt, cdn, 'minutes', diff);
+//     } else {
+// 		frappe.model.set_value(cdt, cdn, 'minutes', '');
+// 	}
+// }
