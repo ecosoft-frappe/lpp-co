@@ -55,11 +55,11 @@ class JobCardLPP(JobCard):
 		return self.get("custom_job_card_defect_%s" % self.custom_sequence)
 
 	@property
-	def next_station(self):
+	def next_operation(self):
 		if self.custom_run_step:
 			next_step = self.custom_run_step + 1
 			# Get the next job card
-			next_workstation = frappe.get_value(
+			next_operation = frappe.get_value(
 				"Job Card",
 				{
 					"work_order": self.work_order,
@@ -67,9 +67,9 @@ class JobCardLPP(JobCard):
 					"custom_run_step": next_step,
 					"docstatus": ("!=", 2),
 				},
-				"workstation"
+				"operation"
 			)
-			return next_workstation or "-"
+			return next_operation or "-"
 		return "-- END --"
 
 
