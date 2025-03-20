@@ -201,15 +201,12 @@ doc_events = {
 		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 		"on_update": ["lpp_co.custom.material_request.set_sample_record_punctual_status"],
 	},
-	"Purchase Order": {
-		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+	"Delivery Note": {
+		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],	
 	},
 	"Sales Invoice": {
-		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
+		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],
 	},
-	"Purchase Invoice": {
-		# "validate": ["lpp_co.custom.common.validate_child_cost_centers"],
-	}
 }
 
 # Scheduled Tasks
