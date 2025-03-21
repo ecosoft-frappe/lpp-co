@@ -60,6 +60,7 @@ doctype_js = {
 
 doctype_list_js = {
 	"Item": "public/js/item_list.js",
+	"Stock Entry": "public/js/stock_entry_list.js",
 }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -202,7 +203,7 @@ doc_events = {
 		"on_update": ["lpp_co.custom.material_request.set_sample_record_punctual_status"],
 	},
 	"Delivery Note": {
-		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],	
+		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],
 	},
 	"Sales Invoice": {
 		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],
