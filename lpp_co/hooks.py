@@ -248,9 +248,9 @@ show_dropdown_as_new_line_doctypes = [
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.search.search_widget": "lpp_co.custom.search.search_widget"
-# }
+override_whitelisted_methods = {
+	"erpnext.controllers.stock_controller.check_item_quality_inspection": "lpp_co.custom.stock_controller.check_item_quality_inspection"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
