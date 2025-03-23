@@ -106,7 +106,7 @@ def get_data(filters):
 			left join `tabStock Entry` se on sed.parent = se.name
 			left join `tabItem` i on sed.item_code = i.name
 			left join `tabCompany` c on se.company = c.name
-			where se.stock_entry_type = "Manufacture" and se.name in %(documents)s
+			where se.stock_entry_type = "Manufacture" and sed.is_finished_item is true and se.name in %(documents)s
 			order by se.name, sed.item_code
 		""", {"documents": tuple(filters["document"].split(","))},
 		as_dict=True
