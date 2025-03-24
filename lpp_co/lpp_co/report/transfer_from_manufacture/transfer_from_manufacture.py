@@ -87,7 +87,7 @@ def get_data(filters):
 				sed.item_code,
 				sed.item_name,
 				se.work_order,
-				sed.batch_no,
+				sbe.batch_no,
 				i.custom_unit_pack as unit_pack,
 				i.custom_unit_box as unit_box,
 				case
@@ -106,6 +106,8 @@ def get_data(filters):
 			left join `tabStock Entry` se on sed.parent = se.name
 			left join `tabItem` i on sed.item_code = i.name
 			left join `tabCompany` c on se.company = c.name
+			left join `tabSerial and Batch Bundle` sbb on sed.serial_and_batch_bundle = sbb.name
+			left join `tabSerial and Batch Entry` sbe on sbe.parent = sbb.name
 			where se.stock_entry_type = "Manufacture" and sed.is_finished_item is true and se.name in %(documents)s
 			order by se.name, sed.item_code
 		""", {"documents": tuple(filters["document"].split(","))},
