@@ -50,6 +50,7 @@ class BatchLPP(Batch):
 			self.name += f"-{suffix}"
 		if self.custom_rescreen:
 			self.name += "-R"
+		self.batch_id = self.name
 
 	def before_insert(self):
 		# Make sure customer name is updated
