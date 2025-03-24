@@ -48,8 +48,10 @@ class BatchLPP(Batch):
             	)
 		if suffix:
 			self.name += f"-{suffix}"
+			self.batch_id += f"-{suffix}"
 		if self.custom_rescreen:
 			self.name += "-R"
+			self.batch_id += "-R"
 
 	def before_insert(self):
 		# Make sure customer name is updated
