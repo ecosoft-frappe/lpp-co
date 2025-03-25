@@ -45,14 +45,12 @@ class QualityInspectionLPP(QualityInspection):
 		purchase_receipt_item = frappe.db.get_value(
 			"Purchase Receipt Item",
 			{"parent": self.reference_name, "name": self.child_row_reference},
-			["qty", "uom", "custom_qc_quantity", "custom_qc_uom"],
+			["qty", "uom"],
 			as_dict=True,
 		)
 		if purchase_receipt_item:
 			frappe.db.set_value("Quality Inspection", self.name, "custom_stock_quantity", purchase_receipt_item["qty"])
 			frappe.db.set_value("Quality Inspection", self.name, "custom_stock_uom", purchase_receipt_item["uom"])
-			frappe.db.set_value("Quality Inspection", self.name, "custom_qc_quantity", purchase_receipt_item["custom_qc_quantity"])
-			frappe.db.set_value("Quality Inspection", self.name, "custom_qc_uom", purchase_receipt_item["custom_qc_uom"])
 			self.reload()
 
 	def reset_quality_inspection_results(self):
