@@ -13,6 +13,11 @@ def set_print_format_as_disable():
 		"Sales Invoice PD Format v2",
 		"Sales Invoice Print",
 		"Purchase Receipt Serial and Batch Bundle Print",
+		"General Expense Record",
+		"Credit Note",
+		"Journal Auditing Voucher",
+		"Payment Receipt Voucher",
+		"Cheque Printing Format",
 	]
 	for print_format in print_formats:
 		frappe.db.set_value("Print Format", print_format, "disabled", 1)
