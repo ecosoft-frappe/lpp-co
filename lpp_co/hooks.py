@@ -593,3 +593,8 @@ cost_center_field_doctypes = [
 	# "Subcontracting Order Item",
 	# "Supplier Quotation Item",
 ]
+
+company_data_to_be_ignored = [
+    "Pricing Rule",
+    "Tax Rule",
+]
