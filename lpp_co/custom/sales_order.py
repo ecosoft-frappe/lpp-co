@@ -6,6 +6,7 @@ from frappe.utils import flt
 from erpnext.selling.doctype.sales_order.sales_order import (
     make_material_request as original_make_material_request,
     make_sales_invoice as original_make_sales_invoice,
+    make_delivery_note as original_make_delivery_note,
 )
 
 
@@ -46,6 +47,17 @@ def make_sales_invoice(source_name, target_doc=None, args=None):
 	if args == None:
 		args = {}
 	doc = original_make_sales_invoice(source_name, target_doc)
+	if args.get("filtered_children"):
+		for d in doc.items:
+			doc.items = list(filter(lambda d: d.so_detail in args["filtered_children"], doc.items))
+	return doc
+
+
+@frappe.whitelist()
+def make_delivery_note(source_name, target_doc=None, args=None):
+	if args == None:
+		args = {}
+	doc = original_make_delivery_note(source_name, target_doc)
 	if args.get("filtered_children"):
 		for d in doc.items:
 			doc.items = list(filter(lambda d: d.so_detail in args["filtered_children"], doc.items))

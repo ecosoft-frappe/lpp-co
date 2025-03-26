@@ -1,27 +1,43 @@
 // Copyright (c) 2024, Ecosoft and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on("Sales Invoice", {
-    refresh(frm) {
-		if (frm.doc.docstatus === 0) {
+frappe.ui.form.on("Delivery Note", {
+
+	refresh(frm) {
+		if (
+			!frm.doc.is_return &&
+			(frm.doc.status != "Closed" || frm.is_new()) &&
+			frm.has_perm("write") &&
+			frappe.model.can_read("Sales Order") &&
+			frm.doc.docstatus === 0
+		) {
 			setTimeout(() => {
 				frm.remove_custom_button(__("Sales Order"), __("Get Items From"))
 				frm.add_custom_button(
-					__("Sales Order"),
+					__("Sales Order X"),
 					function () {
+						if (!frm.doc.customer) {
+							frappe.throw({
+								title: __("Mandatory"),
+								message: __("Please Select a Customer"),
+							});
+						}
 						erpnext.utils.map_current_doc({
-							method: "lpp_co.custom.sales_order.make_sales_invoice",
+							method: "lpp_co.custom.sales_order.make_delivery_note",
+							args: {
+								for_reserved_stock: 1,
+							},
 							source_doctype: "Sales Order",
 							target: frm,
 							setters: {
-								customer: frm.doc.customer || undefined,
-								po_no: frm.doc.po_no || undefined,
+								customer: frm.doc.customer,
 							},
 							get_query_filters: {
 								docstatus: 1,
 								status: ["not in", ["Closed", "On Hold"]],
-								per_billed: ["<", 99.99],
+								per_delivered: ["<", 99.99],
 								company: frm.doc.company,
+								project: frm.doc.project || undefined,
 							},
 							// Monkey Patch
 							allow_child_item_selection: true,
@@ -34,5 +50,5 @@ frappe.ui.form.on("Sales Invoice", {
 				);
 			}, 500);
 		}
-    },
+	}
 });

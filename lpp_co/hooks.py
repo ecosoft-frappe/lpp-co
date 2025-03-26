@@ -56,6 +56,7 @@ doctype_js = {
 	"Work Order": "public/js/work_order.js",
 	"Purchase Order": "public/js/purchase_order.js",
 	"Batch": "public/js/batch.js",
+	"Delivery Note": "public/js/delivery_note.js",
 }
 
 doctype_list_js = {
