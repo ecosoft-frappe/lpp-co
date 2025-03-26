@@ -29,13 +29,16 @@
 	.logo {
 		height: 40px;
 	}
+	.nowrap {
+		white-space: nowrap;
+	}
 </style>
 <div class="row section-break">
 	<div class="col-xs-12 text-right">
 		{{ qty }}
 	</div>
 </div>
-<div class="row section-break">
+<div class="row section-break nowrap">
 	{% for i in range(card_number) %}
 		<div class="col-xs-6 square-box">
 			<div class="card">

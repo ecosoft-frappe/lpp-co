@@ -20,9 +20,12 @@
 		border: 1px solid #000000;
 		padding: 5px;
 	}
+	.nowrap {
+		white-space: nowrap;
+	}
 </style>
 
-<div class="row section-break">
+<div class="row section-break nowrap">
 	{% for i in range(card_number) %}
 		<div class="col-xs-6 square-box">
 			<div class="card">

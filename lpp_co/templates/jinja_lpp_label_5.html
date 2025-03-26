@@ -37,18 +37,21 @@
 	.logo {
 		height: 25px;
 	}
+	.nowrap {
+		white-space: nowrap;
+	}
 </style>
 <div class="row section-break">
 	<div class="col-xs-12 text-right">
 		{{ qty }}
 	</div>
 </div>
-<div class="row section-break">
+<div class="row section-break nowrap">
 	{% for i in range(card_number) %}
 		<div class="col-xs-6 square-box">
 			<div class="card">
 				<div class="row section-break">
-					<div class="col-xs-9">
+					<div class="col-xs-10" style="padding-right: 0px;">
 						<p>
 							<strong>Customer</strong>
 							{{ customer_name or "-"}}
@@ -62,7 +65,7 @@
 							{{ customer_part_no or "-" }}
 						</p>
 					</div>
-					<div class="col-xs-3 text-right">
+					<div class="col-xs-2 text-right" style="padding-left: 0px;">
 						<strong class="label-no">{{ number or "" }}</strong>
 					</div>
 				</div>
@@ -74,18 +77,18 @@
 					</div>
 				</div>
 				<div class="row section-break">
-					<div class="col-xs-9">
+					<div class="col-xs-9" style="padding-right: 0px;">
 						<p>
 							<strong>Quantity</strong>
 							{{ quantity or "-" }}
 						</p>
 						<p>
 							<div class="row section-break">
-								<div class="col-xs-6" style="padding-right: 0px;">
+								<div class="col-xs-7" style="padding-right: 0px;">
 									<strong>Batch No.</strong>
 									{{ batch_no or "-" }}
 								</div>
-								<div class="col-xs-6">
+								<div class="col-xs-5" style="padding-right: 0px;">
 									<strong>Job Card No.</strong>
 									_________
 								</div>
