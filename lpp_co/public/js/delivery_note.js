@@ -14,7 +14,7 @@ frappe.ui.form.on("Delivery Note", {
 			setTimeout(() => {
 				frm.remove_custom_button(__("Sales Order"), __("Get Items From"))
 				frm.add_custom_button(
-					__("Sales Order X"),
+					__("Sales Order"),
 					function () {
 						if (!frm.doc.customer) {
 							frappe.throw({
