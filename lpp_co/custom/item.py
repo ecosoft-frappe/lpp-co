@@ -50,7 +50,7 @@ def set_field_customer_items(doc, method):
 			customer = frappe.db.get_value("Customer", row.customer_name, "customer_name")
 			customers.append(customer)
 	frappe.db.set_value("Item", doc.name, "custom_search_customer_items", ", ".join(row_search) or "")
-	frappe.db.set_value("Item", doc.name, "custom_ref_code", ", ".join(ref_codes) or "")
+	frappe.db.set_value("Item", doc.name, "custom_ref_code", ", ".join(ref_codes[:1]) or "")
 	frappe.db.set_value("Item", doc.name, "custom_drawing_build_sheet_no", ", ".join(sheet_nos) or "")
 	frappe.db.set_value("Item", doc.name, "custom_customer_name", ", ".join(customers) or "")
 	doc.reload()
