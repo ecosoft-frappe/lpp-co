@@ -8,8 +8,11 @@ class JobCardLPP(JobCard):
 	@property
 	def time_log(self):
 		sequence = int(self.custom_sequence or 0)
-		if len(self.time_logs) == sequence:
-			return self.time_logs[sequence-1]
+		if self.time_logs:
+			time_log_by_sequence = list(filter(
+				lambda k: k.idx == sequence, self.time_logs))
+			if time_log_by_sequence:
+				return time_log_by_sequence[0]
 		return None
 
 	@property
