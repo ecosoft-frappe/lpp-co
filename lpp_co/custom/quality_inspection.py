@@ -104,7 +104,7 @@ class QualityInspectionLPP(QualityInspection):
 	def get_visual_inspection_html(self):
 		data = frappe.get_all(
 			"Quality Inspection Result",
-			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
+			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected", "remarks"],
 			filters={
 				"quality_inspection": self.name,
 				"quality_inspection_template": self.quality_inspection_template,
@@ -118,7 +118,7 @@ class QualityInspectionLPP(QualityInspection):
 	def get_specification_inspection_html(self):
 		data = frappe.get_all(
 			"Quality Inspection Result",
-			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
+			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected", "remarks"],
 			filters={
 				"quality_inspection": self.name,
 				"quality_inspection_template": self.quality_inspection_template,
@@ -132,7 +132,7 @@ class QualityInspectionLPP(QualityInspection):
 	def get_functional_testing_html(self):
 		data = frappe.get_all(
 			"Quality Inspection Result",
-			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected"],
+			fields=["parameter", "nominal", "delta_plus", "delta_minus", "qty_accepted", "qty_rejected", "remarks"],
 			filters={
 				"quality_inspection": self.name,
 				"quality_inspection_template": self.quality_inspection_template,
