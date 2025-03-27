@@ -191,7 +191,11 @@ doc_events = {
 		"on_submit": ["lpp_co.custom.work_order.set_run_card"],
 	},
 	"Job Card": {
-		"validate": ["lpp_co.custom.job_card.set_sequence_input_quantity"]
+		"validate": [
+      		"lpp_co.custom.job_card.set_sequence_input_quantity",
+            "lpp_co.custom.job_card.validate_time_log_and_defect",
+        ],
+		"on_submit": ["lpp_co.custom.job_card.update_scrap_qty_to_work_order"],
 	},
 	"Sales Order": {
 		"on_update": [

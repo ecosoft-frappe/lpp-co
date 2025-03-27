@@ -79,11 +79,34 @@ def set_sequence_input_quantity(doc, method):
 	sequences = len(doc.time_logs)
 	if sequences > 6:
 		frappe.throw(_("Time Logs > 6 lines is not supported"))
+	total_defects = 0
 	for seq in range(sequences):
 		if seq+1 > 6:
 			continue
 		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
+		total_defects += defects
 		doc.time_logs[seq].custom_input_qty = doc.time_logs[seq].completed_qty + defects
+	doc.custom_scrap_qty = total_defects
+
+
+def validate_time_log_and_defect(doc, method):
+	sequences = len(doc.time_logs)
+	for seq in range(6):
+		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
+		if defects > 0 and sequences < seq+1:
+			frappe.throw(_("Job Card Defect {} cannot be entered without Time Log No. {}").format(seq+1, seq+1))
+
+
+def update_scrap_qty_to_work_order(doc, method):
+	"""Update scrap qty to work order"""
+	if doc.custom_scrap_qty > 0:
+		job_cards = frappe.get_all(
+			"Job Card",
+			filters={"work_order": doc.work_order, "docstatus": 1},
+			fields=["name", "custom_scrap_qty"]
+		)
+		total_scrap_qty = sum([job_card.custom_scrap_qty for job_card in job_cards])
+		frappe.db.set_value("Work Order", doc.work_order, "custom_scrap_qty", total_scrap_qty, update_modified=False)
 
 
 @frappe.whitelist()
