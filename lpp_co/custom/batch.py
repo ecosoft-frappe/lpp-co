@@ -51,6 +51,9 @@ class BatchLPP(Batch):
 		if self.custom_rescreen:
 			self.name += "-R"
 		self.batch_id = self.name
+		# Validate if batch_id is unique
+		if frappe.db.exists("Batch", self.name):
+			frappe.throw(_("Batch ID {0} already exists").format(self.name))
 
 	def before_insert(self):
 		# Make sure customer name is updated
