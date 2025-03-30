@@ -26,13 +26,13 @@ frappe.listview_settings["Stock Entry"] = {
 							return;
 						}
 
-						var unique_post_dates = [...new Set(entries.map(entry => entry.posting_date))];
-						var unique_cost_centers = [...new Set(entries.map(entry => entry.custom_cost_center))];
+						// var unique_post_dates = [...new Set(entries.map(entry => entry.posting_date))];
+						// var unique_cost_centers = [...new Set(entries.map(entry => entry.custom_cost_center))];
 
-						if (unique_post_dates.length > 1 || unique_cost_centers.length > 1) {
-							frappe.msgprint(__("Selected Stock Entry must have the same Posting Date and Cost Center."));
-							return;
-						}
+						// if (unique_post_dates.length > 1 || unique_cost_centers.length > 1) {
+						// 	frappe.msgprint(__("Selected Stock Entry must have the same Posting Date and Cost Center."));
+						// 	return;
+						// }
 
 						frappe.set_route("query-report", "Transfer From Manufacture", {
 							"document": names.join(",")
