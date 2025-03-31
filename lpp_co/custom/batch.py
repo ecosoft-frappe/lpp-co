@@ -11,12 +11,13 @@ class BatchLPP(Batch):
 	@property
 	def customer_item(self):
 		item = frappe.get_doc("Item", self.item)
-		customer = frappe.get_value("Customer", {"customer_name": self.custom_customer_name})
-		if item.customer_items and customer:
-			customer_item = list(filter(lambda l: l.customer_name == customer, item.customer_items))
-			if customer_item:
-				return customer_item[0]
-		return None
+		return frappe._dict({"ref_code": item.custom_ref_code})
+		# customer = frappe.get_value("Customer", {"customer_name": self.custom_customer_name})
+		# if item.customer_items and customer:
+		# 	customer_item = list(filter(lambda l: l.customer_name == customer, item.customer_items))
+		# 	if customer_item:
+		# 		return customer_item[0]
+		# return None
 
 	@property
 	def item_doc(self):
