@@ -26,8 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 app_include_css = "/assets/lpp_co/css/custom.css"
-# app_include_js = "/assets/lpp_co/js/lpp_co.js"
-
+app_include_js = "/assets/lpp_co/js/multi_select_dialog.js"
 # include js, css files in header of web template
 # web_include_css = "/assets/lpp_co/css/lpp_co.css"
 # web_include_js = "/assets/lpp_co/js/lpp_co.js"
