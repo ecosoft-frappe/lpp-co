@@ -199,7 +199,8 @@ doc_events = {
 	"Sales Order": {
 		"on_update": [
       		"lpp_co.custom.sales_order.update_sales_order_item",
-        	"lpp_co.custom.quotation.validate_customer_item"
+        	"lpp_co.custom.quotation.validate_customer_item",
+			"lpp_co.custom.sales_order.set_balance_qty",
         ],
 		"on_update_after_submit": ["lpp_co.custom.sales_order.update_sales_order_item"]
 	},

@@ -25,6 +25,8 @@ def set_balance_qty(doc, method):
 		names = list(set([item.sales_order for item in doc.items if item.sales_order]))
 	if doc.doctype == "Delivery Note":
 		names = list(set([item.against_sales_order for item in doc.items if item.against_sales_order]))
+	if doc.doctype == "Sales Order":
+		names = [doc.name]
 	for name in names:
 		doc = frappe.get_doc("Sales Order", name)
 		for item in doc.items:
