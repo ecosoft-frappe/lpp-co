@@ -19,10 +19,14 @@ def export_query():
 
 	form_params = get_form_params()
 
-	# Remove docstatus
 	if "fields" in form_params:
+		# Remove docstatus
 		form_params["fields"] = list(
 			filter(lambda field: not re.search(r"(?i)(\.|`)docstatus(?=\W|$)", field), form_params.get("fields", [])))
+
+		# Remove some field not need (not recomended)
+		form_params["fields"] = list(
+			filter(lambda field: not re.search(r"as\s*'Material Request Item:name'", field), form_params.get("fields", [])))
 
 	form_params["limit_page_length"] = None
 	form_params["as_list"] = True
