@@ -21,8 +21,9 @@ class StockEntryLPP(StockEntry):
 			for item in self.items:
 				if item.is_finished_item:
 					# Use batch from batch bundle
-					bundle = frappe.get_doc("Serial and Batch Bundle", item.serial_and_batch_bundle)
-					if bundle:
-						if bundle.entries[:1]:
-							item.batch_no = bundle.entries[0].batch_no
-						item.serial_and_batch_bundle = None
+					if frappe.db.exists("Serial and Batch Bundle", item.serial_and_batch_bundle):
+						bundle = frappe.get_doc("Serial and Batch Bundle", item.serial_and_batch_bundle)
+						if bundle:
+							if bundle.entries[:1]:
+								item.batch_no = bundle.entries[0].batch_no
+					item.serial_and_batch_bundle = None
