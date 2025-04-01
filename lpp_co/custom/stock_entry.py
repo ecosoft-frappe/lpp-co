@@ -13,3 +13,10 @@ class StockEntryLPP(StockEntry):
 						self.process_loss_percentage = flt(self.process_loss_qty * 100 / self.fg_completed_qty)
 
 		super().validate_fg_completed_qty()
+  
+	def before_insert(self):
+		# In LPP we don't want to use serial and batch bundle, we want user to choose Batch
+		if self.custom_allow_overwrite_fg_qty and self.purpose == "Manufacture" and self.work_order:
+			for item in self.items:
+				if item.is_finished_item:
+					item.serial_and_batch_bundle = None
