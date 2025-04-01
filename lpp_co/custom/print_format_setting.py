@@ -19,6 +19,7 @@ def set_print_format_as_disable():
 		"Payment Receipt Voucher",
 		"Cheque Printing Format",
 		"RunCard",
+		"WO Original",
 	]
 	for print_format in print_formats:
 		frappe.db.set_value("Print Format", print_format, "disabled", 1)
