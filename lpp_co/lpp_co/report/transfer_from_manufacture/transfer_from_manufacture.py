@@ -87,7 +87,7 @@ def get_data(filters):
 				sed.item_code,
 				sed.item_name,
 				se.work_order,
-				sbe.batch_no,
+				COALESCE(sbe.batch_no, sed.batch_no) as batch_no,
 				i.custom_unit_pack as unit_pack,
 				i.custom_unit_box as unit_box,
 				case
