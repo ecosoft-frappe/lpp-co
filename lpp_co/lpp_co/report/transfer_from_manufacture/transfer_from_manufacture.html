@@ -10,6 +10,12 @@
 	.print-format th {
 		color: black !important;
 	}
+	.print-format td, .print-format th {
+		padding-left: 2px !important;
+		padding-right: 2px !important;
+		padding-top: 2px !important;
+		padding-bottom: 2px !important;
+	}
 	table {
 		width: 100%;
 	}
@@ -45,6 +51,9 @@
 	}
 	.col-10 {
 		width: 9%;
+	}
+	.footer-section {
+		margin-top: 30mm;
 	}
 </style>
 <div class="row section-break">
@@ -162,3 +171,24 @@
 		{% } %}
 	</tbody>
 </table>
+<div class="footer-section">
+    <div class="row section-break">
+		<div class="col-xs-1 text-center" style="height: 100px;"></div>
+        <div class="col-xs-4 text-center" style="height: 100px;">
+            <br><br><br>
+            <div style="border-top: 1px solid;"></div>
+            <br>
+            ผู้ส่งสินค้า<br>
+            วันที่  _________/_________/_________
+        </div>
+		<div class="col-xs-2 text-center" style="height: 100px;"></div>
+        <div class="col-xs-4 text-center" style="height: 100px;">
+            <br><br><br>
+            <div style="border-top: 1px solid;"></div>
+            <br>
+            ผู้รับสินค้า<br>
+            วันที่  _________/_________/_________
+        </div>
+		<div class="col-xs-1 text-center" style="height: 100px;"></div>
+    </div>
+</div>
