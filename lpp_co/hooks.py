@@ -163,6 +163,7 @@ override_doctype_class = {
 	"Work Order": "lpp_co.custom.work_order.WorkOrderLPP",
 	"Job Card": "lpp_co.custom.job_card.JobCardLPP",
 	"Stock Entry": "lpp_co.custom.stock_entry.StockEntryLPP",
+	"Sales Invoice": "lpp_co.custom.sales_invoice.SalesInvoiceLPP",
 }
 
 # Document Events
