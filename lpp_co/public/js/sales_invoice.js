@@ -22,6 +22,7 @@ frappe.ui.form.on("Sales Invoice", {
 								status: ["not in", ["Closed", "On Hold"]],
 								per_billed: ["<", 99.99],
 								company: frm.doc.company,
+								custom_balance_qty: [">", 0],
 							},
 							// Monkey Patch
 							allow_child_item_selection: true,
