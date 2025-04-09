@@ -1,4 +1,8 @@
 <link href="/assets/lpp_co/css/fonts.css" rel="stylesheet" type="text/css">
+<head>
+    <meta name="pdfkit-page-width" content="11.69in">
+    <meta name="pdfkit-page-height" content="8.27in">
+</head>
 <style>
 	.print-format {
 		padding: 0;
@@ -7,7 +11,7 @@
 		margin-top: 3mm;
 		margin-bottom: 3mm;
 		line-height: 1.7;
-		font-size: 13px;
+		font-size: 10px;
 		font-family: "NotoSansThaiLooped";
 	}
 	.square-box {
@@ -17,6 +21,8 @@
 		page-break-inside: avoid;
 	}
 	.card {
+		width: 14cm;
+		height: 1.2cm;
 		border: 1px solid #000000;
 		padding: 5px;
 	}
@@ -30,33 +36,27 @@
 		<div class="col-xs-6 square-box">
 			<div class="card">
 				<div class="row section-break">
-					<div class="col-xs-12">
-						<strong>Item Name</strong>
+					<div class="col-xs-7">
 						{{ item_name or "-" }}
 					</div>
-				</div>
-				<div class="row section-break">
-					<div class="col-xs-12">
-						<strong>Batch No.</strong>
-						{{ batch_no or "-" }}
+					<div class="col-xs-5">
+						<strong>Weight</strong> ______________ Kgs.
 					</div>
 				</div>
 				<div class="row section-break">
-					<div class="col-xs-5">
+					<div class="col-xs-3">
+						{{ batch_no or "-" }}
+					</div>
+					<div class="col-xs-2">
 						<strong>MFG</strong>
 						{{ mfg_date or "-" }}
 					</div>
-					<div class="col-xs-7">
-						<strong>Weight</strong> ______________ Kilograms
-					</div>
-				</div>
-				<div class="row section-break">
-					<div class="col-xs-5">
+					<div class="col-xs-2">
 						<strong>EXP</strong>
 						{{ exp_date or "-" }}
 					</div>
-					<div class="col-xs-7">
-						<strong>Supplier Batch No.</strong> _____________
+					<div class="col-xs-5">
+						_______________________________________
 					</div>
 				</div>
 			</div>

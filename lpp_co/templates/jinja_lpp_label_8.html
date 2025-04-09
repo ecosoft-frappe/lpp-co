@@ -70,7 +70,7 @@
 						</p>
 						<p>
 							<strong>Item Name</strong>
-							{{ item_name or "-" }}
+							{{ (item_name[:43] ~ '...') if item_name and item_name|length > 43 else (item_name or '-') }}
 						</p>
 					</div>
 				</div>
