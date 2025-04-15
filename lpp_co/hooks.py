@@ -56,6 +56,7 @@ doctype_js = {
 	"Purchase Order": "public/js/purchase_order.js",
 	"Batch": "public/js/batch.js",
 	"Delivery Note": "public/js/delivery_note.js",
+	"Stock Entry": "public/js/stock_entry.js",
 }
 
 doctype_list_js = {
@@ -174,9 +175,9 @@ doc_events = {
 	"Item": {
 		"validate": ["lpp_co.custom.item.validate_item_specification_line"],
 		"on_update": [
-      		"lpp_co.custom.item_group_tag.update_item_group_tags",
+			"lpp_co.custom.item_group_tag.update_item_group_tags",
 			"lpp_co.custom.item.set_field_customer_items",
-        ],
+		],
 	},
 	"Item Group": {
 		"on_update": [
@@ -192,17 +193,18 @@ doc_events = {
 	},
 	"Job Card": {
 		"validate": [
-      		"lpp_co.custom.job_card.set_sequence_input_quantity",
-            "lpp_co.custom.job_card.validate_time_log_and_defect",
-        ],
+			"lpp_co.custom.job_card.set_sequence_input_quantity",
+			"lpp_co.custom.job_card.validate_time_log_and_defect",
+		],
 		"on_submit": ["lpp_co.custom.job_card.update_scrap_qty_to_work_order"],
 	},
 	"Sales Order": {
+		"validate": ["lpp_co.custom.common.validate_child_cost_centers"],
 		"on_update": [
-      		"lpp_co.custom.sales_order.update_sales_order_item",
-        	"lpp_co.custom.quotation.validate_customer_item",
+			"lpp_co.custom.sales_order.update_sales_order_item",
+			"lpp_co.custom.quotation.validate_customer_item",
 			"lpp_co.custom.sales_order.set_balance_qty",
-        ],
+		],
 		"on_update_after_submit": ["lpp_co.custom.sales_order.update_sales_order_item"]
 	},
 	"Material Request": {
