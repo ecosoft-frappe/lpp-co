@@ -30,6 +30,9 @@
   },
   {
    "role": "Stock Manager"
+  },
+  {
+   "role": "zUser:prowrat"
   }
  ],
  "timeout": 0
