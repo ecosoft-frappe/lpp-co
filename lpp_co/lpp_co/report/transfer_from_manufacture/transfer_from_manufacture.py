@@ -51,7 +51,7 @@ def get_columns():
 			"width": 200
 		},
 		{
-			"fieldname": "ref_code",
+			"fieldname": "custom_ref_code",
 			"fieldtype": "Data",
 			"label": "Customer Part No.",
 			"width": 0
@@ -112,9 +112,8 @@ def get_data(filters):
 				sed.item_code,
 				sed.item_name,
 				i.item_group,
-				icd.customer_name as customer_code,
-				cust.customer_name as customer_name,
-				icd.ref_code,
+				wo.custom_customer_name as customer_name,
+				i.custom_ref_code,
 				se.work_order,
 				se.custom_shift,
 				COALESCE(sbe.batch_no, sed.batch_no) as batch_no,
@@ -135,8 +134,7 @@ def get_data(filters):
 			from `tabStock Entry Detail` sed
 			left join `tabStock Entry` se on sed.parent = se.name
 			left join `tabItem` i on sed.item_code = i.name
-			left join `tabItem Customer Detail` icd on icd.parent = i.name
-			left join `tabCustomer` cust on icd.customer_name = cust.name
+			left join `tabWork Order` wo on wo.name = se.work_order
 			left join `tabCompany` c on se.company = c.name
 			left join `tabSerial and Batch Bundle` sbb on sed.serial_and_batch_bundle = sbb.name
 			left join `tabSerial and Batch Entry` sbe on sbe.parent = sbb.name
