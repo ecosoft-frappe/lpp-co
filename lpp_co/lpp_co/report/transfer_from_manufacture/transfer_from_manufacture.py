@@ -20,15 +20,40 @@ def get_columns():
 			"width": 0
 		},
 		{
+			"fieldname": "item_group",
+			"fieldtype": "Link",
+			"label": "Item Group",
+			"options": "Item Group",
+			"width": 150,
+		},
+		{
+			"fieldname": "custom_shift",
+			"fieldtype": "Data",
+			"label": "Shift",
+			"width": 0,
+		},
+		{
 			"fieldname": "item_code",
 			"fieldtype": "Data",
 			"label": "Item Code",
-			"width": 0
+			"width": 150,
 		},
 		{
 			"fieldname": "item_name",
 			"fieldtype": "Data",
 			"label": "Item Name",
+			"width": 0
+		},
+		{
+			"fieldname": "customer_name",
+			"fieldtype": "Data",
+			"label": "Customer Name",
+			"width": 200
+		},
+		{
+			"fieldname": "ref_code",
+			"fieldtype": "Data",
+			"label": "Customer Part No.",
 			"width": 0
 		},
 		{
@@ -86,7 +111,12 @@ def get_data(filters):
 				se.name as stock_entry,
 				sed.item_code,
 				sed.item_name,
+				i.item_group,
+				icd.customer_name as customer_code,
+				cust.customer_name as customer_name,
+				icd.ref_code,
 				se.work_order,
+				se.custom_shift,
 				COALESCE(sbe.batch_no, sed.batch_no) as batch_no,
 				i.custom_unit_pack as unit_pack,
 				i.custom_unit_box as unit_box,
@@ -105,6 +135,8 @@ def get_data(filters):
 			from `tabStock Entry Detail` sed
 			left join `tabStock Entry` se on sed.parent = se.name
 			left join `tabItem` i on sed.item_code = i.name
+			left join `tabItem Customer Detail` icd on icd.parent = i.name
+			left join `tabCustomer` cust on icd.customer_name = cust.name
 			left join `tabCompany` c on se.company = c.name
 			left join `tabSerial and Batch Bundle` sbb on sed.serial_and_batch_bundle = sbb.name
 			left join `tabSerial and Batch Entry` sbe on sbe.parent = sbb.name
