@@ -214,9 +214,22 @@ doc_events = {
 	},
 	"Delivery Note": {
 		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],
+		"on_cancel": ["lpp_co.custom.sales_order.set_balance_qty"],
 	},
 	"Sales Invoice": {
 		"on_submit": ["lpp_co.custom.sales_order.set_balance_qty"],
+		"on_cancel": ["lpp_co.custom.sales_order.set_balance_qty"],
+	},
+	"Purchase Order": {
+		"on_update": ["lpp_co.custom.purchase_order.set_balance_qty"],
+	},
+	"Purchase Receipt": {
+		"on_submit": ["lpp_co.custom.purchase_order.set_balance_qty"],
+		"on_cancel": ["lpp_co.custom.purchase_order.set_balance_qty"],
+	},
+	"Purchase Invoice": {
+		"on_submit": ["lpp_co.custom.purchase_order.set_balance_qty"],
+		"on_cancel": ["lpp_co.custom.purchase_order.set_balance_qty"],
 	},
 }
 

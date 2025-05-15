@@ -67,7 +67,7 @@ frappe.ui.form.on("Purchase Receipt", {
 							},
 							allow_child_item_selection: true,
 							child_fieldname: "items",
-							child_columns: ["item_code", "item_name", "qty", "received_qty"],
+							child_columns: ["item_code", "item_name", "qty", "received_qty", "custom_balance_qty"],
 						});
 					},
 					__("Get Items From")
