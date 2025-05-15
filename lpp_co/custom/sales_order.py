@@ -46,12 +46,28 @@ def make_material_request(source_name, target_doc=None):
 
 @frappe.whitelist()
 def make_sales_invoice(source_name, target_doc=None, args=None):
-	if args == None:
+	if args is None:
 		args = {}
+
 	doc = original_make_sales_invoice(source_name, target_doc)
-	if args.get("filtered_children"):
-		for d in doc.items:
-			doc.items = list(filter(lambda d: d.so_detail in args["filtered_children"], doc.items))
+
+	filtered = args.get("filtered_children")
+	if filtered:
+		doc.items = [item for item in doc.items if item.so_detail in filtered]
+
+	so_details = [item.so_detail for item in doc.items if item.so_detail]
+	if so_details:
+		so_items = frappe.get_all(
+			"Sales Order Item",
+			filters={"name": ["in", so_details]},
+			fields=["name", "custom_balance_qty"]
+		)
+		so_map = {d.name: d.custom_balance_qty for d in so_items}
+
+		for item in doc.items:
+			if item.so_detail in so_map:
+				item.qty = so_map[item.so_detail]
+				
 	return doc
 
 
