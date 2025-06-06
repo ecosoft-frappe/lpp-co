@@ -16,3 +16,9 @@ origin_report_view.export_query = lpp_reportview.export_query
 import re
 from frappe import utils
 utils.PHONE_NUMBER_PATTERN = re.compile(r".*")
+
+#Monkey patching for validate_qty in SerialBatchCreation
+from erpnext.stock.serial_batch_bundle import SerialBatchCreation as original_serial_batch_creation
+from .custom.serial_batch_bundle import validate_qty_by_bypass
+
+original_serial_batch_creation.validate_qty = validate_qty_by_bypass
