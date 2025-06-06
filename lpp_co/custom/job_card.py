@@ -76,6 +76,15 @@ class JobCardLPP(JobCard):
 			return next_operation or "-"
 		return "-- END --"
 
+	def get_overlap_for(self, args, open_job_cards=None):
+		# Overwrite: LPP need to overlap time log for employee can work multi job card in same time
+		return {}
+
+	def validate_sequence_id(self):
+		if self.docstatus == 0:
+			return
+		return super().validate_sequence_id()
+
 
 def set_sequence_input_quantity(doc, method):
 	# on child table time log, set the quantity to sum of quantity in table job_card_defects
