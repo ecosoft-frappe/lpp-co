@@ -166,6 +166,7 @@ override_doctype_class = {
 	"Job Card": "lpp_co.custom.job_card.JobCardLPP",
 	"Stock Entry": "lpp_co.custom.stock_entry.StockEntryLPP",
 	"Sales Invoice": "lpp_co.custom.sales_invoice.SalesInvoiceLPP",
+    "Serial and Batch Bundle": "lpp_co.custom.serial_and_batch_bundle.SerialandBatchBundleLPP",
 }
 
 # Document Events
