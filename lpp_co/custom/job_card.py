@@ -85,20 +85,45 @@ class JobCardLPP(JobCard):
 			return
 		return super().validate_sequence_id()
 
+def time_log(self):
+		sequence = int(self.custom_sequence or 0)
+		if self.time_logs:
+			time_log_by_sequence = list(filter(
+				lambda k: k.idx == sequence and k.custom_type == "Production", self.time_logs))
+			if time_log_by_sequence:
+				return time_log_by_sequence[0]
+		return None
 
 def set_sequence_input_quantity(doc, method):
 	# on child table time log, set the quantity to sum of quantity in table job_card_defects
 	sequences = len(doc.time_logs)
 	if sequences > 6:
 		frappe.throw(_("Time Logs > 6 lines is not supported"))
+	
 	total_defects = 0
+	total_setup_defects = 0
+
 	for seq in range(sequences):
 		if seq+1 > 6:
 			continue
-		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
-		total_defects += defects
-		doc.time_logs[seq].custom_input_qty = doc.time_logs[seq].completed_qty + defects
+		
+		time_log = doc.time_logs[seq]
+		
+		if time_log.custom_type == "Production":
+			defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
+			total_defects += defects
+			time_log.custom_input_qty = time_log.completed_qty + defects
+		
+		elif time_log.custom_type == "Setup":
+			setup_defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
+			total_setup_defects += setup_defects
+
 	doc.custom_scrap_qty = total_defects
+	doc.custom_total_setup_defect_qty = total_setup_defects
+
+	doc.custom_total_input_qty = (doc.total_completed_qty) + (doc.custom_scrap_qty)
+	doc.custom_yield = (doc.total_completed_qty) / (doc.custom_total_input_qty) * 100
+	doc.custom_yield_setup = ( doc.total_completed_qty / (doc.custom_total_input_qty + doc.custom_total_setup_defect_qty) ) * 100
 
 
 def validate_time_log_and_defect(doc, method):
