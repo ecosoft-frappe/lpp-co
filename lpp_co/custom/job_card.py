@@ -106,8 +106,10 @@ def set_sequence_input_quantity(doc, method):
     doc.custom_total_setup_defect_qty = total_setup_defects
     doc.custom_total_input_qty = doc.total_completed_qty + total_defects
 
-    doc.custom_yield = doc.total_completed_qty / doc.custom_total_input_qty * 100
-    doc.custom_yield_setup = doc.total_completed_qty / (doc.custom_total_input_qty + doc.custom_total_setup_defect_qty) * 100
+    doc.custom_yield = (doc.total_completed_qty / doc.custom_total_input_qty * 100) if doc.custom_total_input_qty else 0
+
+    total_input_plus_setup = doc.custom_total_input_qty + doc.custom_total_setup_defect_qty
+    doc.custom_yield_setup = (doc.total_completed_qty / total_input_plus_setup * 100) if total_input_plus_setup else 0
 
 
 def validate_time_log_and_defect(doc, method):
