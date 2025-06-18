@@ -147,21 +147,28 @@ def add_defect_row(jc, fields_to_blank):
 def get_chart_data(job_card_details, filters):
     labels, periodic_data = prepare_chart_data(job_card_details, filters)
 
-    input_qty_list, completed_qty_list, scrap_qty_list = [], [], []
-    datasets = []
+    datasets = [
+        {
+            "name": _("Total Input Qty"),
+            "values": [periodic_data["custom_total_input_qty"].get(label, 0) for label in labels],
+        },
+        {
+            "name": _("Total Completed Qty"),
+            "values": [periodic_data["total_completed_qty"].get(label, 0) for label in labels],
+        },
+        {
+            "name": _("Total Production Defect Qty"),
+            "values": [periodic_data["custom_scrap_qty"].get(label, 0) for label in labels],
+        },
+    ]
 
-    for label in labels:
-        input_qty_list.append(periodic_data["custom_total_input_qty"].get(label, 0))
-        completed_qty_list.append(periodic_data["total_completed_qty"].get(label, 0))
-        scrap_qty_list.append(periodic_data["custom_scrap_qty"].get(label, 0))
-
-    datasets.append({"name": _("Total Input Qty"), "values": input_qty_list})
-    datasets.append({"name": _("Total Completed Qty"), "values": completed_qty_list})
-    datasets.append({"name": _("Total Production Defect Qty"), "values": scrap_qty_list})
-
-    chart = {"data": {"labels": labels, "datasets": datasets}, "type": "bar"}
-
-    return chart
+    return {
+        "data": {
+            "labels": labels,
+            "datasets": datasets
+        },
+        "type": "bar"
+    }
 
 def prepare_chart_data(job_card_details, filters):
     labels = []
@@ -229,37 +236,36 @@ def calculate_totals(data):
     return total_row
 
 def get_columns(filters):
-	columns = []
-
-	columns.append({"label": _("ID"), "fieldname": "name", "fieldtype": "Link", "options": "Job Card", "width": 100})
-	columns.append({"label": _("Status"), "fieldname": "status", "width": 150})
-	columns.append({"label": _("Job Card Name"), "fieldname": "custom_job_card_name", "fieldtype": "Link", "options": "Job Card", "width": 220})
-	columns.append({"label": _("Work Order"), "fieldname": "work_order", "fieldtype": "Link", "options": "Work Order", "width": 180})
-	columns.append({"label": _("Operation"), "fieldname": "operation", "fieldtype": "Link", "options": "Operation", "width": 100})
-	columns.append({"label": _("Workstation"), "fieldname": "workstation", "fieldtype": "Link", "options": "Workstation", "width": 150})
-	columns.append({"label": _("Workstation Type"), "fieldname": "workstation_type", "fieldtype": "Link", "options": "Workstation Type", "width": 150})
-	columns.append({"label": _("Production Item"), "fieldname": "production_item", "fieldtype": "Link", "options": "Item", "width": 150})
-	columns.append({"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 180})
-	columns.append({"label": _("Qty on This Job Card"), "fieldname": "for_quantity", "fieldtype": "Float", "precision": 2, "width": 120})
-	columns.append({"label": _("Total Input Qty"), "fieldname": "custom_total_input_qty", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Total Completed Qty"), "fieldname": "total_completed_qty", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Total Production Defect Qty"), "fieldname": "custom_scrap_qty", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Yield"), "fieldname": "custom_yield", "fieldtype": "Percent",  "precision": 2, "width": 100})
-	columns.append({"label": _("Total Setup Defect Qty"), "fieldname": "custom_total_setup_defect_qty", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Yield (+Setup)"), "fieldname": "custom_yield_setup", "fieldtype": "Percent",  "precision": 2, "width": 150})
-	columns.append({"label": _("Total Time In Mins"), "fieldname": "total_time_in_mins", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Units / Hour"), "fieldname": "custom_unit_hours", "fieldtype": "Float", "precision": 2, "width": 150})
-	columns.append({"label": _("Sequence"), "fieldname": "sequence", "fieldtype": "Int", "width": 80})
-	columns.append({"label": _("Type"), "fieldname": "custom_type", "fieldtype": "Data", "width": 150})
-	columns.append({"label": _("Shift"), "fieldname": "custom_shift", "fieldtype": "Data", "width": 80})
-	columns.append({"label": _("Employee"), "fieldname": "employee", "fieldtype": "Link", "options": "Employee", "width": 150})
-	columns.append({"label": _("From Time"), "fieldname": "from_time", "fieldtype": "Datetime", "width": 130})
-	columns.append({"label": _("To Time"), "fieldname": "to_time", "fieldtype": "Datetime", "width": 130})
-	columns.append({"label": _("Input Qty"), "fieldname": "custom_input_qty", "fieldtype": "Float", "precision": 2, "width": 100})
-	columns.append({"label": _("Completed Qty"), "fieldname": "completed_qty", "fieldtype": "Float", "precision": 2, "width": 120})
-	columns.append({"label": _("Defect Qty"), "fieldname": "qty", "fieldtype": "Float", "precision": 2, "width": 100})
-	columns.append({"label": _("Defect Name"), "fieldname": "defect", "fieldtype": "Data", "width": 130})
-	columns.append({"label": _("Time In Mins"), "fieldname": "time_in_mins", "fieldtype": "Float", "precision": 2, "width": 120})
-	columns.append({"label": _("Units / Hour"), "fieldname": "custom_units_hour_log", "fieldtype": "Float", "precision": 2, "width": 150})
-
-	return columns
+    columns = [
+        {"label": _("ID"), "fieldname": "name", "fieldtype": "Link", "options": "Job Card", "width": 100},
+        {"label": _("Status"), "fieldname": "status", "width": 150},
+        {"label": _("Job Card Name"), "fieldname": "custom_job_card_name", "fieldtype": "Link", "options": "Job Card", "width": 220},
+        {"label": _("Work Order"), "fieldname": "work_order", "fieldtype": "Link", "options": "Work Order", "width": 180},
+        {"label": _("Operation"), "fieldname": "operation", "fieldtype": "Link", "options": "Operation", "width": 100},
+        {"label": _("Workstation"), "fieldname": "workstation", "fieldtype": "Link", "options": "Workstation", "width": 150},
+        {"label": _("Workstation Type"), "fieldname": "workstation_type", "fieldtype": "Link", "options": "Workstation Type", "width": 150},
+        {"label": _("Production Item"), "fieldname": "production_item", "fieldtype": "Link", "options": "Item", "width": 150},
+        {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 180},
+        {"label": _("Qty on This Job Card"), "fieldname": "for_quantity", "fieldtype": "Float", "precision": 2, "width": 120},
+        {"label": _("Total Input Qty"), "fieldname": "custom_total_input_qty", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Total Completed Qty"), "fieldname": "total_completed_qty", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Total Production Defect Qty"), "fieldname": "custom_scrap_qty", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Yield"), "fieldname": "custom_yield", "fieldtype": "Percent",  "precision": 2, "width": 100},
+        {"label": _("Total Setup Defect Qty"), "fieldname": "custom_total_setup_defect_qty", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Yield (+Setup)"), "fieldname": "custom_yield_setup", "fieldtype": "Percent",  "precision": 2, "width": 150},
+        {"label": _("Total Time In Mins"), "fieldname": "total_time_in_mins", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Units / Hour"), "fieldname": "custom_unit_hours", "fieldtype": "Float", "precision": 2, "width": 150},
+        {"label": _("Sequence"), "fieldname": "sequence", "fieldtype": "Int", "width": 80},
+        {"label": _("Type"), "fieldname": "custom_type", "fieldtype": "Data", "width": 150},
+        {"label": _("Shift"), "fieldname": "custom_shift", "fieldtype": "Data", "width": 80},
+        {"label": _("Employee"), "fieldname": "employee", "fieldtype": "Link", "options": "Employee", "width": 150},
+        {"label": _("From Time"), "fieldname": "from_time", "fieldtype": "Datetime", "width": 130},
+        {"label": _("To Time"), "fieldname": "to_time", "fieldtype": "Datetime", "width": 130},
+        {"label": _("Input Qty"), "fieldname": "custom_input_qty", "fieldtype": "Float", "precision": 2, "width": 100},
+        {"label": _("Completed Qty"), "fieldname": "completed_qty", "fieldtype": "Float", "precision": 2, "width": 120},
+        {"label": _("Defect Qty"), "fieldname": "qty", "fieldtype": "Float", "precision": 2, "width": 100},
+        {"label": _("Defect Name"), "fieldname": "defect", "fieldtype": "Data", "width": 130},
+        {"label": _("Time In Mins"), "fieldname": "time_in_mins", "fieldtype": "Float", "precision": 2, "width": 120},
+        {"label": _("Units / Hour"), "fieldname": "custom_units_hour_log", "fieldtype": "Float", "precision": 2, "width": 150}
+    ]
+    return columns
