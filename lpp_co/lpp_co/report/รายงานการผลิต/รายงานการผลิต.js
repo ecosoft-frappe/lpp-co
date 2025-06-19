@@ -6,14 +6,14 @@ frappe.query_reports["รายงานการผลิต"] = {
 		{
 			label: __("From Posting Date"),
 			fieldname: "from_date",
-			fieldtype: "Date",
+			fieldtype: "Datetime",
 			default: erpnext.utils.get_fiscal_year(frappe.datetime.get_today(), true)[1],
 			reqd: 1,
 		},
 		{
 			label: __("To Posting Date"),
 			fieldname: "to_date",
-			fieldtype: "Date",
+			fieldtype: "Datetime",
 			default: erpnext.utils.get_fiscal_year(frappe.datetime.get_today(), true)[2],
 			reqd: 1,
 		},
