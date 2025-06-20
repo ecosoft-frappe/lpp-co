@@ -160,18 +160,21 @@ def add_defect_row(jc, fields_to_blank):
 def get_chart_data(job_card_details, filters):
     labels, periodic_data = prepare_chart_data(job_card_details, filters)
 
+    def round2(val):
+        return round(val, 2)
+
     datasets = [
         {
             "name": _("Total Input Qty"),
-            "values": [periodic_data["custom_total_input_qty"].get(label, 0) for label in labels],
+            "values": [round2(periodic_data["custom_total_input_qty"].get(label, 0)) for label in labels],
         },
         {
             "name": _("Total Completed Qty"),
-            "values": [periodic_data["total_completed_qty"].get(label, 0) for label in labels],
+            "values": [round2(periodic_data["total_completed_qty"].get(label, 0)) for label in labels],
         },
         {
             "name": _("Total Production Defect Qty"),
-            "values": [periodic_data["custom_scrap_qty"].get(label, 0) for label in labels],
+            "values": [round2(periodic_data["custom_scrap_qty"].get(label, 0)) for label in labels],
         },
     ]
 
@@ -259,7 +262,7 @@ def get_columns(filters):
         {"label": _("Workstation"), "fieldname": "workstation", "fieldtype": "Link", "options": "Workstation", "width": 150},
         {"label": _("Workstation Type"), "fieldname": "workstation_type", "fieldtype": "Link", "options": "Workstation Type", "width": 150},
         {"label": _("Production Item"), "fieldname": "production_item", "fieldtype": "Link", "options": "Item", "width": 150},
-        {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 250},
+        {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 500},
         {"label": _("Qty on This Job Card"), "fieldname": "for_quantity", "fieldtype": "Data", "width": 150},
         {"label": _("Total Input Qty"), "fieldname": "custom_total_input_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Total Completed Qty"), "fieldname": "total_completed_qty", "fieldtype": "Data", "width": 150},
