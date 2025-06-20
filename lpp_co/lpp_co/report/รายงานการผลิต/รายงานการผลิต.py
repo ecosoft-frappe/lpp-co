@@ -32,9 +32,10 @@ def get_data(filters):
     result = []
     for jc in job_cards:
         logs = time_log_map.get(jc.name, [])
-        for i, log in enumerate(logs, 1):
-            is_first_row = (i == 1)
-            result += build_rows(jc, log, i, employee_map, is_first_row)
+        for log in logs:
+            sequence = log.get("idx") or 0
+            is_first_row = (log == logs[0])
+            result += build_rows(jc, log, sequence, employee_map, is_first_row)
     return result
 
 def get_job_cards(filters):
@@ -71,9 +72,10 @@ def get_time_logs(job_card_names, filters):
 	return frappe.get_all(
 		"Job Card Time Log",
 		fields=[
-			"name", "parent", "from_time", "to_time", "custom_type", "custom_shift",
-			"employee", "completed_qty", "custom_input_qty", "time_in_mins", "custom_units_hour_log"
-		],
+            "name", "parent", "from_time", "to_time", "custom_type", "custom_shift",
+            "employee", "completed_qty", "custom_input_qty", "time_in_mins", "custom_units_hour_log",
+            "idx"
+        ],
 		filters=tl_filters,
 		order_by="idx asc"
 	)
@@ -130,9 +132,9 @@ def build_rows(jc, log, sequence, employee_map, is_first_row):
     return rows
 
 def add_common_fields(row, log, sequence, employee_name, jc):
-    f = lambda v: f"{flt(v):.2f}" if v else ""
+    f = lambda v: f"{flt(v):.2f}"
     row.update({
-        "sequence": sequence,
+        "sequence": log.get("idx"),
         "from_time": log.get("from_time"),
         "to_time": log.get("to_time"),
         "custom_type": log.get("custom_type"),
