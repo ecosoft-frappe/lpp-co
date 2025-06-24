@@ -133,6 +133,11 @@ def build_rows(jc, log, sequence, employee_map, is_first_row):
 
 def add_common_fields(row, log, sequence, employee_name, jc):
     f = lambda v: f"{flt(v):.2f}"
+
+    total_completed_qty = flt(jc.get("total_completed_qty"))
+    total_time_in_mins = flt(jc.get("total_time_in_mins"))
+    custom_unit_hours = (total_completed_qty / total_time_in_mins * 60) if total_time_in_mins else 0.0
+
     row.update({
         "sequence": log.get("idx"),
         "from_time": log.get("from_time"),
@@ -140,11 +145,12 @@ def add_common_fields(row, log, sequence, employee_name, jc):
         "custom_type": log.get("custom_type"),
         "custom_shift": log.get("custom_shift"),
         "employee": employee_name,
-        "completed_qty": f(log.get("completed_qty")),
-        "custom_input_qty": f(log.get("custom_input_qty")),
-        "time_in_mins": f(log.get("time_in_mins")),
-        "custom_units_hour_log": f(log.get("custom_units_hour_log")),
-        "custom_unit_hours": f((flt(jc.get("total_completed_qty")) / flt(jc.get("total_time_in_mins"))) * 60) if jc.get("total_time_in_mins") else ""
+        "completed_qty": round(flt(log.get("completed_qty")), 2),
+        "custom_input_qty": round(flt(log.get("custom_input_qty")), 2),
+        "time_in_mins": round(flt(log.get("time_in_mins")), 2),
+        "custom_units_hour_log": round(flt(log.get("custom_units_hour_log")), 2),
+        "custom_unit_hours": round(custom_unit_hours, 2),
+        "total_time_in_mins": round(total_time_in_mins, 2)
     })
 
 def add_defect_row(jc, fields_to_blank):
