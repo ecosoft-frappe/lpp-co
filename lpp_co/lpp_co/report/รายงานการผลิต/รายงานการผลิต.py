@@ -35,7 +35,11 @@ def get_data(filters):
         for log in logs:
             sequence = log.get("idx") or 0
             is_first_row = (log == logs[0])
-            result += build_rows(jc, log, sequence, employee_map, is_first_row)
+            emp_id = log.get("employee")
+            emp = employee_map.get(emp_id, {})
+            employee_id = emp.get("name", emp_id) if emp else emp_id
+            employee_name = emp.get("employee_name", emp_id) if emp else emp_id
+            result += build_rows(jc, log, sequence, employee_id, employee_name, is_first_row)
     return result
 
 def get_job_cards(filters):
@@ -84,8 +88,12 @@ def get_employee_map(time_logs):
     employee_ids = list({log["employee"] for log in time_logs if log.get("employee")})
     if not employee_ids:
         return {}
-    employees = frappe.get_all("Employee", fields=["name", "employee_name"], filters={"name": ["in", employee_ids]})
-    return {e.name: e.employee_name for e in employees}
+    employees = frappe.get_all(
+        "Employee",
+        fields=["name", "employee_name"],
+        filters={"name": ["in", employee_ids]}
+    )
+    return {e.name: {"name": e.name, "employee_name": e.employee_name} for e in employees}
 
 def group_by_parent(items):
     result = {}
@@ -93,12 +101,10 @@ def group_by_parent(items):
         result.setdefault(item["parent"], []).append(item)
     return result
 
-def build_rows(jc, log, sequence, employee_map, is_first_row):
+def build_rows(jc, log, sequence, employee_id, employee_name, is_first_row):
     completed_qty = flt(log.get("completed_qty") or 0)
     time_in_mins = flt(log.get("time_in_mins") or 0)
     log["custom_units_hour_log"] = round((completed_qty / time_in_mins) * 60, 2) if time_in_mins else 0
-
-    employee_name = employee_map.get(log["employee"], log["employee"])
     parentfield = f"custom_job_card_defect_{sequence}"
     defects = frappe.get_all(
         "Job Card Defect",
@@ -107,7 +113,7 @@ def build_rows(jc, log, sequence, employee_map, is_first_row):
     )
 
     base_row = jc.copy()
-    add_common_fields(base_row, log, sequence, employee_name, jc)
+    add_common_fields(base_row, log, sequence, employee_id, employee_name, jc)
 
     if not is_first_row:
         for field in [
@@ -118,7 +124,7 @@ def build_rows(jc, log, sequence, employee_map, is_first_row):
         base_row["custom_yield"] = None
         base_row["custom_yield_setup"] = None
 
-    rows = []  
+    rows = []
 
     if defects:
         for i, defect in enumerate(defects):
@@ -131,8 +137,7 @@ def build_rows(jc, log, sequence, employee_map, is_first_row):
 
     return rows
 
-def add_common_fields(row, log, sequence, employee_name, jc):
-    f = lambda v: f"{flt(v):.2f}"
+def add_common_fields(row, log, sequence, employee_id, employee_name, jc):
 
     total_completed_qty = flt(jc.get("total_completed_qty"))
     total_time_in_mins = flt(jc.get("total_time_in_mins"))
@@ -144,7 +149,7 @@ def add_common_fields(row, log, sequence, employee_name, jc):
         "to_time": log.get("to_time"),
         "custom_type": log.get("custom_type"),
         "custom_shift": log.get("custom_shift"),
-        "employee": employee_name,
+        "employee_name_link": f"<a href='/app/employee/{employee_id}'>{employee_name}</a>",
         "completed_qty": round(flt(log.get("completed_qty")), 2),
         "custom_input_qty": round(flt(log.get("custom_input_qty")), 2),
         "time_in_mins": round(flt(log.get("time_in_mins")), 2),
@@ -282,7 +287,7 @@ def get_columns(filters):
         {"label": _("Units / Hour"), "fieldname": "custom_unit_hours", "fieldtype": "Data", "width": 150},
         {"label": _("Sequence"), "fieldname": "sequence", "fieldtype": "Data", "width": 100},
         {"label": _("Type"), "fieldname": "custom_type", "fieldtype": "Data", "width": 100},
-        {"label": _("Employee"), "fieldname": "employee", "fieldtype": "Link", "options": "Employee", "width": 200},
+        {"label": _("Employee"), "fieldname": "employee_name_link", "fieldtype": "HTML", "width": 200},
         {"label": _("Shift"), "fieldname": "custom_shift", "fieldtype": "Data", "width": 100},
         {"label": _("From Time"), "fieldname": "from_time", "fieldtype": "Datetime", "width": 200},
         {"label": _("To Time"), "fieldname": "to_time", "fieldtype": "Datetime", "width": 200},
