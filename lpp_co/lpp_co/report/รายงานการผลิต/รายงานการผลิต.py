@@ -56,7 +56,7 @@ def get_job_cards(filters):
         "total_completed_qty", "workstation", "operation", "total_time_in_mins",
         "custom_job_card_name", "workstation_type", "for_quantity",
         "custom_total_input_qty", "custom_scrap_qty", "custom_yield",
-        "custom_total_setup_defect_qty", "custom_yield_setup"
+        "custom_total_setup_defect_qty", "custom_yield_setup", "custom_run_step"
     ]
     return frappe.get_all("Job Card", fields=fields, filters=query_filters)
 
@@ -161,7 +161,7 @@ def add_common_fields(row, log, sequence, employee_id, employee_name, jc):
 def add_defect_row(jc, fields_to_blank):
     row = {k: jc.get(k, "") for k in [
         "name", "status", "work_order", "custom_run_card", "production_item", "item_name", "posting_date",
-        "workstation", "operation", "custom_job_card_name", "workstation_type"
+        "workstation", "operation", "custom_job_card_name", "workstation_type", "custom_run_step"
     ]}
     row["custom_yield"] = None
     row["custom_yield_setup"] = None
@@ -271,6 +271,7 @@ def get_columns(filters):
         {"label": _("Job Card Name"), "fieldname": "custom_job_card_name", "fieldtype": "Link", "options": "Job Card", "width": 250},
         {"label": _("Work Order"), "fieldname": "work_order", "fieldtype": "Link", "options": "Work Order", "width": 150},
         {"label": _("Job Card"), "fieldname": "custom_run_card", "fieldtype": "Data", "width": 100},
+        {"label": _("Run Step"), "fieldname": "custom_run_step", "fieldtype": "Data", "width": 100},
         {"label": _("Operation"), "fieldname": "operation", "fieldtype": "Link", "options": "Operation", "width": 100},
         {"label": _("Workstation"), "fieldname": "workstation", "fieldtype": "Link", "options": "Workstation", "width": 150},
         {"label": _("Workstation Type"), "fieldname": "workstation_type", "fieldtype": "Link", "options": "Workstation Type", "width": 150},
