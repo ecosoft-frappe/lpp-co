@@ -64,3 +64,35 @@ def make_delivery_note(source_name, target_doc=None, args=None):
 		for d in doc.items:
 			doc.items = list(filter(lambda d: d.so_detail in args["filtered_children"], doc.items))
 	return doc
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def get_sales_order_not_delivered(doctype, txt, searchfield, start, page_len, filters):
+	conditions = ""
+	if txt:
+		conditions += " and so.name like '%%%s%%'" % (txt, )
+	if filters.get("customer"):
+		conditions += " and so.customer = '%s'" % (filters["customer"], )
+	if filters.get("po_no"):
+		conditions += " and so.po_no %s '%%%s%%'" % (filters["po_no"][0], filters["po_no"][1])
+	if filters.get("docstatus"):
+		conditions += " and so.docstatus = %s" % (filters["docstatus"])
+	if filters.get("status"):
+		conditions += " and so.status %s %s" % (filters["status"][0], tuple(filters["status"][1]))
+	if filters.get("per_billed"):
+		conditions += " and so.per_billed %s %s" % (filters["per_billed"][0], filters["per_billed"][1])
+	if filters.get("company"):
+		conditions += " and so.company = '%s' " % (filters["company"], )
+	so_data = frappe.db.sql(
+		f"""
+			select distinct so.name, so.customer, so.po_no
+			from `tabSales Order` so, `tabSales Order Item` soi
+			where
+				so.name = soi.parent
+				and soi.custom_balance_qty > 0
+				{conditions}
+			-- order by so.name asc
+		""",
+		as_dict=1
+	)
+	return so_data

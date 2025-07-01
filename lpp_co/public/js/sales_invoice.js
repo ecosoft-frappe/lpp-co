@@ -23,6 +23,8 @@ frappe.ui.form.on("Sales Invoice", {
 								per_billed: ["<", 99.99],
 								company: frm.doc.company,
 							},
+							get_query_method:
+								"lpp_co.custom.sales_order.get_sales_order_not_delivered",
 							// Monkey Patch
 							allow_child_item_selection: true,
 							child_fieldname: "items",
