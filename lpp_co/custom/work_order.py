@@ -44,38 +44,46 @@ def set_run_card(doc, method):
  
  
 def set_run_card_set(doc):
-	operations = frappe.get_all("Job Card", filters={"work_order": doc.name}, distinct=True, pluck="operation")
-	for operation in operations:
-		job_cards = frappe.get_all(
-      		"Job Card",
-        	filters={
-             	"work_order": doc.name,
-              	"operation": operation,
-				"docstatus": 0
-            },
-         	order_by="creation asc"
-        )
-		total_run_card_set = str(len(job_cards)).zfill(3)
-		for idx, job_card in enumerate(job_cards, start=1):
-			run_card_set = str(idx).zfill(3)
-			run_card = f"{run_card_set}/{total_run_card_set}"
-			frappe.db.set_value("Job Card", job_card.name, "custom_run_card", run_card)
-   
+	job_cards = frappe.get_all(
+		"Job Card",
+		filters={"work_order": doc.name, "docstatus": 0},
+		fields=["name", "operation"],
+		order_by="creation"
+	)
+
+	op_groups = {}
+	for jc in job_cards:
+		op_groups.setdefault(jc["operation"], []).append(jc["name"])
+
+	max_batch = max(len(jcs) for jcs in op_groups.values())
+
+	for i in range(max_batch):
+		run_card = f"{i+1:03}/{max_batch:03}"
+		for jcs in op_groups.values():
+			if i < len(jcs):
+				frappe.db.set_value("Job Card", jcs[i], "custom_run_card", run_card)
+
 
 def set_run_card_step(doc):
-	run_cards = frappe.get_all("Job Card", filters={"work_order": doc.name}, distinct=True, pluck="custom_run_card")
-	for run_card in run_cards:
-		job_cards = frappe.get_all(
-      		"Job Card",
-        	filters={
-             	"work_order": doc.name,
-              	"custom_run_card": run_card,
-				"docstatus": 0
-            },
-         	order_by="creation asc"
-        )
-		for idx, job_card in enumerate(job_cards, start=1):
-			frappe.db.set_value("Job Card", job_card.name, "custom_run_step", idx)
+	op_order = {
+		op.operation: idx + 1
+		for idx, op in enumerate(sorted(doc.operations, key=lambda x: x.idx))
+	}
+
+	job_cards = frappe.get_all(
+		"Job Card",
+		filters={"work_order": doc.name, "docstatus": 0},
+		fields=["name", "custom_run_card", "operation"]
+	)
+
+	run_groups = {}
+	for jc in job_cards:
+		run_groups.setdefault(jc["custom_run_card"], []).append(jc)
+
+	for group in run_groups.values():
+		for jc in group:
+			if jc["operation"] in op_order:
+				frappe.db.set_value("Job Card", jc["name"], "custom_run_step", op_order[jc["operation"]])
 
 
 def set_job_card_name(doc):
