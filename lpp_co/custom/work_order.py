@@ -60,22 +60,22 @@ def set_run_card_set(doc):
 			run_card_set = str(idx).zfill(3)
 			run_card = f"{run_card_set}/{total_run_card_set}"
 			frappe.db.set_value("Job Card", job_card.name, "custom_run_card", run_card)
-   
+
 
 def set_run_card_step(doc):
-	run_cards = frappe.get_all("Job Card", filters={"work_order": doc.name}, distinct=True, pluck="custom_run_card")
-	for run_card in run_cards:
-		job_cards = frappe.get_all(
-      		"Job Card",
-        	filters={
-             	"work_order": doc.name,
-              	"custom_run_card": run_card,
-				"docstatus": 0
-            },
-         	order_by="creation asc"
-        )
-		for idx, job_card in enumerate(job_cards, start=1):
-			frappe.db.set_value("Job Card", job_card.name, "custom_run_step", idx)
+    work_order = frappe.get_doc("Work Order", doc.name)
+    operation_map = {op.operation: idx for idx, op in enumerate(work_order.operations, start=1)}
+
+    job_cards = frappe.get_all(
+        "Job Card",
+        filters={"work_order": doc.name, "docstatus": 0},
+        fields=["name", "operation"]
+    )
+
+    for jc in job_cards:
+        run_step = operation_map.get(jc.operation)
+        if run_step:
+            frappe.db.set_value("Job Card", jc.name, "custom_run_step", run_step)
 
 
 def set_job_card_name(doc):
