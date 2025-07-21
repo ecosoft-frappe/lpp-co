@@ -15,12 +15,13 @@ def get_item_quality_specification(item_group):
 		"Quality Inspection Parameter",
 		filters=[
 			["Quality Inspection Parameter Item Group",
-				"item_group", "in", item_groups]
+				"item_group", "in", item_groups],
+			["custom_is_item_spec", "=", 1]
 		],
 		pluck="name",
-		order_by="name"
+		order_by="`tabQuality Inspection Parameter`.`creation` asc"  
 	)
-	return list(set(params))
+	return list(dict.fromkeys(params))
 
 
 def validate_item_specification_line(doc, method):
