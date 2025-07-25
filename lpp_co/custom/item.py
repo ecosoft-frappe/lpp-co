@@ -19,7 +19,7 @@ def get_item_quality_specification(item_group):
 			["custom_is_item_spec", "=", 1]
 		],
 		pluck="name",
-		order_by="`tabQuality Inspection Parameter`.`creation` asc"  
+		order_by="custom_sequence asc"  
 	)
 	return list(dict.fromkeys(params))
 
