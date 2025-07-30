@@ -61,28 +61,27 @@ def get_job_cards(filters):
     return frappe.get_all("Job Card", fields=fields, filters=query_filters)
 
 def get_time_logs(job_card_names, filters):
-	tl_filters = {"parent": ["in", job_card_names]}
+    tl_filters = {"parent": ["in", job_card_names]}
 
-	if filters.get("from_date"):
-		tl_filters["from_time"] = (">=", filters["from_date"])
+    if filters.get("from_date"):
+        tl_filters["from_time"] = (">=", filters["from_date"])
 
-	if filters.get("to_date"):
-		to_date = filters["to_date"]
-		if isinstance(to_date, str):
-			to_date = datetime.strptime(to_date, "%Y-%m-%d %H:%M:%S")
-		to_date = to_date.replace(hour=23, minute=59, second=59)
-		tl_filters["to_time"] = ("<=", to_date)
+    if filters.get("to_date"):
+        to_date = filters["to_date"]
+        if isinstance(to_date, str):
+            to_date = datetime.strptime(to_date, "%Y-%m-%d %H:%M:%S")
+        tl_filters["to_time"] = ("<=", to_date)
 
-	return frappe.get_all(
-		"Job Card Time Log",
-		fields=[
+    return frappe.get_all(
+        "Job Card Time Log",
+        fields=[
             "name", "parent", "from_time", "to_time", "custom_type", "custom_shift",
             "employee", "completed_qty", "custom_input_qty", "time_in_mins", "custom_units_hour_log",
             "idx"
         ],
-		filters=tl_filters,
-		order_by="idx asc"
-	)
+        filters=tl_filters,
+        order_by="idx asc"
+    )
 
 def get_employee_map(time_logs):
     employee_ids = list({log["employee"] for log in time_logs if log.get("employee")})
