@@ -63,6 +63,8 @@ def make_quality_inspections(doctype, docname, items):
 			"sample_size": flt(item.get("sample_size")),
 			"item_serial_no": item.get("serial_no").split("\n")[0] if item.get("serial_no") else None,
 			"batch_no": item.get("batch_no"),
+			"custom_qc_quantity": flt(item.get("custom_qc_quantity", 0)),
+            "custom_qc_uom": item.get("custom_qc_uom", "")
 		}
 		if not batch_nos:
 			# Original
