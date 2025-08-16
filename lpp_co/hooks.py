@@ -112,6 +112,7 @@ jinja = {
 
 after_migrate = [
 	"lpp_co.custom.print_format_setting.set_print_format_as_disable",
+	"lpp_co.custom.report_setting.delete_report",
 ]
 
 # Uninstallation
