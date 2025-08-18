@@ -258,88 +258,73 @@ def get_columns(filters):
 			"options": "UOM",
 			"width": 90,
 		},
+		{
+			"label": _("In Qty"),
+			"fieldname": "in_qty",
+			"fieldtype": "Float",
+			"width": 80,
+			"convertible": "qty",
+		},
+		{
+			"label": _("Out Qty"),
+			"fieldname": "out_qty",
+			"fieldtype": "Float",
+			"width": 80,
+			"convertible": "qty",
+		},
+		{
+			"label": _("Balance Qty"),
+			"fieldname": "qty_after_transaction",
+			"fieldtype": "Float",
+			"width": 100,
+			"convertible": "qty",
+		},
+		{
+			"label": _("Warehouse"),
+			"fieldname": "warehouse",
+			"fieldtype": "Link",
+			"options": "Warehouse",
+			"width": 150,
+		},
+		{
+			"label": _("Batch"),
+			"fieldname": "batch_no",
+			"fieldtype": "Link",
+			"options": "Batch",
+			"width": 100,
+		},
+		{
+			"label": _("Voucher Type"),
+			"fieldname": "voucher_type",
+			"width": 110,
+		},
+		{
+			"label": _("Voucher #"),
+			"fieldname": "voucher_no",
+			"fieldtype": "Dynamic Link",
+			"options": "voucher_type",
+			"width": 100,
+		},
+		{
+			"label": _("Cost Center"),
+			"fieldname": "cost_center",
+			"fieldtype": "Link",
+			"options": "Cost Center",
+			"width": 100,
+		},
+		{
+			"label": _("Shift"),
+			"fieldname": "shift",
+			"fieldtype": "Select",
+			"options": "\nA\nB",
+			"width": 100,
+		},
+		{
+			"label": _("Remarks"),
+			"fieldname": "remarks",
+			"fieldtype": "Text", "width": 100,
+		},
 	]
-
-	for dimension in get_inventory_dimensions():
-		columns.append(
-			{
-				"label": _(dimension.doctype),
-				"fieldname": dimension.fieldname,
-				"fieldtype": "Link",
-				"options": dimension.doctype,
-				"width": 110,
-			}
-		)
-
-	columns.extend(
-		[
-			{
-				"label": _("In Qty"),
-				"fieldname": "in_qty",
-				"fieldtype": "Float",
-				"width": 80,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Out Qty"),
-				"fieldname": "out_qty",
-				"fieldtype": "Float",
-				"width": 80,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Balance Qty"),
-				"fieldname": "qty_after_transaction",
-				"fieldtype": "Float",
-				"width": 100,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Warehouse"),
-				"fieldname": "warehouse",
-				"fieldtype": "Link",
-				"options": "Warehouse",
-				"width": 150,
-			},
-			{
-				"label": _("Batch"),
-				"fieldname": "batch_no",
-				"fieldtype": "Link",
-				"options": "Batch",
-				"width": 100,
-			},
-			{
-				"label": _("Voucher Type"),
-				"fieldname": "voucher_type",
-				"width": 110,
-			},
-			{
-				"label": _("Voucher #"),
-				"fieldname": "voucher_no",
-				"fieldtype": "Dynamic Link",
-				"options": "voucher_type",
-				"width": 100,
-			},
-			{
-				"label": _("Cost Center"),
-				"fieldname": "cost_center",
-				"fieldtype": "Link",
-				"options": "Cost Center",
-				"width": 100,
-			},
-			{
-				"label": _("Shift"),
-				"fieldname": "shift",
-				"fieldtype": "Select",
-				"options": "\nA\nB",
-				"width": 100,
-			},
-			{
-				"label": _("Remarks"),
-				"fieldname": "remarks",
-				"fieldtype": "Text", "width": 100},
-		]
-	)
 
 	return columns
 
