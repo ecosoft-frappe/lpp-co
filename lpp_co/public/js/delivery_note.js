@@ -42,7 +42,7 @@ frappe.ui.form.on("Delivery Note", {
 							// Monkey Patch
 							allow_child_item_selection: true,
 							child_fieldname: "items",
-							child_columns: ["custom_customer_part_no", "item_name", "custom_po_no",  "custom_po_date", "delivery_date", "qty", "delivered_qty", "custom_balance_qty"],
+							child_columns: ["item_code", "custom_customer_part_no", "item_name", "custom_po_no",  "custom_po_date", "delivery_date", "qty", "delivered_qty", "custom_balance_qty"],
 							// -- Monkey Patch
 						});
 					},
