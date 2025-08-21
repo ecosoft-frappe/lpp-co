@@ -23,6 +23,11 @@ def get_data(filters):
     job_cards = get_job_cards(filters)
     if not job_cards:
         return []
+    
+    wo_map = get_work_order(job_cards)
+    for jc in job_cards:
+        wo = wo_map.get(jc.get("work_order"), {})
+        jc["custom_customer_name"] = wo.get("custom_customer_name")
 
     job_card_names = [jc.name for jc in job_cards]
     time_logs = get_time_logs(job_card_names, filters)
@@ -94,6 +99,17 @@ def get_employee_map(time_logs):
     )
     return {e.name: {"name": e.name, "employee_name": e.employee_name} for e in employees}
 
+def get_work_order(job_cards):
+    wo_names = list({jc.work_order for jc in job_cards if jc.get("work_order")})
+    if not wo_names:
+        return {}
+    customer = frappe.get_all(
+        "Work Order",
+        fields=["name", "custom_customer_name"],
+        filters={"name": ["in", wo_names]}
+    )
+    return {c.name: {"name": c.name, "custom_customer_name": c.custom_customer_name} for c in customer}
+
 def group_by_parent(items):
     result = {}
     for item in items:
@@ -160,7 +176,7 @@ def add_common_fields(row, log, sequence, employee_id, employee_name, jc):
 def add_defect_row(jc, fields_to_blank):
     row = {k: jc.get(k, "") for k in [
         "name", "status", "work_order", "custom_run_card", "production_item", "item_name", "posting_date",
-        "workstation", "operation", "custom_job_card_name", "workstation_type", "custom_run_step"
+        "workstation", "operation", "custom_job_card_name", "workstation_type", "custom_run_step", "custom_customer_name"
     ]}
     row["custom_yield"] = None
     row["custom_yield_setup"] = None
@@ -267,6 +283,7 @@ def get_columns(filters):
     columns = [
         {"label": _("ID"), "fieldname": "name", "fieldtype": "Link", "options": "Job Card", "width": 100},
         {"label": _("Status"), "fieldname": "status", "width": 150},
+        {"label": _("Customer"), "fieldname": "custom_customer_name", "fieldtype": "Data", "width": 300},
         {"label": _("Job Card Name"), "fieldname": "custom_job_card_name", "fieldtype": "Link", "options": "Job Card", "width": 250},
         {"label": _("Work Order"), "fieldname": "work_order", "fieldtype": "Link", "options": "Work Order", "width": 150},
         {"label": _("Job Card"), "fieldname": "custom_run_card", "fieldtype": "Data", "width": 100},
