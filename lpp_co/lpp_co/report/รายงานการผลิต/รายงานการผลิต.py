@@ -49,34 +49,34 @@ def get_data(filters):
 
 def get_job_cards(filters):
     query_filters = {"docstatus": ("<", 2)}
+
     for f in ["work_order", "production_item"]:
         if filters.get(f):
             query_filters[f] = ("in", filters[f])
+
     for f in ["workstation", "operation", "status", "company", "workstation_type", "custom_run_card"]:
         if filters.get(f):
             query_filters[f] = filters[f]
 
+    fd = filters.get("from_date")
+    td = filters.get("to_date")
+    if fd:
+        query_filters["actual_start_date"] = (">=", fd)
+    if td:
+        query_filters["actual_end_date"] = ("<=", td)
+
     fields = [
-        "name", "status", "work_order", "custom_run_card", "production_item", "item_name", "posting_date",
-        "total_completed_qty", "workstation", "operation", "total_time_in_mins",
-        "custom_job_card_name", "workstation_type", "for_quantity",
-        "custom_total_input_qty", "custom_scrap_qty", "custom_yield",
-        "custom_total_setup_defect_qty", "custom_yield_setup", "custom_run_step"
+        "name","status","work_order","custom_run_card","production_item","item_name","posting_date",
+        "total_completed_qty","workstation","operation","total_time_in_mins",
+        "custom_job_card_name","workstation_type","for_quantity",
+        "custom_total_input_qty","custom_scrap_qty","custom_yield",
+        "custom_total_setup_defect_qty","custom_yield_setup","custom_run_step",
+        "actual_start_date","actual_end_date"
     ]
     return frappe.get_all("Job Card", fields=fields, filters=query_filters)
 
 def get_time_logs(job_card_names, filters):
     tl_filters = {"parent": ["in", job_card_names]}
-
-    if filters.get("from_date"):
-        tl_filters["from_time"] = (">=", filters["from_date"])
-
-    if filters.get("to_date"):
-        to_date = filters["to_date"]
-        if isinstance(to_date, str):
-            to_date = datetime.strptime(to_date, "%Y-%m-%d %H:%M:%S")
-        tl_filters["to_time"] = ("<=", to_date)
-
     return frappe.get_all(
         "Job Card Time Log",
         fields=[
