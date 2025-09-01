@@ -201,25 +201,7 @@ def update_available_serial_nos(available_serial_nos, sle):
 
 def get_columns(filters):
 	columns = [
-		{
-			"label": _("Date"),
-			"fieldname": "date",
-			"fieldtype": "Datetime",
-			"width": 150,
-		},
-		{
-			"label": _("Document Date"),
-			"fieldname": "document_date",
-			"fieldtype": "Date",
-			"width": 150,
-		},
-		{
-			"label": _("Item Group"),
-			"fieldname": "item_group",
-			"fieldtype": "Link",
-			"options": "Item Group",
-			"width": 100,
-		},
+		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 150},
 		{
 			"label": _("Item"),
 			"fieldname": "item_code",
@@ -227,30 +209,7 @@ def get_columns(filters):
 			"options": "Item",
 			"width": 100,
 		},
-		{
-			"label": _("Item Code"),
-			"fieldname": "item_code-item",
-			"fieldtype": "Data",
-			"width": 100,
-		},
-		{
-			"label": _("Item Name"),
-			"fieldname": "item_name",
-			"fieldtype": "Data",
-			"width": 100,
-		},
-		{
-			"label": _("Customer Name"),
-			"fieldname": "customer_name",
-			"fieldtype": "Data",
-			"width": 100,
-		},
-		{
-			"label": _("Customer Part No."),
-			"fieldname": "customer_part_no",
-			"fieldtype": "Data",
-			"width": 100,
-		},
+		{"label": _("Item Name"), "fieldname": "item_name", "width": 100},
 		{
 			"label": _("Stock UOM"),
 			"fieldname": "stock_uom",
@@ -258,73 +217,73 @@ def get_columns(filters):
 			"options": "UOM",
 			"width": 90,
 		},
-		{
-			"label": _("In Qty"),
-			"fieldname": "in_qty",
-			"fieldtype": "Float",
-			"width": 80,
-			"convertible": "qty",
-		},
-		{
-			"label": _("Out Qty"),
-			"fieldname": "out_qty",
-			"fieldtype": "Float",
-			"width": 80,
-			"convertible": "qty",
-		},
-		{
-			"label": _("Balance Qty"),
-			"fieldname": "qty_after_transaction",
-			"fieldtype": "Float",
-			"width": 100,
-			"convertible": "qty",
-		},
-		{
-			"label": _("Warehouse"),
-			"fieldname": "warehouse",
-			"fieldtype": "Link",
-			"options": "Warehouse",
-			"width": 150,
-		},
-		{
-			"label": _("Batch"),
-			"fieldname": "batch_no",
-			"fieldtype": "Link",
-			"options": "Batch",
-			"width": 100,
-		},
-		{
-			"label": _("Voucher Type"),
-			"fieldname": "voucher_type",
-			"width": 110,
-		},
-		{
-			"label": _("Voucher #"),
-			"fieldname": "voucher_no",
-			"fieldtype": "Dynamic Link",
-			"options": "voucher_type",
-			"width": 100,
-		},
-		{
-			"label": _("Cost Center"),
-			"fieldname": "cost_center",
-			"fieldtype": "Link",
-			"options": "Cost Center",
-			"width": 100,
-		},
-		{
-			"label": _("Shift"),
-			"fieldname": "shift",
-			"fieldtype": "Select",
-			"options": "\nA\nB",
-			"width": 100,
-		},
-		{
-			"label": _("Remarks"),
-			"fieldname": "remarks",
-			"fieldtype": "Text", "width": 100,
-		},
 	]
+
+	for dimension in get_inventory_dimensions():
+		columns.append(
+			{
+				"label": _(dimension.doctype),
+				"fieldname": dimension.fieldname,
+				"fieldtype": "Link",
+				"options": dimension.doctype,
+				"width": 110,
+			}
+		)
+
+	columns.extend(
+		[
+			{
+				"label": _("In Qty"),
+				"fieldname": "in_qty",
+				"fieldtype": "Float",
+				"width": 80,
+				"convertible": "qty",
+			},
+			{
+				"label": _("Out Qty"),
+				"fieldname": "out_qty",
+				"fieldtype": "Float",
+				"width": 80,
+				"convertible": "qty",
+			},
+			{
+				"label": _("Balance Qty"),
+				"fieldname": "qty_after_transaction",
+				"fieldtype": "Float",
+				"width": 100,
+				"convertible": "qty",
+			},
+			{
+				"label": _("Warehouse"),
+				"fieldname": "warehouse",
+				"fieldtype": "Link",
+				"options": "Warehouse",
+				"width": 150,
+			},
+			{
+				"label": _("Item Group"),
+				"fieldname": "item_group",
+				"fieldtype": "Link",
+				"options": "Item Group",
+				"width": 100,
+			},
+			{"label": _("Voucher Type"), "fieldname": "voucher_type", "width": 110},
+			{
+				"label": _("Voucher #"),
+				"fieldname": "voucher_no",
+				"fieldtype": "Dynamic Link",
+				"options": "voucher_type",
+				"width": 100,
+			},
+			{
+				"label": _("Batch"),
+				"fieldname": "batch_no",
+				"fieldtype": "Link",
+				"options": "Batch",
+				"width": 100,
+			},
+		]
+	)
 
 	return columns
 
@@ -334,11 +293,8 @@ def get_stock_ledger_entries(filters, items):
 	to_date = get_datetime(filters.to_date + " 23:59:59")
 
 	sle = frappe.qb.DocType("Stock Ledger Entry")
-	se = frappe.qb.DocType("Stock Entry")
 	query = (
 		frappe.qb.from_(sle)
-		.left_join(se)
-		.on(sle.voucher_type == "Stock Entry" and sle.voucher_no == se.name)
 		.select(
 			sle.item_code,
 			sle.posting_datetime.as_("date"),
@@ -358,10 +314,6 @@ def get_stock_ledger_entries(filters, items):
 			sle.batch_no,
 			sle.serial_no,
 			sle.project,
-			se.custom_document_date.as_("document_date"),
-			se.custom_cost_center.as_("cost_center"),
-			se.custom_shift.as_("shift"),
-			se.remarks,
 		)
 		.where((sle.docstatus < 2) & (sle.is_cancelled == 0) & (sle.posting_datetime[from_date:to_date]))
 		.orderby(sle.posting_datetime)
@@ -455,7 +407,7 @@ def get_item_details(items, sl_entries, include_uom):
 	item = frappe.qb.DocType("Item")
 	query = (
 		frappe.qb.from_(item)
-		.select(item.name, item.name.as_("item_code-item"), item.item_name, item.description, item.item_group, item.brand, item.stock_uom, item.custom_customer_name.as_("customer_name"), item.custom_ref_code.as_("customer_part_no"))
+		.select(item.name, item.item_name, item.description, item.item_group, item.brand, item.stock_uom)
 		.where(item.name.isin(items))
 	)
 
@@ -475,6 +427,7 @@ def get_item_details(items, sl_entries, include_uom):
 	return item_details
 
 
+# TODO: THIS IS NOT USED
 def get_sle_conditions(filters):
 	conditions = []
 	if filters.get("warehouse"):
@@ -505,8 +458,8 @@ def get_opening_balance_from_batch(filters, columns, sl_entries):
 	}
 
 	for fields in ["item_code", "warehouse"]:
-		if filters.get(fields):
-			query_filters[fields] = filters.get(fields)
+		if value := filters.get(fields):
+			query_filters[fields] = ("in", value)
 
 	opening_data = frappe.get_all(
 		"Stock Ledger Entry",
@@ -537,8 +490,16 @@ def get_opening_balance_from_batch(filters, columns, sl_entries):
 	)
 
 	for field in ["item_code", "warehouse", "company"]:
-		if filters.get(field):
-			query = query.where(table[field] == filters.get(field))
+		value = filters.get(field)
+
+		if not value:
+			continue
+
+		if isinstance(value, list | tuple):
+			query = query.where(table[field].isin(value))
+
+		else:
+			query = query.where(table[field] == value)
 
 	bundle_data = query.run(as_dict=True)
 
@@ -593,13 +554,34 @@ def get_opening_balance(filters, columns, sl_entries):
 	return row
 
 
-def get_warehouse_condition(warehouse):
-	warehouse_details = frappe.db.get_value("Warehouse", warehouse, ["lft", "rgt"], as_dict=1)
-	if warehouse_details:
-		return f" exists (select name from `tabWarehouse` wh \
-			where wh.lft >= {warehouse_details.lft} and wh.rgt <= {warehouse_details.rgt} and warehouse = wh.name)"
+def get_warehouse_condition(warehouses):
+	if not warehouses:
+		return ""
 
-	return ""
+	if isinstance(warehouses, str):
+		warehouses = [warehouses]
+
+	warehouse_range = frappe.get_all(
+		"Warehouse",
+		filters={
+			"name": ("in", warehouses),
+		},
+		fields=["lft", "rgt"],
+		as_list=True,
+	)
+
+	if not warehouse_range:
+		return ""
+
+	alias = "wh"
+	conditions = []
+	for lft, rgt in warehouse_range:
+		conditions.append(f"({alias}.lft >= {lft} and {alias}.rgt <= {rgt})")
+
+	conditions = " or ".join(conditions)
+
+	return f" exists (select name from `tabWarehouse` {alias} \
+		where ({conditions}) and warehouse = {alias}.name)"
 
 
 def get_item_group_condition(item_group, item_table=None):
