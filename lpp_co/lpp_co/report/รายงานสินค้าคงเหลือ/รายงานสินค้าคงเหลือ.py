@@ -237,9 +237,6 @@ class StockBalanceReport:
 				"company": entry.company,
 				"currency": self.company_currency,
 				"stock_uom": entry.stock_uom,
-				"item_code-item": entry.item_code_item,
-				"customer_name": entry.customer_name,
-				"customer_part_no": entry.customer_part_no,
 				"item_name": entry.item_name,
 				"opening_qty": opening_data.get("bal_qty") or 0.0,
 				"opening_val": opening_data.get("bal_val") or 0.0,
@@ -318,10 +315,7 @@ class StockBalanceReport:
 				sle.has_serial_no,
 				item_table.item_group,
 				item_table.stock_uom,
-				item_table.name.as_("item_code_item"),
 				item_table.item_name,
-				item_table.custom_customer_name.as_("customer_name"),
-				item_table.custom_ref_code.as_("customer_part_no"),
 			)
 			.where((sle.docstatus < 2) & (sle.is_cancelled == 0))
 			.orderby(sle.posting_datetime)
@@ -389,41 +383,18 @@ class StockBalanceReport:
 	def get_columns(self):
 		columns = [
 			{
-				"label": _("Item Group"),
-				"fieldname": "item_group",
-				"fieldtype": "Link",
-				"options": "Item Group",
-				"width": 100,
-			},
-			{
 				"label": _("Item"),
 				"fieldname": "item_code",
 				"fieldtype": "Link",
 				"options": "Item",
 				"width": 100,
 			},
+			{"label": _("Item Name"), "fieldname": "item_name", "width": 150},
 			{
-				"label": _("Item Code"),
-				"fieldname": "item_code-item",
-				"fieldtype": "Data",
-				"width": 150,
-			},
-			{
-				"label": _("Item Name"),
-				"fieldname": "item_name",
-				"fieldtype": "Data",
-				"width": 150,
-			},
-			{
-				"label": _("Customer Name"),
-				"fieldname": "customer_name",
-				"fieldtype": "Data",
-				"width": 100,
-			},
-			{
-				"label": _("Customer Part No."),
-				"fieldname": "customer_part_no",
-				"fieldtype": "Data",
+				"label": _("Item Group"),
+				"fieldname": "item_group",
+				"fieldtype": "Link",
+				"options": "Item Group",
 				"width": 100,
 			},
 			{
@@ -433,49 +404,79 @@ class StockBalanceReport:
 				"options": "Warehouse",
 				"width": 100,
 			},
-			{
-				"label": _("Stock UOM"),
-				"fieldname": "stock_uom",
-				"fieldtype": "Link",
-				"options": "UOM",
-				"width": 90,
-			},
-			{
-				"label": _("Opening Qty"),
-				"fieldname": "opening_qty",
-				"fieldtype": "Float",
-				"width": 100,
-				"convertible": "qty",
-			},
-			{
-				"label": _("In Qty"),
-				"fieldname": "in_qty",
-				"fieldtype": "Float",
-				"width": 80,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Out Qty"),
-				"fieldname": "out_qty",
-				"fieldtype": "Float",
-				"width": 80,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Balance Qty"),
-				"fieldname": "bal_qty",
-				"fieldtype": "Float",
-				"width": 100,
-				"convertible": "qty",
-			},
-			{
-				"label": _("Reserved Stock"),
-				"fieldname": "reserved_stock",
-				"fieldtype": "Float",
-				"width": 80,
-				"convertible": "qty",
-			},
 		]
+
+		if self.filters.get("show_dimension_wise_stock"):
+			for dimension in get_inventory_dimensions():
+				columns.append(
+					{
+						"label": _(dimension.doctype),
+						"fieldname": dimension.fieldname,
+						"fieldtype": "Link",
+						"options": dimension.doctype,
+						"width": 110,
+					}
+				)
+
+		columns.extend(
+			[
+				{
+					"label": _("Stock UOM"),
+					"fieldname": "stock_uom",
+					"fieldtype": "Link",
+					"options": "UOM",
+					"width": 90,
+				},
+				{
+					"label": _("Balance Qty"),
+					"fieldname": "bal_qty",
+					"fieldtype": "Float",
+					"width": 100,
+					"convertible": "qty",
+				},
+				{
+					"label": _("Opening Qty"),
+					"fieldname": "opening_qty",
+					"fieldtype": "Float",
+					"width": 100,
+					"convertible": "qty",
+				},
+				{
+					"label": _("In Qty"),
+					"fieldname": "in_qty",
+					"fieldtype": "Float",
+					"width": 80,
+					"convertible": "qty",
+				},
+				{
+					"label": _("Out Qty"),
+					"fieldname": "out_qty",
+					"fieldtype": "Float",
+					"width": 80,
+					"convertible": "qty",
+				},
+				{
+					"label": _("Reserved Stock"),
+					"fieldname": "reserved_stock",
+					"fieldtype": "Float",
+					"width": 80,
+					"convertible": "qty",
+				},
+			]
+		)
+
+		if self.filters.get("show_stock_ageing_data"):
+			columns += [
+				{"label": _("Average Age"), "fieldname": "average_age", "width": 100},
+				{"label": _("Earliest Age"), "fieldname": "earliest_age", "width": 100},
+				{"label": _("Latest Age"), "fieldname": "latest_age", "width": 100},
+			]
+
+		if self.filters.get("show_variant_attributes"):
+			columns += [
+				{"label": att_name, "fieldname": att_name, "width": 100}
+				for att_name in get_variants_attributes()
+			]
 
 		return columns
 
@@ -592,10 +593,7 @@ def filter_items_with_no_transactions(
 			if key in [
 				"item_code",
 				"warehouse",
-				"item_code-item",
 				"item_name",
-				"customer_name",
-				"customer_part_no",
 				"item_group",
 				"project",
 				"stock_uom",
