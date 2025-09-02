@@ -387,22 +387,22 @@ class StockBalanceReport:
 				"fieldname": "item_code",
 				"fieldtype": "Link",
 				"options": "Item",
-				"width": 100,
+				"width": 150,
 			},
-			{"label": _("Item Name"), "fieldname": "item_name", "width": 150},
+			{"label": _("Item Name"), "fieldname": "item_name", "width": 500},
 			{
 				"label": _("Item Group"),
 				"fieldname": "item_group",
 				"fieldtype": "Link",
 				"options": "Item Group",
-				"width": 100,
+				"width": 150,
 			},
 			{
 				"label": _("Warehouse"),
 				"fieldname": "warehouse",
 				"fieldtype": "Link",
 				"options": "Warehouse",
-				"width": 100,
+				"width": 150,
 			},
 		]
 
@@ -414,7 +414,7 @@ class StockBalanceReport:
 						"fieldname": dimension.fieldname,
 						"fieldtype": "Link",
 						"options": dimension.doctype,
-						"width": 110,
+						"width": 150,
 					}
 				)
 
@@ -425,41 +425,41 @@ class StockBalanceReport:
 					"fieldname": "stock_uom",
 					"fieldtype": "Link",
 					"options": "UOM",
-					"width": 90,
+					"width": 150,
 				},
 				{
 					"label": _("Balance Qty"),
 					"fieldname": "bal_qty",
 					"fieldtype": "Float",
-					"width": 100,
+					"width": 150,
 					"convertible": "qty",
 				},
 				{
 					"label": _("Opening Qty"),
 					"fieldname": "opening_qty",
 					"fieldtype": "Float",
-					"width": 100,
+					"width": 150,
 					"convertible": "qty",
 				},
 				{
 					"label": _("In Qty"),
 					"fieldname": "in_qty",
 					"fieldtype": "Float",
-					"width": 80,
+					"width": 150,
 					"convertible": "qty",
 				},
 				{
 					"label": _("Out Qty"),
 					"fieldname": "out_qty",
 					"fieldtype": "Float",
-					"width": 80,
+					"width": 150,
 					"convertible": "qty",
 				},
 				{
 					"label": _("Reserved Stock"),
 					"fieldname": "reserved_stock",
 					"fieldtype": "Float",
-					"width": 80,
+					"width": 150,
 					"convertible": "qty",
 				},
 			]

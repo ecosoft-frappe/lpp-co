@@ -48,7 +48,7 @@ def get_data(filters):
     return result
 
 def get_job_cards(filters):
-    query_filters = {"docstatus": ("<", 2)}
+    query_filters = {"docstatus": 1}
 
     for f in ["work_order", "production_item"]:
         if filters.get(f):
