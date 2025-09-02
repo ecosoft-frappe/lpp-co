@@ -201,21 +201,21 @@ def update_available_serial_nos(available_serial_nos, sle):
 
 def get_columns(filters):
 	columns = [
-		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 150},
+		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 300},
 		{
 			"label": _("Item"),
 			"fieldname": "item_code",
 			"fieldtype": "Link",
 			"options": "Item",
-			"width": 100,
+			"width": 150,
 		},
-		{"label": _("Item Name"), "fieldname": "item_name", "width": 100},
+		{"label": _("Item Name"), "fieldname": "item_name", "width": 500},
 		{
 			"label": _("Stock UOM"),
 			"fieldname": "stock_uom",
 			"fieldtype": "Link",
 			"options": "UOM",
-			"width": 90,
+			"width": 150,
 		},
 	]
 
@@ -226,7 +226,7 @@ def get_columns(filters):
 				"fieldname": dimension.fieldname,
 				"fieldtype": "Link",
 				"options": dimension.doctype,
-				"width": 110,
+				"width": 150,
 			}
 		)
 
@@ -236,21 +236,21 @@ def get_columns(filters):
 				"label": _("In Qty"),
 				"fieldname": "in_qty",
 				"fieldtype": "Float",
-				"width": 80,
+				"width": 150,
 				"convertible": "qty",
 			},
 			{
 				"label": _("Out Qty"),
 				"fieldname": "out_qty",
 				"fieldtype": "Float",
-				"width": 80,
+				"width": 150,
 				"convertible": "qty",
 			},
 			{
 				"label": _("Balance Qty"),
 				"fieldname": "qty_after_transaction",
 				"fieldtype": "Float",
-				"width": 100,
+				"width": 150,
 				"convertible": "qty",
 			},
 			{
@@ -265,22 +265,22 @@ def get_columns(filters):
 				"fieldname": "item_group",
 				"fieldtype": "Link",
 				"options": "Item Group",
-				"width": 100,
+				"width": 150,
 			},
-			{"label": _("Voucher Type"), "fieldname": "voucher_type", "width": 110},
+			{"label": _("Voucher Type"), "fieldname": "voucher_type", "width": 150},
 			{
 				"label": _("Voucher #"),
 				"fieldname": "voucher_no",
 				"fieldtype": "Dynamic Link",
 				"options": "voucher_type",
-				"width": 100,
+				"width": 150,
 			},
 			{
 				"label": _("Batch"),
 				"fieldname": "batch_no",
 				"fieldtype": "Link",
 				"options": "Batch",
-				"width": 100,
+				"width": 150,
 			},
 		]
 	)
