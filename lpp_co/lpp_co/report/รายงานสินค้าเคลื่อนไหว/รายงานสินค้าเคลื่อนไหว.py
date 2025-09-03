@@ -201,7 +201,7 @@ def update_available_serial_nos(available_serial_nos, sle):
 
 def get_columns(filters):
 	columns = [
-		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 300},
+		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 200},
 		{
 			"label": _("Item"),
 			"fieldname": "item_code",
