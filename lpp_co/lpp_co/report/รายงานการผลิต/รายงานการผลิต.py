@@ -25,9 +25,12 @@ def get_data(filters):
         return []
     
     wo_map = get_work_order(job_cards)
+    wo_batches_map = get_batches_map(job_cards)
+
     for jc in job_cards:
         wo = wo_map.get(jc.get("work_order"), {})
         jc["custom_customer_name"] = wo.get("custom_customer_name")
+        jc["batch"] = wo_batches_map.get(jc.get("work_order"), "")
 
     job_card_names = [jc.name for jc in job_cards]
     time_logs = get_time_logs(job_card_names, filters)
@@ -109,6 +112,38 @@ def get_work_order(job_cards):
         filters={"name": ["in", wo_names]}
     )
     return {c.name: {"name": c.name, "custom_customer_name": c.custom_customer_name} for c in customer}
+
+def get_batches_map(job_cards):
+    """Return dict: { work_order -> 'BATCH1, BATCH2, ...' } from Batch.reference_name (and .reference_doctype if present)."""
+    wo_names = list({jc.work_order for jc in job_cards if jc.get("work_order")})
+    if not wo_names:
+        return {}
+
+    # ลองกรองด้วย reference_doctype ก่อน (ถ้ามีในระบบจะได้ผลลัพธ์ตรงกว่า)
+    batches = frappe.get_all(
+        "Batch",
+        fields=["name", "batch_id", "reference_doctype", "reference_name"],
+        filters={"reference_name": ["in", wo_names], "reference_doctype": "Work Order"},
+    )
+
+    # เผื่อบางระบบไม่มี field reference_doctype หรือไม่ได้กรอกค่า → fallback กรองด้วย reference_name อย่างเดียว
+    if not batches:
+        batches = frappe.get_all(
+            "Batch",
+            fields=["name", "batch_id", "reference_name"],
+            filters={"reference_name": ["in", wo_names]},
+        )
+
+    by_wo = {}
+    for b in batches:
+        wo = b.get("reference_name")
+        if not wo:
+            continue
+        label = (b.get("batch_id") or b.get("name"))
+        by_wo.setdefault(wo, set()).add(label)
+
+    # รวมหลาย batch เป็นสตริงคอมมา
+    return {wo: ", ".join(sorted(list(vals))) for wo, vals in by_wo.items()}
 
 def group_by_parent(items):
     result = {}
@@ -293,6 +328,7 @@ def get_columns(filters):
         {"label": _("Workstation Type"), "fieldname": "workstation_type", "fieldtype": "Link", "options": "Workstation Type", "width": 150},
         {"label": _("Production Item"), "fieldname": "production_item", "fieldtype": "Link", "options": "Item", "width": 150},
         {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 500},
+        {"label": _("Batch"), "fieldname": "batch", "fieldtype": "Data", "width": 150},
         {"label": _("Qty on This Job Card"), "fieldname": "for_quantity", "fieldtype": "Data", "width": 150},
         {"label": _("Total Input Qty"), "fieldname": "custom_total_input_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Total Completed Qty"), "fieldname": "total_completed_qty", "fieldtype": "Data", "width": 150},
