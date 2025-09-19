@@ -192,12 +192,14 @@ def item_query(doctype, txt, searchfield, start, page_len, filters):
 		)
 
 	elif filters.get("reference_name"):
+		conditions = "" if from_doctype == "Job Card" else f"{qi_condition} {cond} {mcond}"
+		
 		return frappe.db.sql(
 			f"""
 				SELECT production_item
 				FROM `tab{from_doctype}`
 				WHERE name = %(reference_name)s and docstatus < 2 and production_item like %(txt)s
-				{qi_condition} {cond} {mcond}
+				{conditions}
 				ORDER BY production_item
 				limit {cint(page_len)} offset {cint(start)}
 			""",
