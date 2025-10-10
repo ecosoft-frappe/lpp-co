@@ -27,6 +27,8 @@ def execute(filters=None):
 	items = get_items(filters)
 	sl_entries = get_stock_ledger_entries(filters, items)
 	item_details = get_item_details(items, sl_entries, include_uom)
+	stock_entry_date_map = get_stock_entry_dates(sl_entries)
+
 	if filters.get("batch_no"):
 		opening_row = get_opening_balance_from_batch(filters, columns, sl_entries)
 	else:
@@ -58,6 +60,9 @@ def execute(filters=None):
 
 	for sle in sl_entries:
 		item_detail = item_details[sle.item_code]
+
+		if sle.get("voucher_type") == "Stock Entry":
+			sle["custom_document_date"] = stock_entry_date_map.get(("Stock Entry", sle.get("voucher_no")))
 
 		sle.update(item_detail)
 		if bundle_info := bundle_details.get(sle.serial_and_batch_bundle):
@@ -202,6 +207,7 @@ def update_available_serial_nos(available_serial_nos, sle):
 def get_columns(filters):
 	columns = [
 		{"label": _("Date"), "fieldname": "date", "fieldtype": "Datetime", "width": 200},
+		{"label": _("Document Date"), "fieldname": "custom_document_date", "fieldtype": "Date", "width": 150},
 		{
 			"label": _("Item"),
 			"fieldname": "item_code",
@@ -347,6 +353,19 @@ def get_stock_ledger_entries(filters, items):
 	query = apply_warehouse_filter(query, sle, filters)
 
 	return query.run(as_dict=True)
+
+
+def get_stock_entry_dates(sl_entries):
+    names = {s["voucher_no"] for s in sl_entries if s.get("voucher_type") == "Stock Entry" and s.get("voucher_no")}
+    if not names:
+        return {}
+
+    rows = frappe.get_all(
+        "Stock Entry",
+        filters={"name": ["in", list(names)]},
+        fields=["name", "custom_document_date"],  
+    )
+    return {("Stock Entry", r.name): r.custom_document_date for r in rows}
 
 
 def get_serial_and_batch_bundles(filters):
