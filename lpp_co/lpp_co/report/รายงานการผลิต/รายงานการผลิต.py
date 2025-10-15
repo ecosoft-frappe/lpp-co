@@ -71,7 +71,7 @@ def get_job_cards(filters):
     fields = [
         "name","status","work_order","custom_run_card","production_item","item_name","posting_date",
         "total_completed_qty","workstation","operation","total_time_in_mins",
-        "custom_job_card_name","workstation_type","for_quantity",
+        "custom_job_card_name","workstation_type","custom_qty_on_this_job_card",
         "custom_total_input_qty","custom_scrap_qty","custom_yield",
         "custom_total_setup_defect_qty","custom_yield_setup","custom_run_step",
         "actual_start_date","actual_end_date"
@@ -167,7 +167,7 @@ def build_rows(jc, log, sequence, employee_id, employee_name, is_first_row):
 
     if not is_first_row:
         for field in [
-            "for_quantity", "custom_total_input_qty", "total_completed_qty", "custom_scrap_qty", "custom_yield",
+            "custom_qty_on_this_job_card", "custom_total_input_qty", "total_completed_qty", "custom_scrap_qty", "custom_yield",
             "custom_total_setup_defect_qty", "custom_yield_setup", "total_time_in_mins", "custom_unit_hours"
         ]:
             base_row[field] = ""
@@ -280,7 +280,7 @@ def prepare_chart_data(job_card_details, filters):
 
 def calculate_totals(data):
     fields_to_sum = [
-        "for_quantity",              
+        "custom_qty_on_this_job_card",              
         "custom_total_input_qty",    
         "total_completed_qty",       
         "custom_scrap_qty",          
@@ -301,7 +301,7 @@ def calculate_totals(data):
 
     total_row = {
         "item_name": _("Total"),
-        "for_quantity": totals["for_quantity"],
+        "custom_qty_on_this_job_card": totals["custom_qty_on_this_job_card"],
         "custom_total_input_qty": totals["custom_total_input_qty"],
         "total_completed_qty": totals["total_completed_qty"],
         "custom_scrap_qty": totals["custom_scrap_qty"],
@@ -329,7 +329,7 @@ def get_columns(filters):
         {"label": _("Production Item"), "fieldname": "production_item", "fieldtype": "Link", "options": "Item", "width": 150},
         {"label": _("Item Name"), "fieldname": "item_name", "fieldtype": "Data", "width": 500},
         {"label": _("Batch"), "fieldname": "batch", "fieldtype": "Data", "width": 150},
-        {"label": _("Qty on This Job Card"), "fieldname": "for_quantity", "fieldtype": "Data", "width": 150},
+        {"label": _("Qty on This Job Card"), "fieldname": "custom_qty_on_this_job_card", "fieldtype": "Data", "width": 150},
         {"label": _("Total Input Qty"), "fieldname": "custom_total_input_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Total Completed Qty"), "fieldname": "total_completed_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Total Production Defect Qty"), "fieldname": "custom_scrap_qty", "fieldtype": "Data", "width": 150},
