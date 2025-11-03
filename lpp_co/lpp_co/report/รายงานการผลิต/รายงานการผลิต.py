@@ -158,7 +158,7 @@ def build_rows(jc, log, sequence, employee_id, employee_name, is_first_row):
     parentfield = f"custom_job_card_defect_{sequence}"
     defects = frappe.get_all(
         "Job Card Defect",
-        fields=["defect", "qty"],
+        fields=["defect", "custom_defect_qty"],
         filters={"parent": jc.name, "parentfield": parentfield}
     )
 
@@ -179,10 +179,10 @@ def build_rows(jc, log, sequence, employee_id, employee_name, is_first_row):
     if defects:
         for i, defect in enumerate(defects):
             row = base_row.copy() if i == 0 else add_defect_row(jc, [])
-            row.update({"defect": defect.defect, "qty": defect.qty})
+            row.update({"defect": defect.defect, "custom_defect_qty": defect.custom_defect_qty})
             rows.append(row)
     else:
-        base_row.update({"defect": "-", "qty": 0})
+        base_row.update({"defect": "-", "custom_defect_qty": 0})
         rows.append(base_row)
 
     return rows
@@ -346,7 +346,7 @@ def get_columns(filters):
         {"label": _("To Time"), "fieldname": "to_time", "fieldtype": "Datetime", "width": 200},
         {"label": _("Input Qty"), "fieldname": "custom_input_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Completed Qty"), "fieldname": "completed_qty", "fieldtype": "Data", "width": 150},
-        {"label": _("Defect Qty"), "fieldname": "qty", "fieldtype": "Data", "width": 150},
+        {"label": _("Defect Qty"), "fieldname": "custom_defect_qty", "fieldtype": "Data", "width": 150},
         {"label": _("Defect Name"), "fieldname": "defect", "fieldtype": "Data", "width": 150},
         {"label": _("Time In Mins"), "fieldname": "time_in_mins", "fieldtype": "Data", "width": 150},
         {"label": _("Units / Hour"), "fieldname": "custom_units_hour_log", "fieldtype": "Data", "width": 150}

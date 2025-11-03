@@ -94,7 +94,7 @@ def set_sequence_input_quantity(doc, method):
 
     for i, log in enumerate(doc.time_logs):
         defects_for_sequence = doc.get(f"custom_job_card_defect_{i + 1}") or []
-        defect_qty = sum(d.qty for d in defects_for_sequence)
+        defect_qty = sum(float(d.get('custom_defect_qty') or 0) for d in defects_for_sequence)
 
         if log.custom_type == "Production":
             total_defects += defect_qty
@@ -113,11 +113,11 @@ def set_sequence_input_quantity(doc, method):
 
 
 def validate_time_log_and_defect(doc, method):
-	sequences = len(doc.time_logs)
-	for seq in range(6):
-		defects = sum([defect.qty for defect in doc.get("custom_job_card_defect_%s" % str(seq+1))])
-		if defects > 0 and sequences < seq+1:
-			frappe.throw(_("Job Card Defect {} cannot be entered without Time Log No. {}").format(seq+1, seq+1))
+    sequences = len(doc.time_logs)
+    for seq in range(6):
+        defects = sum([float(defect.get('custom_defect_qty') or 0) for defect in doc.get("custom_job_card_defect_%s" % str(seq+1)) or []])
+        if defects > 0 and sequences < seq+1:
+            frappe.throw(_("Job Card Defect {} cannot be entered without Time Log No. {}").format(seq+1, seq+1))
 
 
 def update_scrap_qty_to_work_order(doc, method):
