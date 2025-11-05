@@ -173,7 +173,7 @@ def item_query(doctype, txt, searchfield, start, page_len, filters):
 		# elif from_doctype == "Stock Entry Detail":
 		# 	cond = """and s_warehouse is null"""
 		if from_doctype == "Stock Entry Detail":
-			cond = """and s_warehouse is null"""
+			cond = """and t_warehose is not null"""
 		# --
 
 		if from_doctype in ["Supplier Quotation Item"]:
