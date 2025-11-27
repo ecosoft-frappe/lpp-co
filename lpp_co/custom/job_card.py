@@ -96,9 +96,10 @@ def set_sequence_input_quantity(doc, method):
         defects_for_sequence = doc.get(f"custom_job_card_defect_{i + 1}") or []
         defect_qty = sum(d.qty for d in defects_for_sequence)
 
+        log.custom_input_qty = log.completed_qty + defect_qty  # ← ทุกแถวได้รับการตั้งค่า
+
         if log.custom_type == "Production":
             total_defects += defect_qty
-            log.custom_input_qty = log.completed_qty + defect_qty
         elif log.custom_type == "Setup":
             total_setup_defects += defect_qty
 
