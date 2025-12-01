@@ -88,16 +88,28 @@ class QualityInspectionLPP(QualityInspection):
 
 		# Fetch the template and create results for each parameter
 		doc_template = frappe.get_doc("Quality Inspection Template", template_name)
+		item = frappe.get_doc("Item", self.item_code)
+
+		spec_dict = {
+			s.specification: s.nominal
+			for s in item.get("custom_item_specification_line", [])
+		}
+
 		for row in doc_template.item_quality_inspection_parameter:
+			if row.custom_inspection_method == "Specification Inspection":
+				nominal = spec_dict.get(row.specification)
+				if not nominal:
+					continue
+			
 			result = frappe.get_doc({
 				"doctype": "Quality Inspection Result",
 				"quality_inspection": self.name,
 				"quality_inspection_template": doc_template.name,
 				"parameter": row.specification,
-				"inspection_method": row.custom_inspection_method
+				"inspection_method": row.custom_inspection_method,
+				"readings": [{} for i in range(self.sample_size)],
 			})
-			for i in range(self.sample_size):
-				result.append("readings", {})  # Add bland row
+
 			result.insert(ignore_permissions=True)
 
 	@frappe.whitelist()
@@ -184,7 +196,7 @@ def item_query(doctype, txt, searchfield, start, page_len, filters):
 				SELECT item_code, item_name
 				FROM `tab{from_doctype}`
 				WHERE parent=%(parent)s and docstatus < 2
-    			and (item_code like %(txt)s or item_name like %(txt)s)
+				and (item_code like %(txt)s or item_name like %(txt)s)
 				{qi_condition} {cond} {mcond}
 				ORDER BY item_code limit {cint(page_len)} offset {cint(start)}
 			""",
